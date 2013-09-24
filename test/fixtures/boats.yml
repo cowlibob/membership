@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  classname: MyString
+  sail_number: MyString
+  hull_colour: MyString
+  berthing: false
+  name: MyString
+
+two:
+  classname: MyString
+  sail_number: MyString
+  hull_colour: MyString
+  berthing: false
+  name: MyString

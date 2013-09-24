@@ -1,0 +1,15 @@
+// Place all the styles related to the renewals controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pricing-table.selected {
+	.title {
+		background-color: #99CC66;
+	}
+	.price {
+		background-color: lighten(#99CC66, 20%);
+	}
+	.cta-button {
+		background-color: lighten(#99CC66, 30%);
+	}
+}

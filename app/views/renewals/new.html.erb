@@ -1,0 +1,37 @@
+<%= form_for @renewal do |f| %>
+	<%= render 'membership_classes', f: f %>
+	<fieldset>
+		<legend>About You</legend>
+		<%= fields_for @renewal.primary_member do |builder| %>
+			<%= render 'member_fields', f: builder %>
+		<% end -%>
+	</fieldset>
+	<fieldset>
+		<legend>Your Address</legend>
+		<%= render 'address_fields', f: f %>
+	</fieldset>
+	<fieldset class="membership-specific family-membership" style="display: none;">
+		<legend>Your Family Members</legend>
+		<%= fields_for @renewal.secondary_members.build do |builder| %>
+			<%= render 'member_fields', f: builder %>
+		<% end -%>
+	</fieldset>
+	<%= f.submit :value => 'Renew' %>
+<% end -%>
+
+<% content_for :javascript do %>
+	<script type="text/javascript">
+		$(function(){
+			$('.membership-select').click(function(event){
+				var table = $(this).parents('.pricing-table');
+				$('.pricing-table').removeClass('selected');
+				table.addClass('selected');
+				var shown = '.' + table[0].id;
+				$('.membership-specific').not(shown).hide();
+				$(shown).show();
+				event.preventDefault();
+
+			});
+		});
+	</script>
+<% end -%>
