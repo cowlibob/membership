@@ -29,15 +29,12 @@ development:
   encoding: unicode
   database: membership_development
   pool: 5
-  username: membership
-  password: jei8wsh34
+  host: localhost
 test:
   adapter: postgresql
   encoding: unicode
   database: membership_test
   pool: 5
-  username: membership
-  password: jei8wsh34
 production:
   adapter: postgresql
   encoding: unicode

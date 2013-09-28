@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130911225456) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "boats", force: true do |t|
     t.string   "classname"
     t.string   "sail_number"
