@@ -7,7 +7,7 @@
 			  <li class="description">Includes partner and children under 18</li>
 			  <li class="bullet-item">Full use of facilities and club boats</li>
 			  <li class="bullet-item">Free safety boat training</li>
-			  <li class="cta-button"><a class="button membership-select" href="#">Select</a></li>
+			  <li class="cta-button"><a class="button membership-select" data-value="Full" href="#">Select</a></li>
 			</ul>
 		</div>
 		<div class="large-3 columns">
@@ -17,7 +17,7 @@
 			  <li class="description">18 years and above in full-time education</li>
 			  <li class="bullet-item">Full use of facilities and club boats</li>
 			  <li class="bullet-item">Free safety boat training</li>
-			  <li class="cta-button"><a class="button membership-select" href="#">Select</a></li>
+			  <li class="cta-button"><a class="button membership-select" data-value="Cadet" href="#">Select</a></li>
 			</ul>
 		</div>
 		<div class="large-3 columns">
@@ -27,7 +27,7 @@
 			  <li class="description">Includes partner and children under 18</li>
 			  <li class="bullet-item">Retain link with the club while away or unable to sail</li>
 			  <li class="bullet-item">&nbsp;</li>
-			  <li class="cta-button"><a class="button membership-select" href="#">Select</a></li>
+			  <li class="cta-button"><a class="button membership-select" data-value="Retained" href="#">Select</a></li>
 			</ul>
 		</div>
 		<div class="large-3 columns">
@@ -37,8 +37,9 @@
 			  <li class="description">Invitation only!<br/>&nbsp;</li>
 			  <li class="bullet-item">Full use of facilities and club boats</li>
 			  <li class="bullet-item">Free safety boat training</li>
-			  <li class="cta-button"><a class="button membership-select" href="#">Select</a></li>
+			  <li class="cta-button"><a class="button membership-select" data-value="Honorary" href="#">Select</a></li>
 			</ul>
 		</div>
 	</div>
+	<%= f.hidden_field :membership_class %>
 </fieldset>

@@ -1,2 +1,47 @@
-<h1>Renewals#create</h1>
-<p>Find me in app/views/renewals/create.html.erb</p>
+<div class="row">
+	<div class="large-6 columns">
+		<h1>Thank you</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="large-12 columns">
+		<h3> Your renewal is complete, pending payment. </h3>
+	</div>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+		<p> You may now opt transfer funds directly to the club's account:</p>
+	</div>
+	<div class="large-6 columns"></div>
+</div>
+<div class="row">
+	<div class="large-2 columns">
+		<%= label_tag 'Sort Code' %>
+		<%= text_field_tag :sort_code, '00-00-00', :disabled => true %>
+	</div>
+	<div class="large-3 columns">
+		<%= label_tag 'Account Number' %>
+		<%= text_field_tag :account_number, '10001000', :disabled => true %>
+	</div>
+	<div class="large-4 columns">
+		<%= label_tag 'Reference (So we know who has paid)' %>
+		<%= text_field_tag :reference, @renewal.reference, :disabled => true %>
+	</div>
+	<div class="large-3 columns">
+		<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;') %></h3>
+	</div>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+		<h3>Or</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="large-12 columns">
+		<p> Send a check for <strong><%= number_to_currency(@renewal.total_cost, :unit => '&pound;') %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
+	</div>
+	<div class="large-2 columns">To:</div>
+	<div class="large-10 columns">
+		<p>SVSC Membership<br/>The Address<br/>The City</br/>The Postcode</p>
+	</div>
+</div>

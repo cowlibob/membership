@@ -35,6 +35,7 @@ gem "zurb-foundation", "~> 4.3.1"
 
 group :development do
   gem 'pry'
+  gem 'debugger'
 end
 
 group :doc do

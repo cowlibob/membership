@@ -4,10 +4,14 @@ class RenewalsController < ApplicationController
 
   def new
   	@renewal = Renewal.new
+    @renewal.build_primary_member
+    @renewal.secondary_members.build
   end
 
   def create
   	@renewal = Renewal.new(renewal_params)
+
+    return render :new unless @renewal.save
   end
 
   private

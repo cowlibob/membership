@@ -3,6 +3,12 @@ class Renewal < ActiveRecord::Base
 	has_one :primary_member, :class_name => '::Member'
 	has_many :secondary_members, :class_name => '::Member'
 
+	accepts_nested_attributes_for :primary_member
+	accepts_nested_attributes_for :secondary_members
+
+	def reference
+		"#{self.primary_member.email[0..8]}-#{self.id}" if self.primary_member
+	end
 
 	def membership_classes
 		[
@@ -13,11 +19,14 @@ class Renewal < ActiveRecord::Base
 		]
 	end
 
-	def primary_member
-		super || Member.new(renewal: self)
+	def membership_cost
+		{'Full' => 140, 'Cadet' => 58, 'Retained' => 26, 'Honorary' => 0}[self.membership_class]
 	end
 
-	def secondary_members
-		super || [Member.new(renewal: self)]
+	def total_cost
+		membership_cost
 	end
+
+
+
 end

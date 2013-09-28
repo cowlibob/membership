@@ -1,35 +1,77 @@
 <%= form_for @renewal do |f| %>
-	<%= render 'membership_classes', f: f %>
-	<fieldset>
-		<legend>About You</legend>
-		<%= fields_for @renewal.primary_member do |builder| %>
-			<%= render 'member_fields', f: builder %>
-		<% end -%>
-	</fieldset>
-	<fieldset>
-		<legend>Your Address</legend>
-		<%= render 'address_fields', f: f %>
-	</fieldset>
-	<fieldset class="membership-specific family-membership" style="display: none;">
-		<legend>Your Family Members</legend>
-		<%= fields_for @renewal.secondary_members.build do |builder| %>
-			<%= render 'member_fields', f: builder %>
-		<% end -%>
-	</fieldset>
-	<%= f.submit :value => 'Renew' %>
+	<div class="row">
+		<div class="large-12 columns"><%= render 'membership_classes', f: f %></div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="section-container auto" data-section>
+				<section class="active">
+					<p class="title" data-section-title><a href="#panel1">About You</a></p>
+					<div class="content" data-section-content>
+						<%= f.fields_for :primary_member do |builder| %>
+							<%= render 'member_fields', f: builder %>
+						<% end -%>
+					</div>
+				</section>
+				<section>
+					<p class="title" data-section-title><a href="#panel2">Your Address</a></p>
+					<div class="content" data-section-content>
+						<%= render 'address_fields', f: f %>
+					</div>
+				</section>
+				<section>
+					<p class="title" data-section-title><a href="#panel3">Your Family Members</a></p>
+					<div class="content" data-section-content>
+						<%= f.fields_for :secondary_members do |builder| %>
+							<%= render 'member_fields', f: builder %>
+						<% end -%>
+
+						<div class="cta-button"><a class="button" href="#">Add</a></div>
+					</div>
+				</section>
+				<section>
+					<p class="title" data-section-title><a href="#panel3">Your Boats</a></p>
+					<div class="content" data-section-content>
+						<div class="cta-button"><a class="button" href="#">Add</a></div>
+					</div>
+				</section>
+				<section>
+					<p class="title" data-section-title><a href="#panel2">Your Duties</a></p>
+					<div class="content" data-section-content>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-11 columns"></div>
+		<div class="large-1 columns">
+			<%= f.submit :value => 'Renew', :class => 'button' %>
+		</div>
+	</div>
+
 <% end -%>
 
 <% content_for :javascript do %>
 	<script type="text/javascript">
 		$(function(){
 			$('.membership-select').click(function(event){
+				// Visual
 				var table = $(this).parents('.pricing-table');
 				$('.pricing-table').removeClass('selected');
 				table.addClass('selected');
 				var shown = '.' + table[0].id;
 				$('.membership-specific').not(shown).hide();
 				$(shown).show();
+				
+				// Value
+				debugger;
+				$('input#renewal_membership_class').val($(this).data('value'));
 				event.preventDefault();
+
 
 			});
 		});
