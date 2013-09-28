@@ -20,7 +20,7 @@
 						<%= render 'address_fields', f: f %>
 					</div>
 				</section>
-				<section>
+				<section class="family disabled">
 					<p class="title" data-section-title><a href="#panel3">Your Family Members</a></p>
 					<div class="content" data-section-content>
 						<%= f.fields_for :secondary_members do |builder| %>
@@ -31,13 +31,13 @@
 					</div>
 				</section>
 				<section>
-					<p class="title" data-section-title><a href="#panel3">Your Boats</a></p>
+					<p class="title" data-section-title><a href="#panel4">Your Boats</a></p>
 					<div class="content" data-section-content>
 						<div class="cta-button"><a class="button" href="#">Add</a></div>
 					</div>
 				</section>
 				<section>
-					<p class="title" data-section-title><a href="#panel2">Your Duties</a></p>
+					<p class="title" data-section-title><a href="#panel5">Your Duties</a></p>
 					<div class="content" data-section-content>
 					</div>
 				</section>
@@ -63,16 +63,32 @@
 				var table = $(this).parents('.pricing-table');
 				$('.pricing-table').removeClass('selected');
 				table.addClass('selected');
-				var shown = '.' + table[0].id;
-				$('.membership-specific').not(shown).hide();
-				$(shown).show();
+				
+				// Enable sections
+				var sections = $('section.family');
+				if(table.hasClass('family')){
+					sections.removeClass('disabled');
+					sections.find('input').each(function(elem){this.disabled = false});
+				} else {
+					sections.addClass('disabled');
+					sections.find('input').each(function(elem){this.disabled = true});
+				}
+
+
+				// var shown = '.' + table[0].id;
+				// $('.membership-specific').not(shown).hide();
+				// $(shown).show();
 				
 				// Value
-				debugger;
 				$('input#renewal_membership_class').val($(this).data('value'));
 				event.preventDefault();
+			});
 
-
+			$('section.family a').click(function(event){
+				if( $('.pricing-table.family.selected').length == 0){
+					event.stopImmediatePropagation();
+					event.preventDefault();
+				}
 			});
 		});
 	</script>

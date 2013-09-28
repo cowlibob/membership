@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+section.family.disabled {
+	p:hover {
+		background-color: #EFEFEF !important;
+	}
+	a {
+		color: #aaa !important;
+		cursor: default;
+	}
+}
+
 .pricing-table.selected {
 	.title {
 		background-color: #99CC66;
