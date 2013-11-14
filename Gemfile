@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem "zurb-foundation", "~> 4.3.1"
 
+gem 'activeadmin', github: 'gregbell/active_admin'
+
 group :development do
   gem 'pry'
   gem 'debugger'

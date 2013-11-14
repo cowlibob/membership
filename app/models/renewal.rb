@@ -27,6 +27,10 @@ class Renewal < ActiveRecord::Base
 		membership_cost
 	end
 
+	def self.recent
+		where(:created_at => 1.week.ago..Time.now)
+	end
+
 
 
 end

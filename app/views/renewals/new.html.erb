@@ -33,12 +33,18 @@
 				<section>
 					<p class="title" data-section-title><a href="#panel4">Your Boats</a></p>
 					<div class="content" data-section-content>
+						<%= f.fields_for :boats do |builder| %>
+							<%= render 'boat_fields', f: builder %>
+						<% end -%>
 						<div class="cta-button"><a class="button" href="#">Add</a></div>
 					</div>
 				</section>
 				<section>
 					<p class="title" data-section-title><a href="#panel5">Your Duties</a></p>
 					<div class="content" data-section-content>
+						<%= f.fields_for :duties do |builder| %>
+							<%= render 'duty_fields', f: builder %>
+						<% end -%>
 					</div>
 				</section>
 
@@ -90,6 +96,8 @@
 					event.preventDefault();
 				}
 			});
+
+
 		});
 	</script>
 <% end -%>
