@@ -12,7 +12,7 @@ var nthSaturday = function(date, n){
 
 var sailingDay = function(date){
   return inSeason(date) && (date.getDay() === 0 || // Every Sunday
-    nthSaturday(date, 2) || nthSaturday(date, 4) || // Odd Saturdays
+    nthSaturday(date, 2) || // 2nd Saturday
     thursday(date)); // sailing thursday
 };
 
@@ -20,5 +20,7 @@ $( ".datepicker" ).datepicker({
   beforeShowDay: function(date){
     return [sailingDay(date), "", ""];
   },
-  firstDay: 1
+  firstDay: 1,
+  minDate: new Date(2014, 3, 1),
+  maxDate: new Date(2014, 9, 32)
 });
