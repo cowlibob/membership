@@ -35,9 +35,13 @@ gem "zurb-foundation", "~> 4.3.1"
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+gem "draper", "~> 1.3.0"
+
 group :development do
   gem 'pry'
-  gem 'debugger'
+  # gem 'debugger'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :doc do

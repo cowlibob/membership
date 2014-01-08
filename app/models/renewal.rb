@@ -2,10 +2,16 @@ class Renewal < ActiveRecord::Base
 
 	has_one :primary_member, :class_name => '::Member'
 	has_many :secondary_members, :class_name => '::Member'
+	has_many :boats
+	has_many :duties
 
 	accepts_nested_attributes_for :primary_member
-	accepts_nested_attributes_for :secondary_members
+	accepts_nested_attributes_for :secondary_members, :reject_if => :all_blank
+	accepts_nested_attributes_for :boats
+	accepts_nested_attributes_for :duties, :reject_if => :all_blank
 
+	validates :primary_member, :presence => true
+	
 	def reference
 		"#{self.primary_member.email[0..8]}-#{self.id}" if self.primary_member
 	end
@@ -29,6 +35,18 @@ class Renewal < ActiveRecord::Base
 
 	def self.recent
 		where(:created_at => 1.week.ago..Time.now)
+	end
+
+	def to_s
+		"#{self.primary_member.try :full_name} #{membership_class}"
+	end
+
+	def secondary_member_count
+		self.secondary_members.count
+	end
+
+	def boat_count
+		self.boats.count
 	end
 
 

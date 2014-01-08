@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  renawal_id: 1
+  thursday: 2013-11-25
+  saturday: 2013-11-25
+  sunday: 2013-11-25
+
+two:
+  renawal_id: 1
+  thursday: 2013-11-25
+  saturday: 2013-11-25
+  sunday: 2013-11-25

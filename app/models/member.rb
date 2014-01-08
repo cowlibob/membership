@@ -5,4 +5,8 @@ class Member < ActiveRecord::Base
 		[first_name, last_name].join(" ")
 	end
 
+	def to_s
+		full_name
+	end
+
 end
