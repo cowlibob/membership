@@ -1,22 +1,22 @@
 <div class="row">
 	<div class="large-6 columns">
-		<%= f.label :classname %>
+		<%= f.label :classname, s('class name') %>
 		<%= f.text_field :classname %>
 	</div>
 	<div class="large-6 columns">
-		<%= f.label :sail_number %>
+		<%= f.label :sail_number, s('sail number') %>
 		<%= f.text_field :sail_number %>
 	</div>
 	<div class="large-6 columns">
-		<%= f.label :hull_colour %>
+		<%= f.label :hull_colour, s('hull colour') %>
 		<%= f.text_field :hull_colour %>
 	</div>
 	<div class="large-6 columns">
-		<%= f.label :name %>
+		<%= f.label :name, s('boat name') %>
 		<%= f.text_field :name %>
 	</div>
 	<div class="large-6 columns">
-		<%= f.label :berthing, "Berthing Required" %>
+		<%= f.label :berthing, s('berthing required') %>
 		<%= f.check_box :berthing %>
 	</div>
 </div>

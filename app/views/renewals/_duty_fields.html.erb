@@ -1,21 +1,19 @@
 <div class="row">
-	<div class="large-12 columns">
-		<p>Preferred duty dates. The more you add, the more likely you get what you want.</p>
+	<div class="large-6 columns">
+		<p><%= s('duty comment') %></p>
 	</div>
 	<div class="large-6 columns">
-		<%= f.label :duty_1 %>
-		<%= f.text_field :duty_1, :class => "datepicker" %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :duty_2 %>
-		<%= f.text_field :duty_2, :class => "datepicker" %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :duty_3 %>
-		<%= f.text_field :duty_3, :class => "datepicker" %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :duty_4 %>
-		<%= f.text_field :duty_4, :class => "datepicker" %>
+		<div class="large-10 columns" id="duty-field-a">
+			<%= f.text_field :week_containing, :class => "datepicker", :placeholder => "Duty Date" %>
+		</div>
+		<div class="large-2 columns">
+			<a href="#" id="add-duty-field" class="button postfix">Add</a>
+		</dif>
 	</div>
 </div>
+<div class="row">
+	<div class="large-6 columns" id="duty-fields">
+	</div>
+</div>
+
+
