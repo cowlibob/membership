@@ -3,6 +3,14 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.row#renewal-details, .row#renewal-button {
+	visibility: visible;
+
+	&.off {
+		visibility: hidden;
+	}
+}
+
 section.family.disabled {
 	p:hover {
 		background-color: #EFEFEF !important;
@@ -27,4 +35,13 @@ section.family.disabled {
 
 .editable_text {
 	color: red;
+}
+
+[data-required=true] {
+	label {
+		color: red;
+		&:after {
+			content: "*"
+		}
+	}
 }

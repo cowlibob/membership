@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      boat:
+        berthing: "Berthing Required (£47 per boat, April - October)"
+      member:
+        dob: "Date of birth"
+

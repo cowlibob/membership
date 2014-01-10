@@ -17,4 +17,9 @@ module RenewalsHelper
 				:target => '_blank')
 		end
 	end
+
+	def mark_required(value)
+		'data-required=true' if value
+	end
+
 end

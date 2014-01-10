@@ -1,14 +1,14 @@
 <div class="row">
-	<div class="large-6 columns">
-		<%= f.label :address_1, s('address 1') %>
-		<%= f.text_field :address_1 %>
+	<div class="large-6 columns" data-required="true">
+		<%= f.label :address_1 %>
+		<%= f.text_field :address_1, required: true %>
 	</div>
-	<div class="large-6 columns">
-		<%= f.label :address_2, s('address 2') %>
-		<%= f.text_field :address_2 %>
+	<div class="large-6 columns" data-required="true">
+		<%= f.label :address_2 %>
+		<%= f.text_field :address_2, required: true %>
 	</div>
-	<div class="large-6 columns">
-		<%= f.label :postcode, s('postcode') %>
-		<%= f.text_field :postcode %>
+	<div class="large-6 columns" data-required="true">
+		<%= f.label :postcode %>
+		<%= f.text_field :postcode, required: true %>
 	</div>
 </div>

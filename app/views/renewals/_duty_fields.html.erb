@@ -2,17 +2,20 @@
 	<div class="large-6 columns">
 		<p><%= s('duty comment') %></p>
 	</div>
-	<div class="large-6 columns">
-		<div class="large-10 columns" id="duty-field-a">
+	<div class="large-12 columns" id="new-duty">
+		<div class="large-5 columns" id="duty-field-a">
 			<%= f.text_field :week_containing, :class => "datepicker", :placeholder => "Duty Date" %>
 		</div>
-		<div class="large-2 columns">
-			<a href="#" id="add-duty-field" class="button postfix">Add</a>
-		</dif>
+		<div class="large-5 columns" id="duty-field-b">
+			<%= f.select :preference, ["request", "exclude"], :class => "postfix" %>
+		</div>
 	</div>
+	<div class="large-2 columns">
+		<a href="#" id="add-duty-field" class="button postfix">Add</a>
+	</dif>
 </div>
 <div class="row">
-	<div class="large-6 columns" id="duty-fields">
+	<div class="large-12 columns" id="duty-fields">
 	</div>
 </div>
 

@@ -6,6 +6,8 @@ class RenewalsController < ApplicationController
   	@renewal = Renewal.new
     @renewal.build_primary_member
     @renewal.secondary_members.build
+    @renewal.boats.build
+    @renewal.duties.build
   end
 
   def create

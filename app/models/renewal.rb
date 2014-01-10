@@ -8,7 +8,7 @@ class Renewal < ActiveRecord::Base
 	accepts_nested_attributes_for :primary_member
 	accepts_nested_attributes_for :secondary_members, :reject_if => :all_blank
 	accepts_nested_attributes_for :boats
-	accepts_nested_attributes_for :duties, :reject_if => :all_blank
+	accepts_nested_attributes_for :duties, :reject_if => Proc.new {|duty| duty["week_containing"].blank?}
 
 	validates :primary_member, :presence => true
 	
@@ -29,8 +29,12 @@ class Renewal < ActiveRecord::Base
 		{'Full' => 140, 'Cadet' => 58, 'Retained' => 26, 'Honorary' => 0}[self.membership_class]
 	end
 
+	def berthing_cost
+		boats.where(:berthing => true).count * 47
+	end
+
 	def total_cost
-		membership_cost
+		membership_cost + berthing_cost
 	end
 
 	def self.recent
