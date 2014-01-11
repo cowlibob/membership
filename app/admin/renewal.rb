@@ -19,16 +19,17 @@ ActiveAdmin.register Renewal do
     column :reference, :sortable => false
     column "Member Name", :primary_member
     column :membership_class
-    column "Family Members", :secondary_member_count
-    column "Boats", :boat_count
+    column("Family Members") {|renewal| renewal.secondary_members.all.collect{|member| member.full_name}.join(', ') }
+    column("Boats") {|renewal| renewal.boats.collect{|boat| "#{boat.classname} #{boat.sail_number}"}.join(', ') }
+    default_actions
   end
 
   csv do
     column :reference
     column("Member Name") {|renewal| renewal.primary_member}
     column :membership_class
-    column("Family Members") {|renewal| renewal.secondary_member_count}
-    column("Boats") {|renewal| renewal.boat_count}
+    column("Family Members") {|renewal| renewal.secondary_members.all.collect{|member| member.full_name}.join(', ') }
+    column("Boats") {|renewal| renewal.boats.collect{|boat| "#{boat.classname} #{boat.sail_number}"}.join(', ') }
   end
   
 end

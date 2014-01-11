@@ -14,4 +14,13 @@ ActiveAdmin.register Boat do
   #  permitted
   # end
   
+  csv do
+    column("Member Name") {|boat| boat.renewal.primary_member}
+    column :classname
+    column :sail_number
+    column :hull_colour
+    column :berthing
+    column :name
+  end
+
 end

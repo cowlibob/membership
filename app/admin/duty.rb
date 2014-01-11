@@ -14,4 +14,24 @@ ActiveAdmin.register Duty do
   #  permitted
   # end
   
+  index do
+    selectable_column
+    column("reference") {|duty| duty.renewal.reference}
+    column("Member Name") {|duty| duty.renewal.primary_member}
+    column :preference
+    column :thursday
+    column :saturday
+    column :sunday
+    default_actions
+  end
+
+  csv do
+    column("reference") {|duty| duty.renewal.reference}
+    column("Member Name") {|duty| duty.renewal.primary_member}
+    column :preference
+    column :thursday
+    column :saturday
+    column :sunday
+  end
+
 end

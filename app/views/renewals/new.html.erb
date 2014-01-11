@@ -1,4 +1,8 @@
+<% content_for :title, "SVSC Membership Renewal" %>
 <%= form_for @renewal do |f| %>
+	<div class="row">
+		<div class="large-12 columns"><%= s('introduction') %></div>
+	</div>
 	<div class="row">
 		<div class="large-12 columns"><%= render 'membership_classes', f: f %></div>
 	</div>
@@ -36,7 +40,6 @@
 						<%= f.fields_for :boats do |builder| %>
 							<%= render 'boat_fields', f: builder %>
 						<% end -%>
-						<div class="cta-button"><a class="button" href="#">Add</a></div>
 					</div>
 				</section>
 				<section>

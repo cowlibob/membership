@@ -20,10 +20,6 @@ class Duty < ActiveRecord::Base
 		[thursday, saturday, sunday].compact.join(', ')
 	end
 
-	def before_save
-		binding.pry
-	end
-
 	private
 
 	def sailing_day(date)

@@ -14,6 +14,12 @@ class RenewalsController < ApplicationController
   	@renewal = Renewal.new(renewal_params)
 
     return render :new unless @renewal.save
+
+    redirect_to @renewal
+  end
+
+  def show
+    @renewal = Renewal.where(:reference => params[:id]).first
   end
 
   private

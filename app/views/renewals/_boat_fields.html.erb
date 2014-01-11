@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="new-boat">
 	<div class="large-6 columns" data-required="true">
 		<%= f.label :classname %>
 		<%= f.text_field :classname, required: true%>
@@ -19,4 +19,11 @@
 		<%= f.label :berthing %>
 		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true, required: true %>
 	</div>
+</div>
+<div class="row">
+	<div class="large-2 columns">
+		<a href="#" id="add-boat-field" class="button postfix">Additional Boats</a>
+	</div>
+</div>
+<div id="boat-fields">
 </div>
