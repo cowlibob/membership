@@ -22,6 +22,21 @@ $ ->
 		$('.row#renewal-details, .row#renewal-button').each (index, element) ->
 			$(element).removeClass('off')
 
+	$('add-member-field').click (event) ->
+		event.preventDefault()
+		orig = $('#new-member')
+		clone = orig.clone()
+		count = $("#member-fields .row").length + 1
+
+		clone.find('label').each (index, element) ->
+			element.htmlFor = element.htmlFor.replace(0, count)
+		clone.find('input, select').each (index, element) ->
+			element.id = element.id.replace(0, count)
+			element.name = element.name.replace(0, count)
+			$(element).attr('required', false)
+
+		clone.appendTo('#member-fields')
+
 	$('#add-boat-field').click (event) ->
 		event.preventDefault()
 		orig = $('#new-boat')
@@ -33,8 +48,9 @@ $ ->
 		clone.find('input, select').each (index, element) ->
 			element.id = element.id.replace(0, count)
 			element.name = element.name.replace(0, count)
+			$(element).attr('required', false)
 		clone.find('select')[0].selectedIndex = orig.find('select')[0].selectedIndex
-		
+
 
 		orig.find('input').each (index, element) ->
 			$(element).val('')

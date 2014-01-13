@@ -1,1 +1,2 @@
-- Submit with Additional Boats
+- Submit with Additional Boats - cloned fields marked as required need touching for submit.
+- Additional Family members

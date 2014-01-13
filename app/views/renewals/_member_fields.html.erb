@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="new-member">
 	<div class="large-6 columns" <%= mark_required(required) %>>
 		<%= f.label :first_name %>
 		<%= f.text_field :first_name, required: required %>
@@ -19,4 +19,11 @@
 		<%= f.label :dob %>
 		<%= f.text_field :dob %>
 	</div>
+</div>
+<div class="row">
+	<div class="large-2 columns">
+		<a href="#" id="add-member-field" class="button postfix">Additional Members</a>
+	</div>
+</div>
+<div id="member-fields">
 </div>
