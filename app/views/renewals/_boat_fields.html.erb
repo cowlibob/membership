@@ -1,11 +1,11 @@
 <div class="row" id="new-boat">
-	<div class="large-6 columns" data-required="true">
+	<div class="large-6 columns">
 		<%= f.label :classname %>
-		<%= f.text_field :classname, required: true%>
+		<%= f.text_field :classname%>
 	</div>
-	<div class="large-6 columns" data-required="true">
+	<div class="large-6 columns">
 		<%= f.label :sail_number %>
-		<%= f.text_field :sail_number, required: true %>
+		<%= f.text_field :sail_number %>
 	</div>
 	<div class="large-6 columns">
 		<%= f.label :hull_colour %>
@@ -15,9 +15,9 @@
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 	</div>
-	<div class="large-6 columns" data-required="true">
+	<div class="large-6 columns">
 		<%= f.label :berthing %>
-		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true, required: true %>
+		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true %>
 	</div>
 </div>
 <div class="row">

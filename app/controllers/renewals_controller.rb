@@ -5,7 +5,7 @@ class RenewalsController < ApplicationController
   def new
   	@renewal = Renewal.new
     @renewal.build_primary_member
-    @renewal.secondary_members.build
+    4.times { @renewal.secondary_members.build}
     @renewal.boats.build
     @renewal.duties.build
   end
