@@ -16,7 +16,7 @@ class Renewal < ActiveRecord::Base
 	
 	def generate_reference
 		if self.primary_member
-			write_attribute(:reference, URI.escape("#{self.primary_member.email[0..8]}-#{self.id}"))
+			write_attribute(:reference, "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.]/, '-'))
 			save
 		end
 	end
