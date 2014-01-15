@@ -37,6 +37,8 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem "draper", "~> 1.3.0"
 
+gem 'newrelic_rpm'
+
 group :development do
   gem 'pry'
   # gem 'debugger'
