@@ -16,8 +16,19 @@
 
   	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
-  	<%= stylesheet_link_tag    "application" %>
+    <!--[if (gte IE 7)]>
+    	<%= stylesheet_link_tag "foundation_and_overrides" %>
+    <![endif]-->
+    <!--[if (gte IE 7) & (lt IE 9)]>
+      <%= stylesheet_link_tag "ie" %>
+    <![endif]-->
+    <!--[if !IE]> -->
+      <%= stylesheet_link_tag "foundation_and_overrides" %>
+    <!-- <![endif]-->
+
+    <%= stylesheet_link_tag    "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
+
     <%= csrf_meta_tags %>
   </head>
 
@@ -27,6 +38,18 @@
 
     
     <%= javascript_include_tag "application" %>
+    <!--[if (gte IE 7)]>
+    <script type="text/javascript">
+      $(function(){ $(document).foundation(); });
+    </script>
+    <![endif]-->
+    <!--[if !IE]> -->
+      <script type="text/javascript">
+        $(function(){ $(document).foundation(); });
+      </script>
+    <!-- <![endif]-->
+
+
     <%= yield :javascript %>
   </body>
 </html>

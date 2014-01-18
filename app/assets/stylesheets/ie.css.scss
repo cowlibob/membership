@@ -1,0 +1,15 @@
+[data-section=''] > section > [data-section-content],
+[data-section=''] > section > .content,
+auto.section-container > section > [data-section-content],
+auto.section-container > section > .content,
+section > .content {
+	display: block !important;
+}
+
+section {
+	padding-top: 0px !important;
+}
+
+.large-12.columns {
+	max-width: 600px !important;
+}
