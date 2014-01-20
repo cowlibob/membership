@@ -17,13 +17,13 @@
   	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
     <!--[if (gte IE 7)]>
-    	<%= stylesheet_link_tag "foundation_and_overrides" %>
+    	<%= stylesheet_link_tag "/assets/foundation_and_overrides" %>
     <![endif]-->
     <!--[if (gte IE 7) & (lt IE 9)]>
       <%= stylesheet_link_tag "ie" %>
     <![endif]-->
     <!--[if !IE]> -->
-      <%= stylesheet_link_tag "foundation_and_overrides" %>
+      <%= stylesheet_link_tag "/assets/foundation_and_overrides" %>
     <!-- <![endif]-->
 
     <%= stylesheet_link_tag    "application" %>
