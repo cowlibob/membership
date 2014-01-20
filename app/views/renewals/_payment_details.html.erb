@@ -11,18 +11,26 @@
 </div>
 <div class="row">
 	<div class="large-6 columns">
-		<p> You may now opt transfer funds directly to the club's account:</p>
+		<p> You may now opt to transfer funds directly to the club's account:</p>
 	</div>
 	<div class="large-6 columns"></div>
 </div>
 <div class="row">
 	<div class="large-2 columns">
-		<%= label_tag 'Sort Code' %>
-		<%= text_field_tag :sort_code, '00-00-00', :disabled => true %>
+		<%= label_tag 'Bank Name' %>
+		<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true %>
 	</div>
 	<div class="large-3 columns">
+		<%= label_tag 'Account Name' %>
+		<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 40 %>
+	</div>
+	<div class="large-2 columns">
+		<%= label_tag 'Sort Code' %>
+		<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
+	</div>
+	<div class="large-2 columns">
 		<%= label_tag 'Account Number' %>
-		<%= text_field_tag :account_number, '10001000', :disabled => true %>
+		<%= text_field_tag :account_number, '00318765', :disabled => true %>
 	</div>
 	<div class="large-4 columns">
 		<%= label_tag 'Reference (So we know who has paid)' %>
@@ -43,7 +51,13 @@
 	</div>
 	<div class="large-2 columns">To:</div>
 	<div class="large-10 columns">
-		<p>SVSC Membership<br/>The Address<br/>The City</br/>The Postcode</p>
+		<p>SVSC Membership<br/>7 St. Albans Drive<br/>Sheffield</br/>S10 4DL</p>
 	</div>
-	<div class="large-12 columns"><p>Please write the reference <strong><%= @renewal.reference %></strong> on the back. We send a confirmation email when your payment has been received.</p></div>
+	<div class="large-12 columns"><p>Please write the reference <strong><%= @renewal.reference %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+		<h3>Problem?</h3>
+		<p>Contact Denis (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
+	</div>
 </div>
