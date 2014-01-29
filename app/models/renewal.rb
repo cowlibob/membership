@@ -14,6 +14,11 @@ class Renewal < ActiveRecord::Base
 	
 	after_create :generate_reference
 	
+	def mark_as_paid!
+		write_attribute(:payment_confirmed_at, Time.now.localtime)
+		save
+	end
+	
 	def generate_reference
 		if self.primary_member
 			write_attribute(:reference, "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.]/, '-'))
