@@ -19,7 +19,7 @@ class RenewalsController < ApplicationController
   end
 
   def show
-    @renewal = Renewal.where(:reference => params[:id]).first
+    @renewal = Renewal.where(:reference => [params[:id], params[:id].gsub('-', '')]).first
   end
 
   private
