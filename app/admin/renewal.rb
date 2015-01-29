@@ -40,6 +40,19 @@ ActiveAdmin.register Renewal do
     default_actions
   end
 
+  form do |f|
+    f.inputs "Admin Details" do
+      f.input :membership_class
+      f.input :address_1
+      f.input :address_2
+      f.input :postcode
+      f.input :comment
+      f.input :reference
+      f.input :payment_confirmed_at
+    end
+    f.actions
+  end    
+
   csv do
     column :reference
     column("Member Name") {|renewal| renewal.primary_member}
