@@ -1,21 +1,29 @@
 <div class="row">
-	<div class="large-6 columns">
+	<div class="large-12 columns">
 		<p><%= s('duty comment') %></p>
 	</div>
-	<div class="large-12 columns" id="new-duty">
-		<div class="large-5 columns" id="duty-field-a">
-			<%= f.text_field :week_containing, :class => "datepicker", :placeholder => "Duty Date" %>
+
+	<div class="large-12 small-12 columns">
+		<div class="row">
+			<div class="large-3 small-2 columns"> <h6>Week Beginning</h6> </div>
+			<div class="large-2 small-1 columns" style="text-align: center;"> <h6>Preferred</h6> </div>
+			<div class="large-7 small-3 columns" style="text-align: center;"> <h6>Unavailable</h6> </div>
 		</div>
-		<div class="large-5 columns" id="duty-field-b">
-			<%= f.select :preference, ["request", "exclude"], :class => "postfix" %>
-		</div>
-	</div>
-	<div class="large-2 columns">
-		<a href="#" id="add-duty-field" class="button postfix">Additional Dates</a>
-	</dif>
-</div>
-<div class="row">
-	<div class="large-12 columns" id="duty-fields">
+		<% @weeks.each_with_index do |week, index| -%>
+			<div class="row">
+				<div class="large-3 small-2 columns">
+					<%= week.strftime "#{ActiveSupport::Inflector.ordinalize(week.day)} %B" %>
+					<%= hidden_field_tag "renewal[duties_attributes][#{index}][week_containing]", week %>
+				</div>
+				<div class="large-2 small-1 columns" style="text-align: center;">
+					<%= check_box_tag "renewal[duties_attributes][#{index}][request]", '1', false %>
+				</div>
+				<div class="large-7 small-3 columns" style="text-align: center;">
+					<%= check_box_tag "renewal[duties_attributes][#{index}][exclude]", '1', false %>
+				</div>
+				</div>
+		<% end -%>
+
 	</div>
 </div>
 

@@ -5,12 +5,16 @@ class Renewal < ActiveRecord::Base
 	has_many :boats, :dependent => :destroy
 	has_many :duties, :dependent => :destroy
 
+	validates :primary_member, :presence => true
 	accepts_nested_attributes_for :primary_member
 	accepts_nested_attributes_for :secondary_members, :reject_if => :all_blank
-	accepts_nested_attributes_for :boats
-	accepts_nested_attributes_for :duties, :reject_if => Proc.new {|duty| duty["week_containing"].blank?}
+	accepts_nested_attributes_for :boats, :reject_if => :all_blank
 
-	validates :primary_member, :presence => true
+	accepts_nested_attributes_for :duties, :reject_if => :duty_not_populated
+	
+	def duty_not_populated(duty)
+		duty["exclude"].blank? and duty["request"].blank?
+	end
 	
 	after_create :generate_reference
 	

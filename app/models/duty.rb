@@ -1,8 +1,24 @@
 class Duty < ActiveRecord::Base
 	belongs_to :renewal
 
+  def request=(value)
+    self.preference = 'request' unless value.blank?
+  end
+
+  def request
+    self.preference == 'request'
+  end
+
+  def exclude=(value)
+    self.preference = 'exclude' unless value.blank?
+  end
+
+  def exclude
+    self.preference == 'exclude'
+  end
+
 	def week_containing=(date)
-		date = Date.strptime(date, '%d/%m/%Y')
+		date = Date.strptime(date, '%Y-%m-%d')
 		monday = date + (1 - date.cwday).days
 		self.thursday = sailing_day(monday + 3.days)
 		self.saturday = sailing_day(monday + 5.days)
