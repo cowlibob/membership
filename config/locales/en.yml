@@ -23,7 +23,7 @@ en:
   activerecord:
     attributes:
       boat:
-        berthing: "Berthing Required (£47 per boat, April - October)"
+        berthing: "Berthing Required (£45 per boat, April - October)"
         classname: "Class (Enterprise, Streaker, Topper)"
       member:
         dob: "Date of birth"
