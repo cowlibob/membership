@@ -1,6 +1,6 @@
 ActiveAdmin.register Boat do
 
-  
+
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
@@ -13,7 +13,15 @@ ActiveAdmin.register Boat do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-  
+  index do
+    column("Member Name") {|boat| boat.renewal.primary_member}
+    column :classname
+    column :sail_number
+    column :hull_colour
+    column :berthing
+    column :name
+  end
+
   csv do
     column("Member Name") {|boat| boat.renewal.primary_member}
     column :classname

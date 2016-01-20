@@ -27,7 +27,11 @@
     <!-- <![endif]-->
 
     <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js" %>
+    <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.5.0/fullcalendar.js" %>
+    <%= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.5.0/fullcalendar.css" %>
 
     <%= csrf_meta_tags %>
 
@@ -40,15 +44,14 @@
       ga('create', 'UA-59210426-1', 'auto');
       ga('send', 'pageview');
 
-    </script>    
+    </script>
   </head>
 
   <body>
 
     <%= yield %>
 
-    
-    <%= javascript_include_tag "application" %>
+
     <!--[if (gte IE 7)]>
     <script type="text/javascript">
       $(function(){ $(document).foundation(); });

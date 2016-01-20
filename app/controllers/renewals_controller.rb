@@ -30,7 +30,7 @@ class RenewalsController < ApplicationController
   end
 
   def duty_weeks
-    all = Date.new(2015, 03, 30).step(Date.new(2015, 10, 20)).select{|d| d.monday?}
+    all = Date.new(2016, 03, 30).step(Date.new(2016, 10, 20)).select{|d| d.monday?}
     all
   end
 

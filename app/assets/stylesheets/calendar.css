@@ -1,0 +1,21 @@
+.month-calendar {
+  display: block;
+  float: left;
+  width: 30%;
+  margin-right: 5%;
+}
+
+div.fc-day-grid-container.fc-scroller {
+  height: auto !important;
+}
+
+.month-calendar:last-of-type{
+  margin-right: 0;
+}
+.bad {
+  background-color: red;
+}
+
+.good {
+  background-color: green;
+}

@@ -11,18 +11,41 @@ class Renewal < ActiveRecord::Base
 	accepts_nested_attributes_for :boats, :reject_if => :all_blank
 
 	accepts_nested_attributes_for :duties, :reject_if => :duty_not_populated
-	
+
 	def duty_not_populated(duty)
 		duty["exclude"].blank? and duty["request"].blank?
 	end
-	
+
 	after_create :generate_reference
-	
+
+	def excluded_dates=(val)
+		excluded = val.split(',')
+		excluded.each_slice(3) do |dates|
+			new_duty(dates, 'exclude')
+		end
+	end
+
+	def preferred_dates=(val)
+		preferred = val.split(',')
+		preferred.each_slice(3) do |dates|
+			new_duty(dates, 'request')
+		end
+	end
+
+	def new_duty(dates, preference)
+		duties.build(
+			preference: preference,
+			thursday: Date.parse(dates[0]),
+			saturday: Date.parse(dates[1]),
+			sunday: Date.parse(dates[2])
+		)
+	end
+
 	def mark_as_paid!
 		write_attribute(:payment_confirmed_at, Time.now.localtime)
 		save
 	end
-	
+
 	def generate_reference
 		if self.primary_member
 			write_attribute(:reference, "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.-]/, ''))
