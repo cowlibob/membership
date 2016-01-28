@@ -12,10 +12,20 @@ div.fc-day-grid-container.fc-scroller {
 .month-calendar:last-of-type{
   margin-right: 0;
 }
-.bad {
+
+.bad:not(.fc-disabled):not(.fc-other-month) {
   background-color: red;
 }
 
-.good {
+.good:not(.fc-disabled):not(.fc-other-month) {
   background-color: green;
+}
+
+.fc-disabled {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  /* for IE */
+  /* opacity with small font can sometimes look too faded
+  	   might want to set the 'color' property instead
+  	   making day-numbers bold also fixes the problem */
 }

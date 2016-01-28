@@ -4,6 +4,9 @@ window.excluded_duty_dates = [];
 function toggleWeek(element, date){
   var el = $(element)
   var week_el = el.siblings().addBack();
+  // if(!el.hasClass('fc-disabled') && !el.hasClass('fc-other-month')){
+  //   week_el = week_el.add(el);
+  // }
   var dates = $.map($(week_el), function(element){return $(element).data('date')}).join();
   if(el.hasClass('good')){
     excludeDuty(week_el, dates)
@@ -14,22 +17,30 @@ function toggleWeek(element, date){
   }
 }
 
+function daysForWeek(week_el){
+  var matching_days = $();
+  for(var i = 0; i < week_el.length; i++){
+    matching_days = matching_days.add($('.fc-day[data-date=' + $(week_el[i]).data('date') + ']'));
+  }
+  return matching_days;
+}
+
 function includeDuty(week_el, dates){
-  week_el.addClass('good');
+  daysForWeek(week_el).addClass('good');
+
   var el = $('#renewal_preferential_dates');
   window.preferred_duty_dates.unshift(dates);
   window.excluded_duty_dates = window.excluded_duty_dates.filter(function(d){ return d != dates; });
 }
 
 function excludeDuty(week_el, dates){
-  week_el.removeClass('good');
-  week_el.addClass('bad');
+  daysForWeek(week_el).removeClass('good').addClass('bad');
   window.excluded_duty_dates.unshift(dates);
   window.preferred_duty_dates = window.preferred_duty_dates.filter(function(d){ return d != dates; });
 }
 
 function clearDuty(week_el, dates){
-  week_el.removeClass('bad');
+  daysForWeek(week_el).removeClass('bad');
   window.preferred_duty_dates = window.preferred_duty_dates.filter(function(d){ return d != dates; });
   window.excluded_duty_dates = window.excluded_duty_dates.filter(function(d){ return d != dates; });
 }
@@ -59,6 +70,14 @@ function drawCalendars(){
     firstDay: 1,
     dayClick: function(date) {
       toggleWeek(this, date);
+    },
+    dayRender: function(date, cell) {
+      if(date.day() == 6){ // Saturday
+        if(date.date() <= 7 || date.date() > 14){ // Not 2nd Saturday
+          var header = $('[data-date=' + cell.data('date') +']')
+          header.addClass('fc-disabled');
+        }
+      }
     }
   };
 

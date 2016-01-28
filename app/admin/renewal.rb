@@ -1,5 +1,5 @@
 ActiveAdmin.register Renewal do
-
+  scope :this_year
   controller do
     defaults :finder => :find_by_reference
   end
@@ -51,7 +51,7 @@ ActiveAdmin.register Renewal do
       f.input :payment_confirmed_at
     end
     f.actions
-  end    
+  end
 
   csv do
     column :reference
@@ -64,5 +64,5 @@ ActiveAdmin.register Renewal do
     column :total_cost
     column :payment_confirmed_at
   end
-  
+
 end

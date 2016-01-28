@@ -12,6 +12,8 @@ class Renewal < ActiveRecord::Base
 
 	accepts_nested_attributes_for :duties, :reject_if => :duty_not_populated
 
+	scope :this_year, where(['created_at >= ?', Date.today.year])
+
 	def duty_not_populated(duty)
 		duty["exclude"].blank? and duty["request"].blank?
 	end
