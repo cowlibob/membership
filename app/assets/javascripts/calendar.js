@@ -4,9 +4,7 @@ window.excluded_duty_dates = [];
 function toggleWeek(element, date){
   var el = $(element)
   var week_el = el.siblings().addBack();
-  // if(!el.hasClass('fc-disabled') && !el.hasClass('fc-other-month')){
-  //   week_el = week_el.add(el);
-  // }
+
   var dates = $.map($(week_el), function(element){return $(element).data('date')}).join();
   if(el.hasClass('good')){
     excludeDuty(week_el, dates)
@@ -74,12 +72,23 @@ function drawCalendars(){
     dayRender: function(date, cell) {
       if(date.day() == 6){ // Saturday
         if(date.date() <= 7 || date.date() > 14){ // Not 2nd Saturday
-          var header = $('[data-date=' + cell.data('date') +']')
-          header.addClass('fc-disabled');
+          disableDate(cell);
+        }
+      }
+      if(date.day() == 4){ // thursday
+        var thisYear = (new Date()).getFullYear()
+        midApril = moment(new Date(thisYear, 3, 14));
+        if(date < midApril || date.month > 8){
+          disableDate(cell);
         }
       }
     }
   };
+
+  function disableDate(cell){
+    var header = $('[data-date=' + cell.data('date') +']')
+    header.addClass('fc-disabled');
+  }
 
 	$('#april').fullCalendar($.extend({defaultDate: "2016-04-01"}, options));
 	$('#may').fullCalendar($.extend({defaultDate: "2016-05-01"}, options));
