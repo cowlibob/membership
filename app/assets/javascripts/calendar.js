@@ -76,9 +76,7 @@ function drawCalendars(){
         }
       }
       if(date.day() == 4){ // thursday
-        var thisYear = (new Date()).getFullYear()
-        midApril = moment(new Date(thisYear, 3, 14));
-        if(date < midApril || date.month > 8){
+        if(date.month() < 4 || date.month() > 8){
           disableDate(cell);
         }
       }
