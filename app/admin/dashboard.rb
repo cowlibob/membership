@@ -7,7 +7,7 @@ ActiveAdmin.register_page "Dashboard" do
         column do
             panel "Members" do
                 ul do
-                    Member.all.map do |member|
+                    Member.by_year(Date.today.year).all.map do |member|
                         li link_to(member.full_name, admin_member_path(member))
                     end
                 end
@@ -17,7 +17,7 @@ ActiveAdmin.register_page "Dashboard" do
         column do
             panel "Recent Renewals" do
                 ul do
-                    Renewal.recent.reverse.map do |renewal|
+                    Renewal.by_year(Date.today.year).recent.reverse.map do |renewal|
                         li link_to([renewal.primary_member.try(:full_name), "(#{renewal.created_at.strftime("%d/%m/%Y")})"].join(' '), admin_renewal_path(renewal))
                     end
                 end
