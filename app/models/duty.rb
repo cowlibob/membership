@@ -1,6 +1,8 @@
 class Duty < ActiveRecord::Base
 	belongs_to :renewal
 
+	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
+	
   def request=(value)
     self.preference = 'request' unless value.blank?
   end

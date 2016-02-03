@@ -1,4 +1,5 @@
 ActiveAdmin.register Duty do
+  (Date.today.year-3..Date.today.year).to_a.reverse.each {|year| scope(year.to_s) { |scope| scope.by_year(year)} }
 
 
   # See permitted parameters documentation:

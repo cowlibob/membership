@@ -1,5 +1,6 @@
 ActiveAdmin.register Renewal do
-  scope :this_year
+  (Date.today.year-3..Date.today.year).to_a.reverse.each {|year| scope(year.to_s) { |scope| scope.by_year(year)} }
+
   controller do
     defaults :finder => :find_by_reference
   end
