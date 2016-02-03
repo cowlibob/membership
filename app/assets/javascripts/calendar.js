@@ -76,7 +76,7 @@ function drawCalendars(){
         }
       }
       if(date.day() == 4){ // thursday
-        if(date.month() < 4 || date.month() > 8){
+        if(date.month() < 4 || date.month() > 7){
           disableDate(cell);
         }
       }
