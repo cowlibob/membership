@@ -116,8 +116,11 @@
 				if(nextTab.next('section').length == 0){
 
 					$('#renewal-button .next').addClass('disabled');
-					$('#renewal-button .renew.disabled').removeClass('disabled');
 				}
+			});
+
+			$('#tabs section p.title a').click(function(event){
+				$('#renewal-button .next.disabled').removeClass('disabled');
 			});
 
 
