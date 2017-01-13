@@ -59,8 +59,11 @@
 	</div>
 
 	<div class="row off" id="renewal-button">
-		<div class="large-1 columns">
-			<%= f.submit :value => 'Renew', :class => 'button disabled' %>
+		<div class="large-12 columns">
+			<ul class="small-block-grid-2 right">
+				<li><%= f.submit :value => 'Next', :class => 'button next' %></li>
+				<li><%= f.submit :value => 'Renew', :class => 'button renew disabled' %></li>
+			</ul>
 		</div>
 	</div>
 
@@ -99,6 +102,21 @@
 				if( $('.pricing-table.family.selected').length == 0){
 					event.stopImmediatePropagation();
 					event.preventDefault();
+				}
+			});
+
+			$('#renewal-button .next').click(function(event){
+				event.stopImmediatePropagation();
+				event.preventDefault();
+
+				var currentTab = $('#tabs .active');
+				var nextTab = currentTab.next('section');
+				nextTab.find('p.title a').click();
+
+				if(nextTab.next('section').length == 0){
+
+					$('#renewal-button .next').addClass('disabled');
+					$('#renewal-button .renew.disabled').removeClass('disabled');
 				}
 			});
 
