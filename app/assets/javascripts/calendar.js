@@ -60,7 +60,7 @@ function drawCalendars(){
   }
 
   var options = {
-    // defaultDate: "2016-04-01",
+    // defaultDate: "2017-04-01",
     header: {left: 'title', center: '', right: ''},
     titleFormat: 'MMMM',
     fixedWeekCount: false,
@@ -88,13 +88,13 @@ function drawCalendars(){
     header.addClass('fc-disabled');
   }
 
-	$('#april').fullCalendar($.extend({defaultDate: "2016-04-01"}, options));
-	$('#may').fullCalendar($.extend({defaultDate: "2016-05-01"}, options));
-	$('#june').fullCalendar($.extend({defaultDate: "2016-06-01"}, options));
-	$('#july').fullCalendar($.extend({defaultDate: "2016-07-01"}, options));
-	$('#august').fullCalendar($.extend({defaultDate: "2016-08-01"}, options));
-	$('#september').fullCalendar($.extend({defaultDate: "2016-09-01"}, options));
-	$('#october').fullCalendar($.extend({defaultDate: "2016-10-01"}, options));
+	$('#april').fullCalendar($.extend({defaultDate: "2017-04-01"}, options));
+	$('#may').fullCalendar($.extend({defaultDate: "2017-05-01"}, options));
+	$('#june').fullCalendar($.extend({defaultDate: "2017-06-01"}, options));
+	$('#july').fullCalendar($.extend({defaultDate: "2017-07-01"}, options));
+	$('#august').fullCalendar($.extend({defaultDate: "2017-08-01"}, options));
+	$('#september').fullCalendar($.extend({defaultDate: "2017-09-01"}, options));
+	$('#october').fullCalendar($.extend({defaultDate: "2017-10-01"}, options));
 
   // $('#april').fullCalendar('render');
   // $('#may').fullCalendar('render');
