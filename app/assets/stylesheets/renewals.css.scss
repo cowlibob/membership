@@ -45,3 +45,12 @@ section.family.disabled {
 		}
 	}
 }
+
+label.inline {
+	display: inline;
+	line-height: 16px;
+}
+
+input[type="checkbox"] {
+	margin: 0;
+}
