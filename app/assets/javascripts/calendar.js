@@ -88,13 +88,13 @@ function drawCalendars(){
     header.addClass('fc-disabled');
   }
 
-	$('#april').fullCalendar($.extend({defaultDate: "2017-04-01"}, options));
-	$('#may').fullCalendar($.extend({defaultDate: "2017-05-01"}, options));
-	$('#june').fullCalendar($.extend({defaultDate: "2017-06-01"}, options));
-	$('#july').fullCalendar($.extend({defaultDate: "2017-07-01"}, options));
-	$('#august').fullCalendar($.extend({defaultDate: "2017-08-01"}, options));
-	$('#september').fullCalendar($.extend({defaultDate: "2017-09-01"}, options));
-	$('#october').fullCalendar($.extend({defaultDate: "2017-10-01"}, options));
+	$('#april').fullCalendar($.extend({defaultDate: "2018-04-01"}, options));
+	$('#may').fullCalendar($.extend({defaultDate: "2018-05-01"}, options));
+	$('#june').fullCalendar($.extend({defaultDate: "2018-06-01"}, options));
+	$('#july').fullCalendar($.extend({defaultDate: "2018-07-01"}, options));
+	$('#august').fullCalendar($.extend({defaultDate: "2018-08-01"}, options));
+	$('#september').fullCalendar($.extend({defaultDate: "2018-09-01"}, options));
+	$('#october').fullCalendar($.extend({defaultDate: "2018-10-01"}, options));
 
   // $('#april').fullCalendar('render');
   // $('#may').fullCalendar('render');
