@@ -49,10 +49,16 @@
 					</div>
 				</section>
 				<section>
-					<p class="title" data-section-title><a href="#panel6">Additional Comments</a></p>
+					<p class="title" id="comments-tab" data-section-title><a href="#panel6">Additional Comments</a></p>
 					<div class="content" data-section-content>
 						<%= f.text_area :comment, :placeholder => "Additional Details", :rows => 10 %>
 					</div>
+				</section>
+				<section>
+					<p class="title" id="declaration-tab" data-section-title><a href="#panel7">Declaration</a></p>
+					<div class="content" data-section-content>
+						<%= render 'declaration', f: f %>
+					</div>x
 				</section>
 			</div>
 		</div>

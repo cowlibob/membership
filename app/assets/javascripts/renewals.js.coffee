@@ -4,10 +4,15 @@
 
 $ ->
 	$('*[data-required="true"]').change (event) ->
-		count = $('*[data-required=true] input:not(:valid)').length
-		if(count == 0)
+		remaining = $('*[data-required=true] input:not(:valid)').filter('[type!=hidden]')
+		debugger
+		if(remaining.length == 0)
 			$('input[type=submit].button.disabled').each (index, element) ->
 				$(element).removeClass("disabled")
+		else
+			el = $(remaining[0])
+			if el?
+				el.parents('section')[0].addClass('active')
 
 	$('input[type=submit].button.disabled').click (event) ->
 		invalid = $('*[data-required=true] input:not(:valid)')[0]

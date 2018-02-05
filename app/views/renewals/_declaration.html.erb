@@ -1,0 +1,24 @@
+<p>
+  <h3>Data Protection</h3>
+  <%= s('data protection') %>
+</p>
+<p>
+  <h3>Insurance</h3>
+  <p>
+    <%= s('insurance') %>
+  </p>
+  <p>
+    If appropriate, tick 
+    <%= f.check_box :share_data_for_commission, required: false %>
+    <%= f.label :share_data_for_commission, s('commission label'), class: 'inline' %>
+  </p>
+</p>
+<p>
+  <h3>Declaration</h3>
+  <p data-required="true">
+    <%= f.check_box :declaration_confirmed, required: true %>
+    <%= f.label :declaration_confirmed, s('declaration label'), class: 'inline' %>
+  </p>
+
+</p>
+
