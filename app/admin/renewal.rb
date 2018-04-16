@@ -38,6 +38,7 @@ ActiveAdmin.register Renewal do
     column("Berthing") {|renewal| "£#{renewal.berthing_cost}"}
     column("Cost") {|renewal| "£#{renewal.total_cost}"}
     column("Paid") {|renewal| renewal.payment_confirmed_at || link_to('Mark as Paid', mark_as_paid_admin_renewal_path(renewal), :method => :put)}
+    column("Comment") {|renewal| renewal.comment.slice(0, 255)}
     # column("Insurance Confirmed") {|renewal| renewal.insurance_confirmed ? 'Yes' : 'No'}
     column("Share Data For Commission") {|renewal| renewal.share_data_for_commission ? 'Yes' : 'No'}
     default_actions
@@ -66,7 +67,9 @@ ActiveAdmin.register Renewal do
     column :berthing_cost
     column :total_cost
     column :payment_confirmed_at
+    column :comment
     column("Share Data For Commission") {|renewal| renewal.share_data_for_commission ? 'Yes' : 'No'}
+    column("Declaration Confirmed") {|renewal| renewal.declaration_confirmed ? 'Yes' : 'No'}
   end
 
 end
