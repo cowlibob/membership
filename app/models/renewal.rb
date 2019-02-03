@@ -70,11 +70,11 @@ class Renewal < ActiveRecord::Base
 	end
 
 	def membership_cost
-		{'Full' => 150, 'Cadet' => 58, 'Retained' => 26, 'Honorary' => 0}[self.membership_class] || 0
+		{'Full' => 160, 'Cadet' => 58, 'Retained' => 28, 'Honorary' => 0}[self.membership_class] || 0
 	end
 
 	def berthing_cost
-		boats.where(:berthing => true).count * 45
+		boats.where(:berthing => true).count * 50
 	end
 
 	def total_cost
