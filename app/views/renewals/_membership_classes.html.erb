@@ -6,8 +6,8 @@
 			  <li class="title"><%= membership_class[:title] %></li>
 			  <li class="price">&pound;<%= membership_class[:cost] %></li>
 			  <li class="description"><%= raw membership_class[:description] %></li>
-			  <li class="bullet-item"><%= membership_class[:feature_1] %></li>
-			  <li class="bullet-item"><%= membership_class[:feature_2] %></li>
+			  <li class="bullet-item"><%= membership_class[:feature_1].html_safe %></li>
+			  <li class="bullet-item"><%= membership_class[:feature_2].html_safe %></li>
 			  <li class="cta-button"><a class="button membership-select" data-value="Full" href="#">Select</a></li>
 			</ul>
 			</div>
