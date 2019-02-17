@@ -5,7 +5,6 @@
 $ ->
 	$('*[data-required="true"]').change (event) ->
 		remaining = $('*[data-required=true] input:not(:valid)').filter('[type!=hidden]')
-		debugger
 		if(remaining.length == 0)
 			$('input[type=submit].button.disabled').each (index, element) ->
 				$(element).removeClass("disabled")

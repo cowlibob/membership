@@ -60,21 +60,73 @@ class Renewal < ActiveRecord::Base
 		self.reference
 	end
 
-	def membership_classes
-		[
-			['Full or Familiy Membership (includes partner and children under 18)', 'Full'],
-			['Cadet Membership (18 years and above in full-time education)', 'Cadet'],
-			['Retained Member (non-active sailor)', 'Retained'],
-			['Honorary Member', 'Honorary']
-		]
+	def self.membership_classes
+		{
+			'Full' => {
+				title: 'Full/Family',
+				description: 'Includes partner and children under 18',
+				feature_1: 'Full use of facilities and club boats',
+				feature_2: 'Free safety boat training',
+				ui_class: 'family',
+				ui_id: 'family-membership',
+				name: 'Full',
+				cost: 160
+			},
+			'Cadet' => {
+				title: 'Cadet',
+				description: '18 years and above in full-time education',
+				feature_1: 'Full use of facilities and club boats',
+				feature_2: 'Free safety boat training',
+				ui_class: '',
+				ui_id: 'cadet-membership',
+				name: 'Cadet',
+				cost: 58
+			},
+			'Retained' => {
+				title: 'Retained',
+				description: 'Includes partner and children under 18',
+				feature_1: 'Retain link with the club while away or unable to sail',
+				feature_2: '&nbsp;',
+				ui_class: '',
+				ui_id: 'retained-membership',
+				name: 'Retained',
+				cost: 26
+			},
+			'Honorary' => {
+				title: 'Honourary',
+				description: 'Invitation only!<br/>&nbsp;',
+				feature_1: 'Full use of facilities and club boats',
+				feature_2: 'Free safety boat training',
+				ui_class: '',
+				ui_id: 'honorary-membership',
+				name: 'Honorary',
+				cost: 0
+			}
+		}
+
+
+			# 'Full or Familiy Membership (includes partner and children under 18)', 'Full'],
+			# ['Cadet Membership (18 years and above in full-time education)', 'Cadet'],
+			# ['Retained Member (non-active sailor)', 'Retained'],
+			# ['Honorary Member', 'Honorary']
+	end
+
+	def self.membership_costs(membership_class)
+		membership_classes[membership_class][:cost]
+	end
+
+	def self.berthing_costs
+		{boat: 50, sailboard: 20}
 	end
 
 	def membership_cost
-		{'Full' => 160, 'Cadet' => 58, 'Retained' => 28, 'Honorary' => 0}[self.membership_class] || 0
+		Renewal::membership_costs(self.membership_class) || 0
 	end
 
 	def berthing_cost
-		boats.where(:berthing => true).count * 50
+		boat_total = boats.is_dinghy.where(:berthing => true).count * Renewal::berthing_costs[:boat]
+		sailboardboard_total = boats.is_sailboard.where(:berthing => true).count * Renewal::berthing_costs[:sailboard]
+		boat_total + sailboardboard_total
 	end
 
 	def total_cost

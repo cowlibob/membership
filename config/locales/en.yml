@@ -20,11 +20,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  renewals:
+    new:
+      family-members-hint: Just add any additional sailors/members in your family.
+    boat_fields:
+      dingy_berthing: "Berthing Required (£50 per boat, April - October)"
+      sailboard_berthing: "Berthing Required (£20 per board/rig, April - October)"
   activerecord:
     attributes:
       boat:
-        berthing: "Berthing Required (£45 per boat, April - October)"
         classname: "Class (Enterprise, Streaker, Topper)"
+        is_sailboard: "This is a sailboard (wind surf)"
       member:
         dob: "Date of birth"
 

@@ -11,11 +11,13 @@ class RenewalsController < ApplicationController
   end
 
   def create
+    binding.pry
   	@renewal = Renewal.new(renewal_params)
 
     return render :new unless @renewal.save
 
-    redirect_to @renewal
+    binding.pry
+    redirect_to renewal_path(id: @renewal.reference)
   end
 
   def show

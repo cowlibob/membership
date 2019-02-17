@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rb-readline'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.2.0'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
@@ -34,15 +34,19 @@ gem 'jbuilder', '~> 1.2'
 
 gem "zurb-foundation", "~> 4.3.1"
 
-gem 'activeadmin', github: 'gregbell/active_admin'
+# gem 'activeadmin', '~> 1.0.0', '>= 1.4.3'
 
 gem "draper", "~> 1.3.0"
 
 gem 'newrelic_rpm'
 
+gem 'nokogiri', '~> 1.7.2'
+# gem 'has_scope', '~> 0.6.0'
+# gem 'inherited_resources', '~> 1.7.2'
+
 group :development do
   gem 'pry'
-  # gem 'debugger'
+  gem 'pry-nav'
   gem 'better_errors'
   gem 'binding_of_caller'
 end

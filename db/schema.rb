@@ -11,18 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180203101152) do
+ActiveRecord::Schema.define(version: 20190216101709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace"
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,17 +31,17 @@ ActiveRecord::Schema.define(version: 20180203101152) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "admin_users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "admin_users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,19 +49,20 @@ ActiveRecord::Schema.define(version: 20180203101152) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "boats", force: true do |t|
-    t.string   "classname"
-    t.string   "sail_number"
-    t.string   "hull_colour"
+  create_table "boats", force: :cascade do |t|
+    t.string   "classname",    limit: 255
+    t.string   "sail_number",  limit: 255
+    t.string   "hull_colour",  limit: 255
     t.boolean  "berthing"
-    t.string   "name"
+    t.string   "name",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "renewal_id"
+    t.boolean  "is_sailboard",             default: false
   end
 
-  create_table "contents", force: true do |t|
-    t.string   "tag"
+  create_table "contents", force: :cascade do |t|
+    t.string   "tag",        limit: 255
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -69,40 +70,40 @@ ActiveRecord::Schema.define(version: 20180203101152) do
 
   add_index "contents", ["tag"], name: "index_contents_on_tag", unique: true, using: :btree
 
-  create_table "duties", force: true do |t|
+  create_table "duties", force: :cascade do |t|
     t.integer  "renewal_id"
     t.date     "thursday"
     t.date     "saturday"
     t.date     "sunday"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "preference", default: "request"
+    t.string   "preference", limit: 255, default: "request"
   end
 
-  create_table "members", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone"
-    t.string   "email"
+  create_table "members", force: :cascade do |t|
+    t.string   "first_name", limit: 255
+    t.string   "last_name",  limit: 255
+    t.string   "phone",      limit: 255
+    t.string   "email",      limit: 255
     t.date     "dob"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "renewal_id"
   end
 
-  create_table "renewals", force: true do |t|
-    t.string   "membership_class"
-    t.string   "address_1"
-    t.string   "address_2"
-    t.string   "postcode"
+  create_table "renewals", force: :cascade do |t|
+    t.string   "membership_class",          limit: 255
+    t.string   "address_1",                 limit: 255
+    t.string   "address_2",                 limit: 255
+    t.string   "postcode",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comment"
-    t.string   "reference"
+    t.string   "reference",                 limit: 255
     t.datetime "payment_confirmed_at"
-    t.boolean  "insurance_confirmed",       default: false
-    t.boolean  "share_data_for_commission", default: false
-    t.boolean  "declaration_confirmed",     default: false
+    t.boolean  "insurance_confirmed",                   default: false
+    t.boolean  "share_data_for_commission",             default: false
+    t.boolean  "declaration_confirmed",                 default: false
   end
 
 end

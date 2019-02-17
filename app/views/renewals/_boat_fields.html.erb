@@ -1,4 +1,13 @@
-<div class="row" id="new-boat">
+<div class="row boat-row" id="new-boat">
+	<div class="large-6 columns">
+		<%= f.label :is_sailboard %>
+		<%= f.check_box :is_sailboard, class: 'is_sailboard' %>
+	</div>
+	<div class="large-6 columns">
+		<%= f.label :berthing, t('.dingy_berthing'), class: 'dinghy' %>
+		<%= f.label :berthing, t('.sailboard_berthing'), class: 'sailboard hidden' %>
+		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true %>
+	</div>
 	<div class="large-6 columns">
 		<%= f.label :classname %>
 		<%= f.text_field :classname%>
@@ -6,7 +15,7 @@
 	<div class="large-6 columns">
 		<%= f.label :sail_number %>
 		<%= f.text_field :sail_number %>
-	</div>
+	</div>	
 	<div class="large-6 columns">
 		<%= f.label :hull_colour %>
 		<%= f.text_field :hull_colour %>
@@ -14,10 +23,6 @@
 	<div class="large-6 columns">
 		<%= f.label :name %>
 		<%= f.text_field :name %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :berthing %>
-		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true %>
 	</div>
 </div>
 <div class="row">
@@ -27,3 +32,14 @@
 </div>
 <div id="boat-fields">
 </div>
+<% content_for :javascript do %>
+	<script type="text/javascript">
+		$(function(){
+			$('.is_sailboard').change(
+				function(event){
+					$(event.target).parents('.boat-row').find('.dinghy, .sailboard').toggleClass('hidden');
+				}
+			)
+		});
+	</script>
+<% end %>

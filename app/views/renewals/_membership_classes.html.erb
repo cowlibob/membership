@@ -1,45 +1,17 @@
 <fieldset><legend>Select Membership</legend>
 	<div class="row">
-		<div class="large-3 columns">
-			<ul class="pricing-table family" id="family-membership">
-			  <li class="title">Full/Family</li>
-			  <li class="price">&pound;150</li>
-			  <li class="description">Includes partner and children under 18</li>
-			  <li class="bullet-item">Full use of facilities and club boats</li>
-			  <li class="bullet-item">Free safety boat training</li>
+		<% Renewal.membership_classes.each do |key, membership_class| %>
+			<div class="large-3 columns">
+			<ul class="pricing-table <%= membership_class[:ui_class] %>" id="<%= membership_class[:ui_id] %>">
+			  <li class="title"><%= membership_class[:title] %></li>
+			  <li class="price">&pound;<%= membership_class[:cost] %></li>
+			  <li class="description"><%= raw membership_class[:description] %></li>
+			  <li class="bullet-item"><%= membership_class[:feature_1] %></li>
+			  <li class="bullet-item"><%= membership_class[:feature_2] %></li>
 			  <li class="cta-button"><a class="button membership-select" data-value="Full" href="#">Select</a></li>
 			</ul>
-		</div>
-		<div class="large-3 columns">
-			<ul class="pricing-table" id="cadet-membership" >
-			  <li class="title">Cadet</li>
-			  <li class="price">&pound;58</li>
-			  <li class="description">18 years and above in full-time education</li>
-			  <li class="bullet-item">Full use of facilities and club boats</li>
-			  <li class="bullet-item">Free safety boat training</li>
-			  <li class="cta-button"><a class="button membership-select" data-value="Cadet" href="#">Select</a></li>
-			</ul>
-		</div>
-		<div class="large-3 columns">
-			<ul class="pricing-table family" id="retained-membership">
-			  <li class="title">Retained</li>
-			  <li class="price">&pound;26</li>
-			  <li class="description">Includes partner and children under 18</li>
-			  <li class="bullet-item">Retain link with the club while away or unable to sail</li>
-			  <li class="bullet-item">&nbsp;</li>
-			  <li class="cta-button"><a class="button membership-select" data-value="Retained" href="#">Select</a></li>
-			</ul>
-		</div>
-		<div class="large-3 columns">
-			<ul class="pricing-table" id="honorary-membership">
-			  <li class="title">Honorary</li>
-			  <li class="price">&pound;0</li>
-			  <li class="description">Invitation only!<br/>&nbsp;</li>
-			  <li class="bullet-item">Full use of facilities and club boats</li>
-			  <li class="bullet-item">Free safety boat training</li>
-			  <li class="cta-button"><a class="button membership-select" data-value="Honorary" href="#">Select</a></li>
-			</ul>
-		</div>
+			</div>
+		<% end %>
 	</div>
 	<%= f.hidden_field :membership_class, required: false %>
 </fieldset>

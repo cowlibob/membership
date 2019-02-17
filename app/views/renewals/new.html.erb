@@ -27,6 +27,7 @@
 				<section class="family disabled">
 					<p class="title" data-section-title><a href="#panel3">Your Family Members</a></p>
 					<div class="content" data-section-content>
+						<p class="small"><i><%= t('.family-members-hint') %></i></p>
 						<%= f.fields_for :secondary_members do |builder| %>
 							<%= render 'member_fields', {f: builder, required: false} %>
 						<% end -%>
@@ -58,7 +59,7 @@
 					<p class="title" id="declaration-tab" data-section-title><a href="#panel7">Declaration</a></p>
 					<div class="content" data-section-content>
 						<%= render 'declaration', f: f %>
-					</div>x
+					</div>
 				</section>
 			</div>
 		</div>
