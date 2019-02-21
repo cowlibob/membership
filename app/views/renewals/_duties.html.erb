@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="large-12 columns">
+		<hr/>
+		<h3>Reminder - Your requested duties</h3>
+
+		<table>
+			<tr>
+				<td>Preference</td>
+				<td>Days</td>
+			</tr>
+			<% @renewal.duties.order(:thursday, :saturday, :sunday).each do |duty| %>
+				<tr>
+					<td><%= duty.preference.humanize %></td>
+					<td><%= [duty.thursday, duty.saturday, duty.sunday].compact.map{|d| d.strftime("%A %-d#{d.day.ordinal} %B %Y")}.join("<br>").html_safe %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
