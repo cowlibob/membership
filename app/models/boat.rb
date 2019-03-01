@@ -4,7 +4,7 @@ class Boat < ActiveRecord::Base
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	
 	def self.is_dinghy
-		where(is_sailboard: false)
+		where(is_sailboard: [nil, false])
 	end
 
 	def self.is_sailboard
