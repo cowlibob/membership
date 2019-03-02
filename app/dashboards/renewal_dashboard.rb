@@ -25,6 +25,7 @@ class RenewalDashboard < Administrate::BaseDashboard
     insurance_confirmed: Field::Boolean,
     share_data_for_commission: Field::Boolean,
     declaration_confirmed: Field::Boolean,
+    year: Field::Number.with_options(scope: :ordered_by_year),
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,6 +34,7 @@ class RenewalDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
+    :year,
     :primary_member,
     :secondary_members,
     :boats,

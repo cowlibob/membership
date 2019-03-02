@@ -1,7 +1,7 @@
 class Renewal < ActiveRecord::Base
 
 	include SpreadsheetArchitect
-	
+
 	has_one :primary_member, :class_name => '::Member', :dependent => :destroy
 	has_many :secondary_members, :class_name => '::Member', :dependent => :destroy
 	has_many :boats, :dependent => :destroy
@@ -16,6 +16,7 @@ class Renewal < ActiveRecord::Base
 
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
+	scope :ordered_by_year, Proc.new{ order("DATE_PART('year', created_at) DESC") }
 
 	def spreadsheet_columns
 		[
@@ -30,6 +31,7 @@ class Renewal < ActiveRecord::Base
 			['Secondary Members', secondary_members.described],
 			['Boats', boats.described],
 			['Duties', duties.described],
+			['Comment', comment]
 		]
 	end
 
@@ -156,7 +158,7 @@ class Renewal < ActiveRecord::Base
 	end
 
 	def to_s
-		"#{self.primary_member.try :full_name} #{membership_class}"
+		"#{self.primary_member.try :full_name} (#{membership_class} #{created_at.year})"
 	end
 
 	def secondary_member_count
@@ -165,6 +167,10 @@ class Renewal < ActiveRecord::Base
 
 	def boat_count
 		self.boats.count
+	end
+
+	def year
+		self.created_at.year
 	end
 
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :csv_exports
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	
 	# devise_for :admin_users, ActiveAdmin::Devise.config
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     resources :members
     resources :contents
     resources :users
+    resources :csv_exports
 
     root to: "renewals#index" # <--- Root route
   end

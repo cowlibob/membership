@@ -1,23 +1,19 @@
 module Admin
-  class RenewalsController < Admin::ApplicationController
+  class CsvExportsController < Admin::ApplicationController
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
     # def index
     #   super
-    #   @resources = Renewal.ordered_by_year.
+    #   @resources = CsvExport.
     #     page(params[:page]).
-    #     per(50)
+    #     per(10)
     # end
 
     # Define a custom finder by overriding the `find_resource` method:
-    def find_resource(param)
-      Renewal.find_by!(reference: param)
-    end
-
-    def scoped_resource
-      Renewal.ordered_by_year
-    end        
+    # def find_resource(param)
+    #   CsvExport.find_by!(slug: param)
+    # end
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Csv Exports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Entries</th>
+      <th>Requested by</th>
+      <th>Created at</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @csv_exports.each do |csv_export| %>
+      <tr>
+        <td><%= csv_export.year %></td>
+        <td><%= csv_export.entry_count %></td>
+        <td><%= csv_export.user.email %></td>
+        <td><%= csv_export.created_at.strftime("#{csv_export.created_at.day.ordinalize} %B %Y (%H:%M)") %></td>
+        <td><%= link_to 'Download', csv_export_path(csv_export.id, format: 'csv') %></td>
+        <td><%= link_to 'Delete', csv_export, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Csv Export', new_csv_export_path, class: 'button' %>

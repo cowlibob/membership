@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @csv_export.year %>
+</p>
+
+
+<%= link_to 'Download', csv_export_path(@csv_export, format: :csv) %> |
+<%= link_to 'Back', csv_exports_path %>
