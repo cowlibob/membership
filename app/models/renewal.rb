@@ -1,5 +1,7 @@
 class Renewal < ActiveRecord::Base
 
+	include SpreadsheetArchitect
+	
 	has_one :primary_member, :class_name => '::Member', :dependent => :destroy
 	has_many :secondary_members, :class_name => '::Member', :dependent => :destroy
 	has_many :boats, :dependent => :destroy
@@ -14,6 +16,22 @@ class Renewal < ActiveRecord::Base
 
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
+
+	def spreadsheet_columns
+		[
+			['Renewal ID', id],
+			['Payment Reference', reference],
+			['Total Cost', total_cost],
+			['Membership Class', membership_class],
+			['Membership Cost', membership_cost],
+			['Berthing Costs', berthing_cost],
+			['Address', [address_1, address_2, postcode].compact.join(", ")],
+			['Primary Member', primary_member.described],
+			['Secondary Members', secondary_members.described],
+			['Boats', boats.described],
+			['Duties', duties.described],
+		]
+	end
 
 	def duty_not_populated(duty)
 		duty["exclude"].blank? and duty["request"].blank?

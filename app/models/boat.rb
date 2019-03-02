@@ -14,4 +14,23 @@ class Boat < ActiveRecord::Base
 	def to_s
 		"#{classname} #{sail_number}"
 	end
+
+	def self.described
+		all.map(&:described).join("; ")
+	end
+
+	def described
+		named = name.blank? ? nil : "(named #{name})"
+		sailboard = is_sailboard ? ", a sailboard" : nil
+		berthed = berthing ? "with berth" : "no berth"
+
+		[
+			hull_colour,
+			classname,
+			sail_number,
+			named,
+			sailboard,
+			berthed
+		].compact.join(' ')
+	end
 end

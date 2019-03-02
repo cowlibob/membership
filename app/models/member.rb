@@ -11,4 +11,17 @@ class Member < ActiveRecord::Base
 		full_name
 	end
 
+	def to_a
+		[full_name, phone, email, dob]
+	end
+
+	def self.described
+		all.map(&:described).join("; ")
+	end
+
+	def described
+		date_of_birth = dob.present? ? "born #{dob}" : nil
+		[full_name, date_of_birth, phone, email].join(', ')
+	end
+
 end
