@@ -1,6 +1,7 @@
-Membership::Application.routes.draw do
-
-  # devise_for :admin_users, ActiveAdmin::Devise.config
+Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	
+	# devise_for :admin_users, ActiveAdmin::Devise.config
   # ActiveAdmin.routes(self)
   # get "renewals/index"
   # get "renewals/new"
@@ -9,6 +10,20 @@ Membership::Application.routes.draw do
   resources :renewals, :except => [:delete, :update]
   root 'renewals#new'
   resources :contents
+
+  namespace :admin do
+    # Add dashboard for your models here
+    resources :renewals
+    resources :boats
+    resources :duties
+    resources :members
+    resources :contents
+    resources :users
+
+    root to: "renewals#index" # <--- Root route
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

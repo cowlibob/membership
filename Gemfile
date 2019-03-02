@@ -5,11 +5,12 @@ gem 'rb-readline'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.2.0'
+gem 'bootsnap', require: false
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 gem 'pg'
-gem 'rails_stdout_logging'
+# gem 'rails_stdout_logging'
 gem 'rails_serve_static_assets'
 
 # Use SCSS for stylesheets
@@ -36,8 +37,11 @@ gem 'turbolinks'
 gem "zurb-foundation", "~> 4.3.1"
 
 # gem 'activeadmin', '~> 1.0.0', '>= 1.4.3'
+gem 'administrate'
+gem 'clearance'
 
 gem "draper"#, "~> 1.3.0"
+gem 'spreadsheet_architect'
 
 gem 'newrelic_rpm'
 
@@ -50,6 +54,7 @@ group :development do
   gem 'pry-nav'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'listen'
 end
 
 group :doc do
