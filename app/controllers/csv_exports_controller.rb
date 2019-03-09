@@ -5,7 +5,7 @@ class CsvExportsController < ApplicationController
 
   # GET /csv_exports
   def index
-    @csv_exports = CsvExport.all
+    @csv_exports = CsvExport.order(created_at: :desc)
   end
 
   # GET /csv_exports/1
@@ -18,7 +18,7 @@ class CsvExportsController < ApplicationController
 
   # GET /csv_exports/new
   def new
-    @csv_export = CsvExport.new
+    @csv_export = CsvExport.new(year: Date.today.year)
   end
 
   # GET /csv_exports/1/edit
@@ -50,6 +50,6 @@ class CsvExportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def csv_export_params
-      params.require(:csv_export).permit(:year, :content, :user_id)
+      params.require(:csv_export).permit(:year, :content, :user_id, :export_type)
     end
 end

@@ -14,6 +14,7 @@ class CsvExportDashboard < Administrate::BaseDashboard
     content: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    export_type: Field::Text,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,7 +24,7 @@ class CsvExportDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :user,
-    :id,
+    :export_type,
     :year,
     :content,
   ].freeze
@@ -32,7 +33,7 @@ class CsvExportDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :user,
-    :id,
+    :export_type,
     :year,
     :content,
     :created_at,
@@ -44,6 +45,7 @@ class CsvExportDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :user,
+    :export_type,
     :year,
     :content,
   ].freeze

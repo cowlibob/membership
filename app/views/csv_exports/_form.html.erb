@@ -16,6 +16,11 @@
     <%= form.number_field :year %>
   </div>
 
+  <div class="field">
+    <%= form.label :export_type %>
+    <%= form.select :export_type, [['Renewal', 'renewal'], ['Duties', 'duties']] %>
+  </div>
+
   <div class="actions">
     <%= form.submit 'Create', class: 'button' %>
   </div>

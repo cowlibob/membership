@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Type</th>
       <th>Year</th>
       <th>Entries</th>
       <th>Requested by</th>
@@ -16,6 +17,7 @@
   <tbody>
     <% @csv_exports.each do |csv_export| %>
       <tr>
+        <td><%= csv_export.export_type.humanize %></td>
         <td><%= csv_export.year %></td>
         <td><%= csv_export.entry_count %></td>
         <td><%= csv_export.user.email %></td>

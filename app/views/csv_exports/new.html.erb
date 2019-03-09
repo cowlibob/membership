@@ -1,5 +1,13 @@
-<h1>New Csv Export</h1>
+<div class="row">
+  <div class="large-12 columns">
+		<h1>New Csv Export</h1>
+  </div>
+  <div class="large-4 columns">
+		<%= render 'form', csv_export: @csv_export %>
+  </div>
+  <div class="large-12 columns">
+		<%= link_to 'Back', csv_exports_path %>
+  </div>
+</div>
 
-<%= render 'form', csv_export: @csv_export %>
 
-<%= link_to 'Back', csv_exports_path %>

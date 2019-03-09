@@ -30,7 +30,7 @@ class Renewal < ActiveRecord::Base
 			['Primary Member', primary_member.described],
 			['Secondary Members', secondary_members.described],
 			['Boats', boats.described],
-			['Duties', duties.described],
+			# ['Duties', duties.described],
 			['Comment', comment]
 		]
 	end
