@@ -35,6 +35,10 @@ class Renewal < ActiveRecord::Base
 		]
 	end
 
+	def all_members
+		[primary_member] + secondary_members
+	end
+	
 	def duty_not_populated(duty)
 		duty["exclude"].blank? and duty["request"].blank?
 	end

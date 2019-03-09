@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'duties/index'
   resources :csv_exports
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
   resources :renewals, :except => [:delete, :update]
   root 'renewals#new'
   resources :contents
+  resources :duties, only: [:index]
 
   namespace :admin do
     # Add dashboard for your models here

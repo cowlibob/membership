@@ -51,10 +51,53 @@ function resetDutySelections(event){
 }
 
 function sectionCallback(a, b, c){
-  setTimeout(drawCalendars, 0);
+  setTimeout(inputCalendars, 0);
 }
 
-function drawCalendars(){
+function displayCalendars(events){
+  if($('.duties-calendar').length == 0){
+    return;
+  }
+
+  var options = {
+    eventSources: events,
+    header: {left: 'title', center: '', right: ''},
+    titleFormat: 'MMMM',
+    fixedWeekCount: false,
+    hiddenDays: [ 1, 2, 3, 5 ], // hide Mondays, Wednesdays, and Fridays
+    firstDay: 1,
+    dayClick: function(date) {
+    },
+    dayRender: function(date, cell) {
+      if(date.day() == 6){ // Saturday
+        if(date.date() <= 7 || date.date() > 14){ // Not 2nd Saturday
+          disableDate(cell);
+        }
+      }
+      if(date.day() == 4){ // thursday
+        if(date.month() < 4 || date.month() > 7){
+          disableDate(cell);
+        }
+      }
+    }
+  }
+
+  function disableDate(cell){
+    var header = $('[data-date=' + cell.data('date') +']')
+    header.addClass('fc-disabled');
+  }
+
+  $('#april').fullCalendar($.extend({defaultDate: "2019-04-01"}, options));
+  $('#may').fullCalendar($.extend({defaultDate: "2019-05-01"}, options));
+  $('#june').fullCalendar($.extend({defaultDate: "2019-06-01"}, options));
+  $('#july').fullCalendar($.extend({defaultDate: "2019-07-01"}, options));
+  $('#august').fullCalendar($.extend({defaultDate: "2019-08-01"}, options));
+  $('#september').fullCalendar($.extend({defaultDate: "2019-09-01"}, options));
+  $('#october').fullCalendar($.extend({defaultDate: "2019-10-01"}, options));
+
+}
+
+function inputCalendars(){
   if($('section.active a[href="#panel5"]').length == 0){
     return;
   }

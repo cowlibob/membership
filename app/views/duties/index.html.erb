@@ -1,0 +1,21 @@
+<div class="duties-calendar">
+	<div class="row">
+		<div class="month-calendar" id='april'></div>
+		<div class="month-calendar" id='may'></div>
+		<div class="month-calendar" id='june'></div>
+	</div>
+	<div class="row">
+		<div class="month-calendar" id='july'></div>
+		<div class="month-calendar" id='august'></div>
+		<div class="month-calendar" id='september'></div>
+	</div>
+	<div class="row">
+		<div class="month-calendar" id='october'></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		displayCalendars(<%= @event_sources.to_json.html_safe %>);
+	});
+</script>

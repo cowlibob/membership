@@ -2,7 +2,8 @@ class Duty < ActiveRecord::Base
   belongs_to :renewal
 
   scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
-  
+  scope :requested, Proc.new{ where(preference: 'request') }
+  scope :excluded, Proc.new{ where(preference: 'exclude') }
   def request=(value)
     self.preference = 'request' unless value.blank?
   end
@@ -28,6 +29,14 @@ class Duty < ActiveRecord::Base
 
     #TODO: is_sailing_day?() not correct
 
+  end
+
+  def start_date
+    self.thursday || self.saturday || self.sunday
+  end
+
+  def end_date
+    (self.sunday || self.saturday || self.thursday).end_of_day
   end
 
   def week_containing
