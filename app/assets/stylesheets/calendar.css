@@ -15,10 +15,22 @@ div.fc-day-grid-container.fc-scroller {
 
 .bad:not(.fc-disabled):not(.fc-other-month) {
   background-color: red;
+  color: white;
+  text-align: center;
+  font-size: 1.6em;
+  line-height: 1.7em;
+  font-weight: bold;
+  vertical-align: bottom;
 }
 
 .good:not(.fc-disabled):not(.fc-other-month) {
   background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 1.6em;
+  line-height: 1.7em;
+  font-weight: bold;
+  vertical-align: bottom;
 }
 
 .fc-disabled {

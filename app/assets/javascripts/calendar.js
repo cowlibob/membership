@@ -24,21 +24,22 @@ function daysForWeek(week_el){
 }
 
 function includeDuty(week_el, dates){
-  daysForWeek(week_el).addClass('good');
-
+  daysForWeek(week_el).removeClass('bad').addClass('good').html("Y")
   var el = $('#renewal_preferential_dates');
   window.preferred_duty_dates.unshift(dates);
   window.excluded_duty_dates = window.excluded_duty_dates.filter(function(d){ return d != dates; });
 }
 
 function excludeDuty(week_el, dates){
-  daysForWeek(week_el).removeClass('good').addClass('bad');
+  daysForWeek(week_el).removeClass('good').addClass('bad').html('N');
+  daysForWeek(week_el).innerHTML = "N"
   window.excluded_duty_dates.unshift(dates);
   window.preferred_duty_dates = window.preferred_duty_dates.filter(function(d){ return d != dates; });
 }
 
 function clearDuty(week_el, dates){
-  daysForWeek(week_el).removeClass('bad');
+  daysForWeek(week_el).removeClass('bad good').html('');
+  daysForWeek(week_el).innerHTML = ""
   window.preferred_duty_dates = window.preferred_duty_dates.filter(function(d){ return d != dates; });
   window.excluded_duty_dates = window.excluded_duty_dates.filter(function(d){ return d != dates; });
 }
@@ -87,13 +88,13 @@ function displayCalendars(events){
     header.addClass('fc-disabled');
   }
 
-  $('#april').fullCalendar($.extend({defaultDate: "2019-04-01"}, options));
-  $('#may').fullCalendar($.extend({defaultDate: "2019-05-01"}, options));
-  $('#june').fullCalendar($.extend({defaultDate: "2019-06-01"}, options));
-  $('#july').fullCalendar($.extend({defaultDate: "2019-07-01"}, options));
-  $('#august').fullCalendar($.extend({defaultDate: "2019-08-01"}, options));
-  $('#september').fullCalendar($.extend({defaultDate: "2019-09-01"}, options));
-  $('#october').fullCalendar($.extend({defaultDate: "2019-10-01"}, options));
+  $('#april').fullCalendar($.extend({defaultDate: "2020-04-01"}, options));
+  $('#may').fullCalendar($.extend({defaultDate: "2020-05-01"}, options));
+  $('#june').fullCalendar($.extend({defaultDate: "2020-06-01"}, options));
+  $('#july').fullCalendar($.extend({defaultDate: "2020-07-01"}, options));
+  $('#august').fullCalendar($.extend({defaultDate: "2020-08-01"}, options));
+  $('#september').fullCalendar($.extend({defaultDate: "2020-09-01"}, options));
+  $('#october').fullCalendar($.extend({defaultDate: "2020-10-01"}, options));
 
 }
 
