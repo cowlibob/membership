@@ -2,6 +2,8 @@ class CsvExport < ApplicationRecord
 
 	belongs_to :user
 
+	before_create :populate
+
 	def populate
 		case self.export_type
 		when 'renewal'
@@ -30,11 +32,11 @@ class CsvExport < ApplicationRecord
 			by_year(year).
 			order(thursday: :asc, saturday: :asc, sunday: :asc).
 			select(:id, :renewal_id, :thursday, :saturday, :sunday, :preference).
-			all.group_by{|d| d.start_date}
+			all.group_by{|d| d.end_date}
 
 		out = ""
 		duties_by_date.map do |date, duties|
-			out << date.strftime("%a #{date.day.ordinalize} %b")
+			out << date.strftime("w/e %a #{date.day.ordinalize} %b")
 			out << "\n"
 			out << duties.map{|duty| %Q[#{duty.preference},#{duty.renewal.all_members.map(&:full_name).uniq.join(' & ')}] }.join("\n")
 			out << "\n\n\n"

@@ -1,10 +1,10 @@
-<%= form_with(model: csv_export, local: true) do |form| %>
-  <% if csv_export.errors.any? %>
+<%= form_with(model: @csv_export, local: true) do |form| %>
+  <% if @csv_export.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(csv_export.errors.count, "error") %> prohibited this csv_export from being saved:</h2>
 
       <ul>
-      <% csv_export.errors.full_messages.each do |message| %>
+      <% @csv_export.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

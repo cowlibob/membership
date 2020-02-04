@@ -29,7 +29,7 @@ class CsvExportsController < ApplicationController
   def create
     @csv_export = CsvExport.new(csv_export_params.merge(user_id: current_user.id))
 
-    if @csv_export.populate && @csv_export.save
+    if @csv_export.save
       redirect_to csv_exports_path, notice: 'Csv export was successfully created.'
     else
       render :new

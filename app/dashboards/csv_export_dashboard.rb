@@ -14,7 +14,7 @@ class CsvExportDashboard < Administrate::BaseDashboard
     content: Field::Text,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    export_type: Field::Text,
+    export_type: Field::Select, collection: %w{renewal duties}
   }.freeze
 
   # COLLECTION_ATTRIBUTES
