@@ -117,10 +117,11 @@
 				event.preventDefault();
 
 				var currentTab = $('#tabs .active');
-				var nextTab = currentTab.next('section');
+				var nextTab = currentTab.nextAll('section').not('.disabled').first()
+
 				nextTab.find('p.title a').click();
 
-				if(nextTab.next('section').length == 0){
+				if(nextTab.nextAll('section').not('.disabled').length == 0){
 
 					$('#renewal-button .next').addClass('disabled');
 				}
