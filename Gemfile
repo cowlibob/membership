@@ -41,7 +41,7 @@ gem 'administrate'
 gem 'clearance'
 
 gem "draper"#, "~> 1.3.0"
-gem "rubyzip", "~> 1.2.1"
+gem "rubyzip", "~> 1.3.0"
 gem 'spreadsheet_architect'
 
 gem 'newrelic_rpm'
