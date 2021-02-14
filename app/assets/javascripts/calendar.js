@@ -88,13 +88,13 @@ function displayCalendars(events){
     header.addClass('fc-disabled');
   }
 
-  $('#april').fullCalendar($.extend({defaultDate: "2020-04-01"}, options));
-  $('#may').fullCalendar($.extend({defaultDate: "2020-05-01"}, options));
-  $('#june').fullCalendar($.extend({defaultDate: "2020-06-01"}, options));
-  $('#july').fullCalendar($.extend({defaultDate: "2020-07-01"}, options));
-  $('#august').fullCalendar($.extend({defaultDate: "2020-08-01"}, options));
-  $('#september').fullCalendar($.extend({defaultDate: "2020-09-01"}, options));
-  $('#october').fullCalendar($.extend({defaultDate: "2020-10-01"}, options));
+  $('#april').fullCalendar($.extend({defaultDate: "2021-04-01"}, options));
+  $('#may').fullCalendar($.extend({defaultDate: "2021-05-01"}, options));
+  $('#june').fullCalendar($.extend({defaultDate: "2021-06-01"}, options));
+  $('#july').fullCalendar($.extend({defaultDate: "2021-07-01"}, options));
+  $('#august').fullCalendar($.extend({defaultDate: "2021-08-01"}, options));
+  $('#september').fullCalendar($.extend({defaultDate: "2021-09-01"}, options));
+  $('#october').fullCalendar($.extend({defaultDate: "2021-10-01"}, options));
 
 }
 
@@ -132,13 +132,13 @@ function inputCalendars(){
     header.addClass('fc-disabled');
   }
 
-	$('#april').fullCalendar($.extend({defaultDate: "2020-04-01"}, options));
-	$('#may').fullCalendar($.extend({defaultDate: "2020-05-01"}, options));
-	$('#june').fullCalendar($.extend({defaultDate: "2020-06-01"}, options));
-	$('#july').fullCalendar($.extend({defaultDate: "2020-07-01"}, options));
-	$('#august').fullCalendar($.extend({defaultDate: "2020-08-01"}, options));
-	$('#september').fullCalendar($.extend({defaultDate: "2020-09-01"}, options));
-	$('#october').fullCalendar($.extend({defaultDate: "2020-10-01"}, options));
+	$('#april').fullCalendar($.extend({defaultDate: "2021-04-01"}, options));
+	$('#may').fullCalendar($.extend({defaultDate: "2021-05-01"}, options));
+	$('#june').fullCalendar($.extend({defaultDate: "2021-06-01"}, options));
+	$('#july').fullCalendar($.extend({defaultDate: "2021-07-01"}, options));
+	$('#august').fullCalendar($.extend({defaultDate: "2021-08-01"}, options));
+	$('#september').fullCalendar($.extend({defaultDate: "2021-09-01"}, options));
+	$('#october').fullCalendar($.extend({defaultDate: "2021-10-01"}, options));
 
   // $('#april').fullCalendar('render');
   // $('#may').fullCalendar('render');
