@@ -40,22 +40,22 @@
 		<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
 	</div>
 </div>
-<div class="row">
+<!-- <div class="row">
 	<div class="large-6 columns">
 		<h3>Or</h3>
 	</div>
 </div>
 <div class="row">
 	<div class="large-12 columns">
-		<p> Send a check for <strong><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
+		<p> Send a check for <strong><%#= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
 	</div>
 	<div class="large-2 columns">To:</div>
 	<div class="large-10 columns">
 		<p>SVSC Membership<br/>19 Rossington Road<br/>Sheffield<br/>S11 8SA</p>
 	</div>
-	<div class="large-12 columns"><p>Please write the reference <strong><%= @renewal.reference.gsub('-', '') %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
+	<div class="large-12 columns"><p>Please write the reference <strong><%#= @renewal.reference.gsub('-', '') %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
 </div>
-<div class="row">
+ --><div class="row">
 	<div class="large-6 columns">
 		<h3>Problem?</h3>
 		<p>Contact Adam (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
