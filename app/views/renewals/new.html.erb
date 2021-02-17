@@ -50,7 +50,13 @@
 					</div>
 				</section>
 				<section>
-					<p class="title" id="comments-tab" data-section-title><a href="#panel6">Additional Comments</a></p>
+					<p class="title" id="emergency-tab" data-section-title><a href="#panel6">Emergency Contact</a></p>
+					<div class="content" data-section-content>
+						<%= f.text_area :emergency_contact_details, :placeholder => "Name & Telephone number(s)", :rows => 10 %>
+					</div>
+				</section>
+				<section>
+					<p class="title" id="comments-tab" data-section-title><a href="#panel6">Comments</a></p>
 					<div class="content" data-section-content>
 						<%= f.text_area :comment, :placeholder => "Additional Details", :rows => 10 %>
 					</div>

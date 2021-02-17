@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_09_220325) do
+ActiveRecord::Schema.define(version: 2021_02_17_223718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_03_09_220325) do
     t.boolean "insurance_confirmed", default: false
     t.boolean "share_data_for_commission", default: false
     t.boolean "declaration_confirmed", default: false
+    t.text "emergency_contact_details"
   end
 
   create_table "users", force: :cascade do |t|
