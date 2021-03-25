@@ -136,7 +136,7 @@ class Renewal < ActiveRecord::Base
 	end
 
 	def self.membership_costs(membership_class)
-		membership_classes[membership_class][:cost]
+		membership_classes[membership_class].try(:[], :cost)
 	end
 
 	def self.berthing_costs
