@@ -10,6 +10,8 @@ class CsvExport < ApplicationRecord
 			self.content = renewals_content
 		when 'duties'
 			self.content = duties_content
+		when 'duty_invites'
+			self.content = duty_invites_content
 		end
 
 	end
@@ -20,6 +22,10 @@ class CsvExport < ApplicationRecord
 
 	def entry_count
 		self.content.count("\n") - 1
+	end
+
+	def duty_invites_content
+		Renewal.by_year(self.year).to_csv(spreadsheet_columns: :duty_invite_columns)
 	end
 
 	def renewals_content

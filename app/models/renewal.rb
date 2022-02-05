@@ -35,6 +35,13 @@ class Renewal < ActiveRecord::Base
 		]
 	end
 
+	def duty_invite_columns
+		[
+			['Email', primary_member.email],
+			['Names', secondary_members.map{|m| m.full_name}.join(';')]
+		]
+	end
+
 	def all_members
 		[primary_member] + secondary_members
 	end
