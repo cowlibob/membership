@@ -13,9 +13,19 @@ class RenewalsController < ApplicationController
   def create
   	@renewal = Renewal.new(renewal_params)
 
-    return render :new unless @renewal.save
-
-    redirect_to renewal_path(id: @renewal.reference)
+    if @renewal.save
+      begin
+        RenewalNotificationMailer.new_renewal_member(@renewal).deliver
+        RenewalNotificationMailer.new_renewal_admin(@renewal).deliver
+      rescue => e
+        Rails.logger.error e.message
+        Rails.logger.error e.class
+        Rails.logger.error e.backtrace
+      end
+      redirect_to renewal_path(id: @renewal.reference)
+    else
+      render :new
+    end
   end
 
   def show

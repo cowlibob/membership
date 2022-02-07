@@ -41,14 +41,18 @@
 						<% end -%>
 					</div>
 				</section>
-				<section>
-					<p class="title" id="duties-tab" data-section-title><a href="#panel5">Your Duties</a></p>
-					<div class="content" data-section-content>
-						<%= f.fields_for :duties do |builder| %>
-							<%= render 'duty_fields', f: builder %>
-						<% end -%>
-					</div>
-				</section>
+        <section>
+          <p class="title" id="duties-tab" data-section-title><a href="#panel5">Your Duties</a></p>
+          <div class="content" data-section-content>
+            <% if duties_calendar_enabled? %>
+              <%= f.fields_for :duties do |builder| %>
+                <%= render 'duty_fields', f: builder %>
+              <% end -%>
+            <% else %>
+              <%= s('duties collected separately') %>
+            <% end %>
+          </div>
+        </section>
 				<section>
 					<p class="title" id="emergency-tab" data-section-title><a href="#panel6">Emergency Contact</a></p>
 					<div class="content" data-section-content>

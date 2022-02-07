@@ -1,4 +1,8 @@
 module RenewalsHelper
+	def duties_calendar_enabled?
+		false
+	end
+
 	def s(tag, options = {})
 		c = Content.where(tag: tag).first
 		if current_admin_user.nil? && c.try(:content).nil?

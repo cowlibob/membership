@@ -50,12 +50,16 @@ gem 'nokogiri', '~> 1.10.4'
 # gem 'has_scope', '~> 0.6.0'
 # gem 'inherited_resources', '~> 1.7.2'
 
+# Email notifications
+gem 'sparkpost_rails'
+
 group :development do
   gem 'pry'
   gem 'pry-nav'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen'
+  gem 'letter_opener_web'
 end
 
 group :doc do

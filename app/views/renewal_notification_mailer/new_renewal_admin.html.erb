@@ -1,0 +1,7 @@
+<p>Hi,</p>
+<p>A new membership renewal has been submitted.</p>
+
+<p><%= link_to @renewal.primary_member.full_name, renewal_url(id: @renewal.reference) %></p>
+
+<p>This is the <%= Renewal.where(created_at: Date.today.beginning_of_year .. Date.today).count.ordinalize %> renewal of the year.</p>
+
