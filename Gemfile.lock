@@ -156,15 +156,16 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.6.1)
     minitest (5.15.0)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     msgpack (1.4.4)
     newrelic_rpm (6.0.0.351)
     nio4r (2.5.2)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
+      racc (~> 1.4)
     pg (1.1.4)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -173,6 +174,7 @@ GEM
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
     public_suffix (4.0.6)
+    racc (1.6.0)
     rack (2.1.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -283,7 +285,7 @@ DEPENDENCIES
   letter_opener_web
   listen
   newrelic_rpm
-  nokogiri (~> 1.10.4)
+  nokogiri (~> 1.12.5)
   pg
   pry
   pry-nav
