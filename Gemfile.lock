@@ -246,6 +246,8 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sucker_punch (3.0.1)
+      concurrent-ruby (~> 1.0)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -293,6 +295,7 @@ DEPENDENCIES
   sdoc
   sparkpost_rails
   spreadsheet_architect
+  sucker_punch
   turbolinks
   uglifier
   unicorn

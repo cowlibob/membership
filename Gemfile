@@ -52,6 +52,7 @@ gem 'nokogiri', '~> 1.10.4'
 
 # Email notifications
 gem 'sparkpost_rails'
+gem 'sucker_punch'
 
 group :development do
   gem 'pry'
