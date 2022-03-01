@@ -46,7 +46,7 @@ gem 'spreadsheet_architect'
 
 gem 'newrelic_rpm'
 
-gem 'nokogiri', '~> 1.12.5'
+gem 'nokogiri', '~> 1.13.2'
 # gem 'has_scope', '~> 0.6.0'
 # gem 'inherited_resources', '~> 1.7.2'
 
