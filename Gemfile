@@ -38,7 +38,7 @@ gem "zurb-foundation", "~> 4.3.1"
 
 # gem 'activeadmin', '~> 1.0.0', '>= 1.4.3'
 gem 'administrate'
-gem 'clearance'
+gem 'clearance', '~> 1.6'
 
 gem "draper"#, "~> 1.3.0"
 gem "rubyzip", "~> 1.3.0"
@@ -57,8 +57,8 @@ gem 'sucker_punch'
 group :development do
   gem 'pry'
   gem 'pry-nav'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  # gem 'better_errors'
+  # gem 'binding_of_caller'
   gem 'listen'
   gem 'letter_opener_web'
 end

@@ -12,9 +12,9 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     email: Field::String,
-    password: Field::Password,
-    # confirmation_token: Field::String,
-    # remember_token: Field::String,
+    encrypted_password: Field::String,
+    confirmation_token: Field::String,
+    remember_token: Field::String,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -22,38 +22,47 @@ class UserDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :created_at,
-    :updated_at,
-    :email,
+  COLLECTION_ATTRIBUTES = %i[
+  id
+  created_at
+  updated_at
+  email
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :created_at,
-    :updated_at,
-    :email,
-    # :password,
-    # :confirmation_token,
-    # :remember_token,
+  SHOW_PAGE_ATTRIBUTES = %i[
+  id
+  created_at
+  updated_at
+  email
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :email,
-    :password,
-    # :confirmation_token,
-    # :remember_token,
+  FORM_ATTRIBUTES = %i[
+  email
   ].freeze
+
+  # COLLECTION_FILTERS
+  # a hash that defines filters that can be used while searching via the search
+  # field of the dashboard.
+  #
+  # For example to add an option to search for open resources by typing "open:"
+  # in the search field:
+  #
+  #   COLLECTION_FILTERS = {
+  #     open: ->(resources) { resources.where(open: true) }
+  #   }.freeze
+  COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
+  # def display_resource(user)
+  #   "User ##{user.id}"
+  # end
   def display_resource(user)
     user.email
   end

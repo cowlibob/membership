@@ -26,6 +26,7 @@ class RenewalDashboard < Administrate::BaseDashboard
     share_data_for_commission: Field::Boolean,
     declaration_confirmed: Field::Boolean,
     year: Field::Number.with_options(scope: :ordered_by_year),
+    emergency_contact_details: Field::Text,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,55 +34,73 @@ class RenewalDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :year,
-    :primary_member,
-    :secondary_members,
-    :boats,
-    :duties,
+  COLLECTION_ATTRIBUTES = %i[
+  id
+  created_at
+  reference
+  membership_class
+  payment_confirmed_at
+  primary_member
+  comment
+  boats
+  duties
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :primary_member,
-    :secondary_members,
-    :boats,
-    :duties,
-    :id,
-    :membership_class,
-    :address_1,
-    :address_2,
-    :postcode,
-    :created_at,
-    :updated_at,
-    :comment,
-    :reference,
-    :payment_confirmed_at,
-    :insurance_confirmed,
-    :share_data_for_commission,
-    :declaration_confirmed,
+  SHOW_PAGE_ATTRIBUTES = %i[
+  primary_member
+  secondary_members
+  boats
+  duties
+  id
+  membership_class
+  address_1
+  address_2
+  postcode
+  created_at
+  updated_at
+  comment
+  reference
+  payment_confirmed_at
+  insurance_confirmed
+  share_data_for_commission
+  declaration_confirmed
+  emergency_contact_details
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :primary_member,
-    :secondary_members,
-    :boats,
-    :duties,
-    :membership_class,
-    :address_1,
-    :address_2,
-    :postcode,
-    :comment,
-    :reference,
-    :payment_confirmed_at,
-    :insurance_confirmed,
-    :share_data_for_commission,
-    :declaration_confirmed,
+  FORM_ATTRIBUTES = %i[
+  primary_member
+  secondary_members
+  boats
+  duties
+  membership_class
+  address_1
+  address_2
+  postcode
+  comment
+  reference
+  payment_confirmed_at
+  insurance_confirmed
+  share_data_for_commission
+  declaration_confirmed
+  emergency_contact_details
   ].freeze
+
+  # COLLECTION_FILTERS
+  # a hash that defines filters that can be used while searching via the search
+  # field of the dashboard.
+  #
+  # For example to add an option to search for open resources by typing "open:"
+  # in the search field:
+  #
+  #   COLLECTION_FILTERS = {
+  #     open: ->(resources) { resources.where(open: true) }
+  #   }.freeze
+  COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how renewals are displayed
   # across all pages of the admin dashboard.
