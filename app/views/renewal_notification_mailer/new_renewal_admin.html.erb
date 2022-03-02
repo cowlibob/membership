@@ -3,5 +3,11 @@
 
 <p><%= link_to @renewal.primary_member.full_name, renewal_url(id: @renewal.reference) %></p>
 
-<p>This is the <%= Renewal.where(created_at: Date.today.beginning_of_year .. Date.today).count.ordinalize %> renewal of the year.</p>
-
+<p>This is the <%= Renewal.where(created_at: Date.today.beginning_of_year .. @renewal.created_at).count.ordinalize %> renewal of the year.</p>
+<p>
+  Summary:
+  <ul>
+    <li>Berthed Boats Count: <%= @renewal.boats.berthed.count %></li>
+    <li>Notes: <%= @renewal.comment %></li>
+  </ul>
+</p>

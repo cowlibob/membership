@@ -2,7 +2,11 @@ class Boat < ActiveRecord::Base
 	belongs_to :renewal
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
-	
+
+	def self.berthed
+		where(berthing: true)
+	end
+
 	def self.is_dinghy
 		where(is_sailboard: [nil, false])
 	end
