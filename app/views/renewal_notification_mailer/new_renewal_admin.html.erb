@@ -9,5 +9,16 @@
   <ul>
     <li>Berthed Boats Count: <%= @renewal.boats.berthed.count %></li>
     <li>Notes: <%= @renewal.comment %></li>
+    <li>Emails:<br>
+      <% @renewal.all_display_name_emails.each do |display_name_email| %>
+        <%= display_name_email %><br>
+      <% end %>
+    </li>
   </ul>
 </p>
+<p>Please add these emails to the <a href="https://groups.google.com/g/sheffieldvikingsc/members">membership email group</a> with the following welcome:</p>
+<blockquote>
+  Welcome to the Sheffield Viking SC mailing list.<br>
+  It is generally low traffic, with information from the management committee and a (mostly) monthly newsletter.<br>
+  While you are able to reply to the sender, your email will <i>not</i> be forwarded to the entire club.
+</blockquote>

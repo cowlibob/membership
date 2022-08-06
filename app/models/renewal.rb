@@ -43,7 +43,14 @@ class Renewal < ActiveRecord::Base
 	end
 
 	def all_members
-		[primary_member] + secondary_members
+		secondary_members
+	end
+
+	def all_display_name_emails
+		(all_members).map do |member|
+			"#{member.full_name} <#{member.email}>"
+		end
+
 	end
 	
 	def duty_not_populated(duty)
