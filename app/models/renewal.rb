@@ -27,8 +27,8 @@ class Renewal < ActiveRecord::Base
 			['Membership Cost', membership_cost],
 			['Berthing Costs', berthing_cost],
 			['Address', [address_1, address_2, postcode].compact.join(", ")],
-			['Primary Member', primary_member.described],
-			['Secondary Members', secondary_members.described],
+			['Primary Member', primary_member&.described],
+			['Secondary Members', secondary_members&.described],
 			['Boats', boats.described],
 			# ['Duties', duties.described],
 			['Comment', comment]
@@ -37,8 +37,8 @@ class Renewal < ActiveRecord::Base
 
 	def duty_invite_columns
 		[
-			['Email', primary_member.email],
-			['Names', secondary_members.map{|m| m.full_name}.join(';')]
+			['Email', primary_member&.email],
+			['Names', secondary_members&.map{|m| m.full_name}&.join(';')]
 		]
 	end
 
