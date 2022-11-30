@@ -35,10 +35,15 @@ test:
   encoding: unicode
   database: membership_test
   pool: 5
-production:
+
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: membership_production
-  pool: 5
-  username: membership
-  password:
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS'){ 5 } %>
+  username: <%= ENV.fetch('POSTGRES_USER'){ '' } %>
+  password: <%= ENV.fetch('POSTGRES_PASSWORD'){ '' } %>
+
+production:
+  <<: *default
+  database: svscmembership
+  url: <%= ENV['DATABASE_URL'] %>
