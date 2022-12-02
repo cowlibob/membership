@@ -38,7 +38,7 @@ gem "zurb-foundation", "~> 4.3.1"
 
 # gem 'activeadmin', '~> 1.0.0', '>= 1.4.3'
 gem 'administrate'
-gem 'clearance', '~> 1.6'
+gem 'clearance', '~> 2.5'
 
 gem "draper"#, "~> 1.3.0"
 gem "rubyzip", "~> 1.3.0"
