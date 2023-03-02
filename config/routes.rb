@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'duties/index'
   resources :csv_exports
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	
+
 	# devise_for :admin_users, ActiveAdmin::Devise.config
   # ActiveAdmin.routes(self)
   # get "renewals/index"
@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     root to: "renewals#index" # <--- Root route
   end
 
+  # Deployment checks
+  get '/check.txt', to: proc {[200, {}, ['simple_check']]}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -68,7 +70,7 @@ Rails.application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

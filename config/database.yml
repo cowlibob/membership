@@ -30,6 +30,7 @@ development:
   database: membership_development
   pool: 5
   host: localhost
+
 test:
   adapter: postgresql
   encoding: unicode
