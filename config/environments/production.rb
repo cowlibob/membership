@@ -96,3 +96,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+
+Clearance.configuration.mailer_sender = "renewals@email.sheffieldviking.org.uk"
