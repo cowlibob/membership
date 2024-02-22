@@ -126,7 +126,7 @@ class Renewal < ActiveRecord::Base
 				ui_class: 'family',
 				ui_id: 'family-membership',
 				name: 'Full',
-				cost: 180
+				cost: 185
 			},
 			'Cadet' => {
 				title: 'Cadet',
