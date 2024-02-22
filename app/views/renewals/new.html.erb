@@ -7,6 +7,7 @@
 		<div class="large-12 columns"><%= render 'membership_classes', f: f %></div>
 	</div>
 
+
 	<div class="row off" id="renewal-details">
 		<div class="large-12 columns">
 			<div id="tabs" class="section-container auto" data-section >
@@ -41,18 +42,18 @@
 						<% end -%>
 					</div>
 				</section>
-        <section>
-          <p class="title" id="duties-tab" data-section-title><a href="#panel5">Your Duties</a></p>
-          <div class="content" data-section-content>
-            <% if duties_calendar_enabled? %>
-              <%= f.fields_for :duties do |builder| %>
-                <%= render 'duty_fields', f: builder %>
-              <% end -%>
-            <% else %>
-              <%= s('duties collected separately') %>
-            <% end %>
-          </div>
-        </section>
+<!--        <section>-->
+<!--          <p class="title" id="duties-tab" data-section-title><a href="#panel5">Your Duties</a></p>-->
+<!--          <div class="content" data-section-content>-->
+            <%# if duties_calendar_enabled? %>
+              <%#= f.fields_for :duties do |builder| %>
+                <%#= render 'duty_fields', f: builder %>
+              <%# end -%>
+            <%# else %>
+              <%#= s('duties collected separately') %>
+            <%# end %>
+<!--          </div>-->
+<!--        </section>-->
 				<section>
 					<p class="title" id="emergency-tab" data-section-title><a href="#panel6">Emergency Contact</a></p>
 					<div class="content" data-section-content>
@@ -66,7 +67,15 @@
 					</div>
 				</section>
 				<section>
-					<p class="title" id="declaration-tab" data-section-title><a href="#panel7">Declaration</a></p>
+					<p class="title" id="comments-tab" data-section-title><a href="#panel7">100 Club Tickets</a></p>
+					<div class="content" data-section-content>
+						<%= f.label :one_hundred_club_tickets, "100 Club tickets (£25 per ticket, 3 draws in the season)" %>
+						<%= f.number_field :one_hundred_club_tickets, :placeholder => "100 Club Ticket count" %>
+						<p>100 Club is a lottery run by SVSC. 50% goes to the cash prize fund, 50% to funding safety boat replacement</p>
+					</div>
+				</section>
+				<section>
+					<p class="title" id="declaration-tab" data-section-title><a href="#panel8">Declaration</a></p>
 					<div class="content" data-section-content>
 						<%= render 'declaration', f: f %>
 					</div>

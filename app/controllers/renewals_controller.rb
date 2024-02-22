@@ -12,7 +12,7 @@ class RenewalsController < ApplicationController
 
   def create
   	@renewal = Renewal.new(renewal_params)
-
+    @renewal.generate_token!
     if @renewal.save
       begin
         RenewalNotificationMailer.new_renewal_member(@renewal).deliver
@@ -24,12 +24,14 @@ class RenewalsController < ApplicationController
       end
       redirect_to renewal_path(id: @renewal.reference)
     else
+      Rails.logger.error("Failed to save renewal: #{@renewal.errors.full_messages}")
       render :new
     end
   end
 
   def show
     @renewal = Renewal.where(:reference => [params[:id], params[:id].gsub('-', '')]).first
+    @show_payment_link = false # @renewal.payment_id.nil?
   end
 
   private

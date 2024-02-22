@@ -12,4 +12,5 @@
  *= require ./jquery-ui-1.10.3.datepicker.custom.min
  *= require ./renewals
  *= require ./calendar
+ *= require ./payments
  */

@@ -1,63 +1,92 @@
 <% content_for :title, "SVSC Membership Renewal" %>
-<div class="row">
-	<div class="large-6 columns">
-		<h1>Thank you</h1>
-	</div>
-</div>
-<div class="row">
-	<div class="large-12 columns">
-		<h3> Your renewal is complete, pending payment. </h3>
-	</div>
-</div>
-<div class="row">
-	<div class="large-6 columns">
-		<p> You may now opt to transfer funds directly to the club's account:</p>
-	</div>
-	<div class="large-6 columns"></div>
-</div>
-<div class="row">
-	<div class="large-2 columns">
-		<%= label_tag 'Bank Name' %>
-		<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true %>
-	</div>
-	<div class="large-3 columns">
-		<%= label_tag 'Account Name' %>
-		<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 40 %>
-	</div>
-	<div class="large-2 columns">
-		<%= label_tag 'Sort Code' %>
-		<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
-	</div>
-	<div class="large-2 columns">
-		<%= label_tag 'Account Number' %>
-		<%= text_field_tag :account_number, '00318765', :disabled => true %>
-	</div>
-	<div class="large-4 columns">
-		<%= label_tag 'Reference (So we know who has paid)' %>
-		<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true %>
-	</div>
-	<div class="large-3 columns">
-		<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
-	</div>
-</div>
-<!-- <div class="row">
-	<div class="large-6 columns">
-		<h3>Or</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="large-12 columns">
-		<p> Send a check for <strong><%#= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
-	</div>
-	<div class="large-2 columns">To:</div>
-	<div class="large-10 columns">
-		<p>SVSC Membership<br/>19 Rossington Road<br/>Sheffield<br/>S11 8SA</p>
-	</div>
-	<div class="large-12 columns"><p>Please write the reference <strong><%#= @renewal.reference.gsub('-', '') %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
-</div>
- --><div class="row">
-	<div class="large-6 columns">
-		<h3>Problem?</h3>
-		<p>Contact Mick (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
-	</div>
-</div>
+<!--<div class="row">-->
+<!--	<div class="large-6 columns">-->
+		<div class="row">
+			<div class="large-6 columns">
+				<h1>Thank you</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-12 columns">
+				<h3> Your renewal is complete, pending payment. </h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<table>
+					<% @renewal.line_item_rows.each do |row| %>
+						<tr>
+							<td><%= row.first %></td>
+							<td><%= number_to_currency(row.second, unit: "£") %></td>
+						</tr>
+					<% end %>
+					<tr class="text-left">
+						<th>Total</th>
+						<th><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<p> You may now opt to transfer funds directly to the club's account:</p>
+<!--				<p> You may now opt to pay by card or transfer funds directly to the club's account:</p>-->
+			</div>
+<!--			<div class="large-6 columns">-->
+<!--				<a href="https://buy.stripe.com/cN25mL06p364eCA001" target="stripe-payment">Pay by Card</a>-->
+<!--			</div>-->
+		</div>
+		<div class="row">
+			<div class="large-2 columns">
+				<%= label_tag 'Bank Name' %>
+				<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true %>
+			</div>
+			<div class="large-3 columns">
+				<%= label_tag 'Account Name' %>
+				<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 40 %>
+			</div>
+			<div class="large-2 columns">
+				<%= label_tag 'Sort Code' %>
+				<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
+			</div>
+			<div class="large-2 columns">
+				<%= label_tag 'Account Number' %>
+				<%= text_field_tag :account_number, '00318765', :disabled => true %>
+			</div>
+			<div class="large-4 columns">
+				<%= label_tag 'Reference (So we know who has paid)' %>
+				<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true %>
+			</div>
+			<div class="large-3 columns">
+				<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="large-6 columns">
+				<h3>Or</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="large-12 columns">
+				<p> Send a check for <strong><%#= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
+			</div>
+			<div class="large-2 columns">To:</div>
+			<div class="large-10 columns">
+				<p>SVSC Membership<br/>19 Rossington Road<br/>Sheffield<br/>S11 8SA</p>
+			</div>
+			<div class="large-12 columns"><p>Please write the reference <strong><%#= @renewal.reference.gsub('-', '') %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
+		</div>
+		 --><div class="row">
+			<div class="large-6 columns">
+				<h3>Problem?</h3>
+				<p>Contact Mick (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
+			</div>
+		</div>
+<!--	</div>-->
+
+<!--	<div class="large-6 columns">-->
+<!--		<iframe id="stripe-payments" name="stripe-payment"></iframe>-->
+<!--	</div>-->
+<!--</div>-->

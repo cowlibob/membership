@@ -6,6 +6,7 @@ class Renewal < ActiveRecord::Base
 	has_many :secondary_members, :class_name => '::Member', :dependent => :destroy
 	has_many :boats, :dependent => :destroy
 	has_many :duties, :dependent => :destroy
+	# belongs_to :payment
 
 	validates :primary_member, :presence => true
 	accepts_nested_attributes_for :primary_member
@@ -18,6 +19,10 @@ class Renewal < ActiveRecord::Base
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	scope :ordered_by_year, Proc.new{ order("DATE_PART('year', created_at) DESC") }
 
+	def generate_token!
+		self.token ||= SecureRandom.uuid
+	end
+
 	def spreadsheet_columns
 		[
 			['Renewal ID', id],
@@ -26,6 +31,7 @@ class Renewal < ActiveRecord::Base
 			['Membership Class', membership_class],
 			['Membership Cost', membership_cost],
 			['Berthing Costs', berthing_cost],
+			['100 Club Ticket Costs', one_hundred_club_cost],
 			['Address', [address_1, address_2, postcode].compact.join(", ")],
 			['Primary Member', primary_member&.described],
 			['Secondary Members', secondary_members&.described],
@@ -33,6 +39,18 @@ class Renewal < ActiveRecord::Base
 			# ['Duties', duties.described],
 			['Comment', comment]
 		]
+	end
+
+	def line_item_rows
+		[
+			[membership_class + " Membership", membership_cost],
+			["Berthed Boats x #{boats.is_dinghy.where(:berthing => true).count}", boat_berthing_cost],
+			["100 Club Ticket x #{one_hundred_club_tickets}", one_hundred_club_cost]
+		]
+	end
+
+	def line_item_total
+		["Total", total_cost]
 	end
 
 	def duty_invite_columns
@@ -157,18 +175,31 @@ class Renewal < ActiveRecord::Base
 		{boat: 50, sailboard: 20}
 	end
 
+	def self.one_hundred_ticket_costs
+		25
+	end
+
 	def membership_cost
 		Renewal::membership_costs(self.membership_class) || 0
 	end
 
 	def berthing_cost
-		boat_total = boats.is_dinghy.where(:berthing => true).count * Renewal::berthing_costs[:boat]
-		sailboardboard_total = boats.is_sailboard.where(:berthing => true).count * Renewal::berthing_costs[:sailboard]
-		boat_total + sailboardboard_total
+		boat_berthing_cost + sailboard_berthing_cost
+	end
+
+	def boat_berthing_cost
+		boats.is_dinghy.where(:berthing => true).count * Renewal::berthing_costs[:boat]
+	end
+
+	def sailboard_berthing_cost
+		boats.is_sailboard.where(:berthing => true).count * Renewal::berthing_costs[:sailboard]
+	end
+	def one_hundred_club_cost
+		one_hundred_club_tickets * Renewal::one_hundred_ticket_costs
 	end
 
 	def total_cost
-		membership_cost + berthing_cost
+		membership_cost + berthing_cost + one_hundred_club_cost
 	end
 
 	def self.recent

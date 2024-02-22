@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_02_17_223718) do
+ActiveRecord::Schema.define(version: 2024_02_21_230659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +111,10 @@ ActiveRecord::Schema.define(version: 2021_02_17_223718) do
     t.boolean "share_data_for_commission", default: false
     t.boolean "declaration_confirmed", default: false
     t.text "emergency_contact_details"
+    t.string "token"
+    t.integer "payemnt_id"
+    t.integer "one_hundred_club_tickets", default: 0
+    t.index ["token"], name: "index_renewals_on_token"
   end
 
   create_table "users", force: :cascade do |t|
