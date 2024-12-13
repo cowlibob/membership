@@ -1,4 +1,4 @@
-class CreateRenewals < ActiveRecord::Migration
+class CreateRenewals < ActiveRecord::Migration[5.2]
   def change
     create_table :renewals do |t|
       t.string :membership_class

@@ -1,4 +1,4 @@
-class CreateDuties < ActiveRecord::Migration
+class CreateDuties < ActiveRecord::Migration[5.2]
   def up
     create_table :duties do |t|
       t.integer :renewal_id
