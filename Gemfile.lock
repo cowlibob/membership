@@ -162,7 +162,7 @@ GEM
     msgpack (1.4.4)
     newrelic_rpm (6.0.0.351)
     nio4r (2.5.8)
-    nokogiri (1.13.9)
+    nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     pg (1.1.4)
@@ -173,7 +173,7 @@ GEM
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
     public_suffix (4.0.6)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -290,7 +290,7 @@ DEPENDENCIES
   letter_opener_web
   listen
   newrelic_rpm
-  nokogiri (~> 1.13.9)
+  nokogiri (~> 1.13.10)
   pg
   pry
   pry-nav
