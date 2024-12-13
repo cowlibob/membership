@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh dokku run svscmembership rails c
