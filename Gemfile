@@ -125,3 +125,5 @@ gem "csv", "~> 3.3"
 gem "ostruct", "~> 0.6.1"
 
 gem "pg", "~> 1.5"
+
+gem "foreman", "~> 0.88.1"
