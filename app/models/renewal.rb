@@ -2,13 +2,13 @@ class Renewal < ActiveRecord::Base
 
 	include SpreadsheetArchitect
 
-	has_one :primary_member, :class_name => '::Member', :dependent => :destroy
-	has_many :secondary_members, :class_name => '::Member', :dependent => :destroy
-	has_many :boats, :dependent => :destroy
-	has_many :duties, :dependent => :destroy
+	has_one :primary_member, -> { where(primary: true) }, class_name: '::Member', dependent: :destroy
+	has_many :secondary_members, class_name: '::Member', dependent: :destroy
+	has_many :boats, dependent: :destroy
+	has_many :duties, dependent: :destroy
 	# belongs_to :payment
 
-	validates :primary_member, :presence => true
+	# validates :primary_member, :presence => true
 	accepts_nested_attributes_for :primary_member
 	accepts_nested_attributes_for :secondary_members, :reject_if => :all_blank
 	accepts_nested_attributes_for :boats, :reject_if => :all_blank
@@ -18,6 +18,36 @@ class Renewal < ActiveRecord::Base
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	scope :ordered_by_year, Proc.new{ order("DATE_PART('year', created_at) DESC") }
+
+	def current_step
+		if membership_class.blank?
+			:membership_class
+		elsif primary_member.blank?
+			:about_you
+		elsif address.blank?
+			:address
+		elsif secondary_members.blank?
+			:secondary_members
+		elsif boats.blank?
+			:boats
+		elsif emergency_contact_details.blank?
+			:emegency_contact_details
+		# elsif duties.blank?
+		# 	:duties
+		elsif !declaration_confirmed?
+			:declaration
+		else
+			:complete
+		end
+	end
+
+	def complete?
+		current_step == :complete
+	end
+
+	def address
+		[address_1, address_2, postcode].join
+	end
 
 	def generate_token!
 		self.token ||= SecureRandom.uuid
@@ -43,10 +73,17 @@ class Renewal < ActiveRecord::Base
 
 	def line_item_rows
 		[
-			[membership_class + " Membership", membership_cost],
+			[membership_class_name + " Membership", membership_cost],
 			["Berthed Boats x #{boats.is_dinghy.where(:berthing => true).count}", boat_berthing_cost],
-			["100 Club Ticket x #{one_hundred_club_tickets}", one_hundred_club_cost]
+			["Berthed Sailboards x #{boats.is_sailboard.where(:berthing => true).count}", sailboard_berthing_cost],
+			# ["100 Club Ticket x #{one_hundred_club_tickets}", one_hundred_club_cost]
 		]
+	end
+
+	def membership_class_name
+		Renewal.membership_classes[membership_class].try(:[], :title)
+		# values = Renewal.membership_classes.select{|k, v| v[:ui_id] == membership_class}.values.first
+		# values[:title]
 	end
 
 	def line_item_total
@@ -63,6 +100,8 @@ class Renewal < ActiveRecord::Base
 	def all_members
 		secondary_members
 	end
+
+
 
 	def all_display_name_emails
 		(all_members).map do |member|
@@ -106,20 +145,29 @@ class Renewal < ActiveRecord::Base
 	end
 
 	def generate_reference
-		if self.primary_member
+		if self.primary_member && reference.blank?
 			write_attribute(:reference, "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.-]/, ''))
-			save
 		end
 	end
 
-	def to_param
-		self.reference
-	end
+	# def to_param
+	# 	self.reference
+	# end
 
 	def self.membership_classes
 		{
-			'Full' => {
-				title: 'Full/Family',
+			'full-membership' => {
+				title: 'Full',
+				description: 'One Adult',
+				feature_1: 'Full use of facilities and club boats',
+				feature_2: 'Free safety boat training',
+				ui_class: 'full',
+				ui_id: 'full-membership',
+				name: 'Full',
+				cost: 185
+			},
+			'family-membership' => {
+				title: 'Family',
 				description: 'Includes partner and children under 18',
 				feature_1: 'Full use of facilities and club boats',
 				feature_2: 'Free safety boat training',
@@ -128,27 +176,27 @@ class Renewal < ActiveRecord::Base
 				name: 'Full',
 				cost: 185
 			},
-			'Cadet' => {
-				title: 'Cadet',
-				description: '18 years and above in full-time education',
+			'youth-membership' => {
+				title: 'Youth',
+				description: 'Over 16 and in full-time education',
 				feature_1: 'Full use of facilities and club boats',
 				feature_2: 'Free safety boat training',
 				ui_class: '',
-				ui_id: 'cadet-membership',
-				name: 'Cadet',
+				ui_id: 'youth-membership',
+				name: 'Youth',
 				cost: 58
 			},
-			'Retained' => {
+			'retained-membership' => {
 				title: 'Retained',
 				description: 'Includes partner and children under 18',
 				feature_1: 'Retain link with the club while away or unable to sail',
-				feature_2: '&nbsp;',
+				feature_2: '',
 				ui_class: '',
 				ui_id: 'retained-membership',
 				name: 'Retained',
 				cost: 26
 			},
-			'Honorary' => {
+			'honorary-membership' => {
 				title: 'Honourary',
 				description: 'Invitation only!<br/>&nbsp;',
 				feature_1: 'Full use of facilities and club boats',

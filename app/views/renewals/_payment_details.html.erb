@@ -1,92 +1,68 @@
 <% content_for :title, "SVSC Membership Renewal" %>
-<!--<div class="row">-->
-<!--	<div class="large-6 columns">-->
-		<div class="row">
-			<div class="large-6 columns">
-				<h1>Thank you</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-12 columns">
-				<h3> Your renewal is complete, pending payment. </h3>
-			</div>
-		</div>
+<h1 class="text-3xl">Payment Required</h1>
 
-		<div class="row">
-			<div class="large-6 columns">
-				<table>
-					<% @renewal.line_item_rows.each do |row| %>
-						<tr>
-							<td><%= row.first %></td>
-							<td><%= number_to_currency(row.second, unit: "£") %></td>
-						</tr>
-					<% end %>
-					<tr class="text-left">
-						<th>Total</th>
-						<th><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
-					</tr>
-				</table>
-			</div>
-		</div>
+<h2 class="text-xl mt-5">Billing Summary</h2>
+<div class="overflow-x-auto">
+	<table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
+		<thead class="ltr:text-left rtl:text-right">
+		<tr>
+			<th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Benefit</th>
+			<th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
+		</tr>
+		</thead>
 
-		<div class="row">
-			<div class="large-6 columns">
-				<p> You may now opt to transfer funds directly to the club's account:</p>
-<!--				<p> You may now opt to pay by card or transfer funds directly to the club's account:</p>-->
-			</div>
-<!--			<div class="large-6 columns">-->
-<!--				<a href="https://buy.stripe.com/cN25mL06p364eCA001" target="stripe-payment">Pay by Card</a>-->
-<!--			</div>-->
-		</div>
-		<div class="row">
-			<div class="large-2 columns">
+		<tbody class="divide-y divide-gray-200">
+		<% @renewal.line_item_rows.each do |row| %>
+			<tr class="odd:bg-gray-50">
+				<td class="whitespace-nowrap px-8 py-2 font-medium text-gray-900"><%= row.first %></td>
+				<td class="whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
+			</tr>
+		<% end %>
+		</tbody>
+		<tfoot>
+			<tr class="">
+				<th class="text-left whitespace-nowrap px-8 py-2 font-medium ">Total</th>
+				<th class="text-left whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+	<div class="flex flex-col md:flex-row justify-stretch gap-5">
+	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
+		<div class="overflow-x-auto rounded-[10px] h-full bg-white p-4 sm:p-6">
+			<h2 class="text-xl">Bank Transfer</h2>
+			<p> You may now opt to transfer funds directly to the club's account:</p>
+			<div class="py-1">
 				<%= label_tag 'Bank Name' %>
 				<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true %>
 			</div>
-			<div class="large-3 columns">
-				<%= label_tag 'Account Name' %>
-				<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 40 %>
+			<div class="py-1">
+			<%= label_tag 'Account Name' %>
+			<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 30 %>
 			</div>
-			<div class="large-2 columns">
-				<%= label_tag 'Sort Code' %>
-				<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
+			<div class="py-1">
+			<%= label_tag 'Sort Code' %>
+			<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
 			</div>
-			<div class="large-2 columns">
-				<%= label_tag 'Account Number' %>
-				<%= text_field_tag :account_number, '00318765', :disabled => true %>
+			<div class="py-1">
+			<%= label_tag 'Account Number' %>
+			<%= text_field_tag :account_number, '00318765', :disabled => true %>
 			</div>
-			<div class="large-4 columns">
-				<%= label_tag 'Reference (So we know who has paid)' %>
-				<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true %>
+			<div class="py-1">
+			<%= label_tag 'Reference (So we know who has paid)' %>
+			<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true %>
 			</div>
-			<div class="large-3 columns">
-				<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
-			</div>
+			<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
 		</div>
-		<!-- <div class="row">
-			<div class="large-6 columns">
-				<h3>Or</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-12 columns">
-				<p> Send a check for <strong><%#= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></strong>, made payable to '<strong>Sheffield Viking Sailing Club</strong>'</p>
-			</div>
-			<div class="large-2 columns">To:</div>
-			<div class="large-10 columns">
-				<p>SVSC Membership<br/>19 Rossington Road<br/>Sheffield<br/>S11 8SA</p>
-			</div>
-			<div class="large-12 columns"><p>Please write the reference <strong><%#= @renewal.reference.gsub('-', '') %></strong> on the back. We will send a confirmation email when your payment has been received.</p></div>
-		</div>
-		 --><div class="row">
-			<div class="large-6 columns">
-				<h3>Problem?</h3>
-				<p>Contact Mick (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
-			</div>
-		</div>
-<!--	</div>-->
+	</div>
 
-<!--	<div class="large-6 columns">-->
-<!--		<iframe id="stripe-payments" name="stripe-payment"></iframe>-->
-<!--	</div>-->
-<!--</div>-->
+	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
+		<div class="rounded-[10px] h-full bg-white p-4 sm:p-6">
+			<h2 class="text-xl">Card Payment</h2>
+		</div>
+	</div>
+</div>
+
+<h3 class="mt-5 text-xl">Problem?</h3>
+<p>Contact Nick (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>

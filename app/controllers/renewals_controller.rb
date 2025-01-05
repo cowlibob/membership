@@ -3,17 +3,29 @@ class RenewalsController < ApplicationController
   end
 
   def new
-  	@renewal = Renewal.new
-    @renewal.build_primary_member
-    4.times { @renewal.secondary_members.build}
-    @renewal.boats.build
-    @renewal.duties.build
+  	@renewal = Renewal.new(membership_class: params[:membership_class])
+    populate_renewal
+  end
+
+  def edit
+    @renewal = Renewal.find(params[:id])
+    populate_renewal
   end
 
   def create
   	@renewal = Renewal.new(renewal_params)
     @renewal.generate_token!
-    if @renewal.save
+    @renewal.save
+
+    redirect_to edit_renewal_path(id: @renewal.id)
+
+  end
+
+  def update
+    @renewal = Renewal.find(params[:id])
+    @renewal.generate_reference
+    @renewal.update(renewal_params)
+    if @renewal.complete?
       begin
         RenewalNotificationMailer.new_renewal_member(@renewal).deliver
         RenewalNotificationMailer.new_renewal_admin(@renewal).deliver
@@ -24,8 +36,7 @@ class RenewalsController < ApplicationController
       end
       redirect_to renewal_path(id: @renewal.reference)
     else
-      Rails.logger.error("Failed to save renewal: #{@renewal.errors.full_messages}")
-      render :new
+      redirect_to edit_renewal_path(id: @renewal.id)
     end
   end
 
@@ -38,6 +49,13 @@ class RenewalsController < ApplicationController
 
   def renewal_params
   	params.require(:renewal).permit!
+  end
+
+  def populate_renewal
+    @renewal.build_primary_member if @renewal.primary_member.nil?
+    4.times { @renewal.secondary_members.build} if @renewal.secondary_members.empty?
+    @renewal.boats.build if @renewal.boats.empty?
+    @renewal.duties.build if @renewal.duties.empty?
   end
 
 end

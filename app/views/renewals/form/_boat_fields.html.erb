@@ -34,12 +34,21 @@
 </div>
 <% content_for :javascript do %>
 	<script type="text/javascript">
-		$(function(){
-			$('.is_sailboard').change(
-				function(event){
-					$(event.target).parents('.boat-row').find('.dinghy, .sailboard').toggleClass('hidden');
-				}
-			)
+		document.addEventListener("DOMContentLoaded", function() {
+			document.querySelectorAll('.is_sailboard').forEach(function(element) {
+				element.addEventListener('change', function(event) {
+					event.target.closest('.boat-row').querySelectorAll('.dinghy, .sailboard').forEach(function(el) {
+						el.classList.toggle('hidden');
+					});
+				});
+			});
 		});
+		// $(function(){
+		// 	$('.is_sailboard').change(
+		// 		function(event){
+		// 			$(event.target).parents('.boat-row').find('.dinghy, .sailboard').toggleClass('hidden');
+		// 		}
+		// 	)
+		// });
 	</script>
 <% end %>

@@ -3,6 +3,9 @@ class Member < ActiveRecord::Base
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	
+	def blank?
+		[first_name, last_name, phone, email, dob].all?(&:blank?)
+	end
 	def full_name
 		[first_name, last_name].join(" ")
 	end

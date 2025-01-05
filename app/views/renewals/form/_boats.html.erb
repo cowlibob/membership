@@ -1,0 +1,8 @@
+<section class="mb-16" id="panel4" >
+  <h3 class="text-lg font-bold"data-section-title><a href="#panel4">Your Boats</a></h3>
+  <div class="content" data-section-content>
+    <%= f.fields_for :boats do |builder| %>
+      <%= render 'renewals/form/boat_fields', f: builder %>
+    <% end -%>
+  </div>
+</section>

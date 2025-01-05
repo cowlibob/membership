@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # get "renewals/new"
   # get "renewals/create"
 
-  resources :renewals, :except => [:destroy, :update]
+  resources :renewals, :except => [:destroy]
   root 'renewals#new'
   resources :contents
   resources :duties, only: [:index]
