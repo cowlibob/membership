@@ -1,33 +1,4 @@
 <% content_for :title, "SVSC Membership Renewal" %>
-<h1 class="text-3xl">Payment Required</h1>
-
-<h2 class="text-xl mt-5">Billing Summary</h2>
-<div class="overflow-x-auto">
-	<table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
-		<thead class="ltr:text-left rtl:text-right">
-		<tr>
-			<th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Benefit</th>
-			<th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
-		</tr>
-		</thead>
-
-		<tbody class="divide-y divide-gray-200">
-		<% @renewal.line_item_rows.each do |row| %>
-			<tr class="odd:bg-gray-50">
-				<td class="whitespace-nowrap px-8 py-2 font-medium text-gray-900"><%= row.first %></td>
-				<td class="whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
-			</tr>
-		<% end %>
-		</tbody>
-		<tfoot>
-			<tr class="">
-				<th class="text-left whitespace-nowrap px-8 py-2 font-medium ">Total</th>
-				<th class="text-left whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
-			</tr>
-		</tfoot>
-	</table>
-</div>
-
 	<div class="flex flex-col md:flex-row justify-stretch gap-5">
 	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
 		<div class="overflow-x-auto rounded-[10px] h-full bg-white p-4 sm:p-6">
@@ -60,9 +31,71 @@
 	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
 		<div class="rounded-[10px] h-full bg-white p-4 sm:p-6">
 			<h2 class="text-xl">Card Payment</h2>
+			<div id="payment-element"></div>
+			<button id="submit">Pay now</button>
+
+			<div id="error-message"></div>
 		</div>
 	</div>
 </div>
 
 <h3 class="mt-5 text-xl">Problem?</h3>
 <p>Contact Nick (<a href="mailto:membership@sheffieldviking.org.uk">membership@sheffieldviking.org.uk</a>)</p>
+
+<%= content_for :javascript do %>
+	<script src="https://js.stripe.com/v3/"></script>
+	<script>
+		const stripe = Stripe('<%= Rails.application.credentials.dig(:stripe, :public_key) %>');
+		let elements;
+
+		const initialize = async () => {
+			const response = await fetch('<%= renewal_renewal_payments_path(@renewal) %>', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+				}
+			});
+			const { client_secret } = await response.json();
+
+			elements = stripe.elements({ clientSecret: client_secret });
+			const paymentElement = elements.create('payment');
+			paymentElement.mount('#payment-element');
+		};
+
+		document.querySelector('#submit').addEventListener('click', async (e) => {
+			e.preventDefault();
+			const { setupIntent, error } = await stripe.confirmSetup({
+				elements,
+				redirect: 'if_required'
+			});
+
+			if (error) {
+				const messageDiv = document.querySelector('#error-message');
+				messageDiv.textContent = error.message;
+				return;
+			}
+
+			// Now process the actual payment
+			const response = await fetch('<%= process_payment_renewal_renewal_payments_path(renewal_id: @renewal.id) %>', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-CSRF-Token': document.querySelector('[name="csrf-token"]').content
+				},
+				body: JSON.stringify({
+					payment_method_id: setupIntent.payment_method
+				})
+			});
+
+			const result = await response.json();
+			if (result.success) {
+				window.location.href = '<%= renewal_path(@renewal.reference) %>';
+			} else {
+				const messageDiv = document.querySelector('#error-message');
+				messageDiv.textContent = result.error;
+			}
+		});
+
+		initialize();	</script>
+<% end %>

@@ -127,3 +127,7 @@ gem "ostruct", "~> 0.6.1"
 gem "pg", "~> 1.5"
 
 gem "foreman", "~> 0.88.1"
+
+gem "pay", "~> 8.3"
+
+gem "stripe", "~> 13.3"

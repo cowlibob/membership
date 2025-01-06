@@ -9,8 +9,15 @@ Rails.application.routes.draw do
   # get "renewals/new"
   # get "renewals/create"
 
-  resources :renewals, :except => [:destroy]
+  resources :renewals, :except => [:destroy] do
+    resources :renewal_payments, only: [:create] do
+      collection do
+        post :process_payment
+      end
+    end
+  end
   root 'renewals#new'
+
   resources :contents
   resources :duties, only: [:index]
 

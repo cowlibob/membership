@@ -19,6 +19,8 @@ class Renewal < ActiveRecord::Base
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	scope :ordered_by_year, Proc.new{ order("DATE_PART('year', created_at) DESC") }
 
+	pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
+
 	def current_step
 		if membership_class.blank?
 			:membership_class
@@ -270,6 +272,25 @@ class Renewal < ActiveRecord::Base
 		self.created_at.year
 	end
 
+	def stripe_attributes(pay_customer)
+		{
+			address: {
+				line1: address_1,
+				line2: address_2,
+				postal_code: postcode
+			},
+			metadata: {
+				reference: reference,
+				membership_class: membership_class,
+				boat_count: boats.is_dinghy.where(berthing: true).count,
+				sailboard_count: boats.is_sailboard.where(berthing: true).count
+			},
+			email: primary_member&.email
+		}
+	end
 
+	def email
+		primary_member&.email
+	end
 
 end

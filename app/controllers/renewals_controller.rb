@@ -42,7 +42,9 @@ class RenewalsController < ApplicationController
 
   def show
     @renewal = Renewal.where(:reference => [params[:id], params[:id].gsub('-', '')]).first
-    @show_payment_link = false # @renewal.payment_id.nil?
+    if @charge = @renewal.charges.select{|charge| charge.captured?}.first
+      @show_payment_link = false # @renewal.payment_id.nil?
+    end
   end
 
   private
