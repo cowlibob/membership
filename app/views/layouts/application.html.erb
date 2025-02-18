@@ -9,7 +9,6 @@
 
     <%= stylesheet_link_tag    "application", "custom" %>
     <%= javascript_importmap_tags %>
-    <%= javascript_include_tag "application" %>
 
     <%= csrf_meta_tags %>
 
@@ -23,17 +22,28 @@
 <!--      ga('send', 'pageview');-->
 
 <!--    </script>-->
-    <%= javascript_importmap_tags %>
+
   </head>
 
   <body class="bg-white">
 
-    <nav class="fixed bg-sky-900 text-white w-full h-16 px-8 z-50 flex flex-row justify-between">
-      <div class="my-auto"><a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a></div>
-      <div class="my-auto">Checkout</div>
+    <nav class="sticky bg-sky-900 text-white w-full h-16 px-8 z-50 flex flex-row justify-between">
+      <div class="my-auto">
+        <a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a>
+      </div>
+      <% if @renewal&.total_cost > 0 %>
+        <div class="my-auto">
+          <%= number_to_currency(@renewal.total_cost, unit: "£") %>
+        </div>
+        <% end %>
     </nav>
 
-    <%= yield %>
+    <div class="flex flex-column md:flex-row">
+      <%= content_for :sidebar %>
+      <main class="w-full">
+        <%= yield %>
+      </main>
+    </div>
 
     <%= yield :javascript %>
   </body>

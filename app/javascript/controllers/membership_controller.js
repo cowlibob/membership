@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = ["membershipSelect", "pricingTable", "renewalMembershipClass", "familySection", "nextButton"];
 
   connect() {
+    debugger
     console.log("Membership controller connected");
 
     this.updateNextButtonState();
