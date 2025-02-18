@@ -1,4 +1,9 @@
-<div class="relative top-16 p-4 sm:ml-64">
+
+<% unless @charge.present? %>
+  <%= render partial: "sidebar" %>
+<% end %>
+<div class="flex items-start justify-center">
+  <div class="p-4">
   <% if @charge.present? %>
     <h1 class="text-3xl">Thank You For Your Payment</h1>
   <% else %>

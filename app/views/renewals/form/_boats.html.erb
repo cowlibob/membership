@@ -1,8 +1,64 @@
-<section class="mb-16" id="panel4" >
-  <h3 class="text-lg font-bold"data-section-title><a href="#panel4">Your Boats</a></h3>
+<section>
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-300 p-9" id="panel4" >
+    <div>
+      <%= f.label :no_boats, t('.i_have_no_boats_or_sailboards') %>
+      <%= f.check_box :no_boats %>
+    </div>
+    <div>
+      <a href="#" id="add-boat-field" class="my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Add Boat or Sailboard</a>
+    </div>
+  </div>
   <div class="content" data-section-content>
-    <%= f.fields_for :boats do |builder| %>
-      <%= render 'renewals/form/boat_fields', f: builder %>
-    <% end -%>
+    <div id="boat-fields">
+
+      <% index = 0 %>
+      <%= f.fields_for(:boats) do |builder| %>
+        <div class="boat grid grid-cols-1 gap-4 md:grid-cols-2 pt-9 bg-white even:bg-gray-100 border-t-2 border-black" id="new-boat">
+          <%= render 'renewals/form/boat_fields', f: builder, index: index += 1 %>
+        </div>
+      <% end -%>
+    </div>
+
   </div>
 </section>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('add-boat-field').addEventListener('click', function(event) {
+        event.preventDefault();
+            var orig = document.getElementById('new-boat');
+            var clone = orig.cloneNode(true);
+            var count = document.querySelectorAll("#boat-fields .boat").length + 1;
+
+            clone.querySelectorAll('label').forEach(function(element) {
+              element.htmlFor = element.htmlFor.replace(0, count);
+            });
+            clone.querySelectorAll('input, select').forEach(function(element) {
+              element.id = element.id.replace(0, count);
+                element.name = element.name.replace(0, count);
+                element.required = false;
+            });
+            clone.querySelector('select').selectedIndex = orig.querySelector('select').selectedIndex;
+
+            orig.querySelectorAll('input').forEach(function(element) {
+              element.value = '';
+            });
+            orig.querySelectorAll('select').forEach(function(element) {
+              element.value = 'request';
+            });
+
+            document.getElementById('boat-fields').appendChild(clone);
+        });
+
+      document.querySelectorAll('.is_sailboard').forEach(function(element) {
+        element.addEventListener('change', function(event) {
+          event.target.closest('.boat-row').querySelectorAll('.dinghy, .sailboard').forEach(function(el) {
+            el.classList.toggle('hidden');
+          });
+        });
+      });
+    });
+  </script>
+<% end %>
+  

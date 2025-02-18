@@ -1,54 +1,45 @@
-<div class="row boat-row" id="new-boat">
-	<div class="large-6 columns">
-		<%= f.label :is_sailboard %>
-		<%= f.check_box :is_sailboard, class: 'is_sailboard' %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :berthing, t('.dingy_berthing'), class: 'dinghy' %>
-		<%= f.label :berthing, t('.sailboard_berthing'), class: 'sailboard hidden' %>
-		<%= f.select :berthing, [['Yes, store it at the club', true], ['No, I will bring it to the club when I sail', false]], :prompt => true %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :classname %>
-		<%= f.text_field :classname%>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :sail_number %>
-		<%= f.text_field :sail_number %>
-	</div>	
-	<div class="large-6 columns">
-		<%= f.label :hull_colour %>
-		<%= f.text_field :hull_colour %>
-	</div>
-	<div class="large-6 columns">
-		<%= f.label :name %>
-		<%= f.text_field :name %>
+<div class="flex flex-row">
+	<div class="text-8xl font-bold numeral text-gray-300"><%= index %></div>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<div class="p-4">
+			<%= f.label :berthing, t('.berthing_or_storage'), class: 'dinghy block' %>
+			<%= f.label :berthing, t('.sailboard_berthing'), class: 'sailboard hidden block' %>
+			<%= f.select :berthing, 
+				[
+					['Yes, store it at the club', true], 
+					['No, I will bring it to the club when I sail', false]
+				],
+				{},
+				{
+					prompt: true,
+					class: "max-w-full"
+				}
+			%>
+		</div>
+		<div class="p-4">
+			<%= f.label :is_sailboard, "Dinghy or Sailboard?", class: 'block' %>
+			<%#= f.check_box :is_sailboard, class: 'is_sailboard w-full h-[42px] block border-1 border-black' %>
+			<%= f.select :is_sailboard, [['Dinghy', false], ['Sailboard', true]], {}, {class: 'is_sailboard max-w-full'} %>
+		</div>
+		<div class="p-4 md:w-full">
+			<%= f.label :classname, class: 'block' %>
+			<%= f.text_field :classname, class: "md:w-full block" %>
+		</div>
+		<div class="p-4 md:w-full">
+			<%= f.label :sail_number, class: 'block' %>
+			<%= f.text_field :sail_number, class: "md:w-full block"  %>
+		</div>	
+		<div class="p-4 md:w-full">
+			<%= f.label :hull_colour, class: 'block' %>
+			<%= f.text_field :hull_colour, class: "md:w-full block"  %>
+		</div>
+		<div class="p-4 md:w-full">
+			<%= f.label :name, class: 'block' %>
+			<%= f.text_field :name, class: "md:w-full block"  %>
+		</div>
+		<div class="p-4 md:w-full">
+			<%= f.label :insured, "By bringing my boat or sailboard to the club, I confirm it is insured as per the club rules.", class: 'block' %>
+			<%= f.select :insured, [['Yes', true], ['No', false]], {include_blank: true}, {class: 'is_insured w-full', required: true} %>
+		</div>
 	</div>
 </div>
-<div class="row">
-	<div class="large-2 columns">
-		<a href="#" id="add-boat-field" class="button postfix">Additional Boats</a>
-	</div>
-</div>
-<div id="boat-fields">
-</div>
-<% content_for :javascript do %>
-	<script type="text/javascript">
-		document.addEventListener("DOMContentLoaded", function() {
-			document.querySelectorAll('.is_sailboard').forEach(function(element) {
-				element.addEventListener('change', function(event) {
-					event.target.closest('.boat-row').querySelectorAll('.dinghy, .sailboard').forEach(function(el) {
-						el.classList.toggle('hidden');
-					});
-				});
-			});
-		});
-		// $(function(){
-		// 	$('.is_sailboard').change(
-		// 		function(event){
-		// 			$(event.target).parents('.boat-row').find('.dinghy, .sailboard').toggleClass('hidden');
-		// 		}
-		// 	)
-		// });
-	</script>
-<% end %>

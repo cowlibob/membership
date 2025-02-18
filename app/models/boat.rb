@@ -3,6 +3,8 @@ class Boat < ActiveRecord::Base
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 
+	attr_accessor :insured
+	
 	def self.berthed
 		where(berthing: true)
 	end

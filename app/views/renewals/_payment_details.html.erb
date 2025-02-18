@@ -1,38 +1,49 @@
 <% content_for :title, "SVSC Membership Renewal" %>
-	<div class="flex flex-col md:flex-row justify-stretch gap-5">
-	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
+
+<% stripe_like_text_field_classes = "block text-[#30313C] rounded-[5px] border-[#E6E6E6] shadow-[0px_1px_1px_rgba(0,0,0,0.03),0px_3px_6px_rgba(0,0,0,0.02)] text-[0.93rem] font-[-apple-system,BlinkMacSystemFont,Segoe_UI,Roboto,Oxygen,Ubuntu,Cantarell,Open_Sans,Helvetica_Neue,sans-serif]" %>
+<% stripe_like_label_classes = "block text-[#30313C] text-[0.93rem] font-[-apple-system,BlinkMacSystemFont,Segoe_UI,Roboto,Oxygen,Ubuntu,Cantarell,Open_Sans,Helvetica_Neue,sans-serif]" %>
+	<div class="flex flex-col md:flex-row items-center justify-items-stretch gap-5">
+	<div class="self-stretch w-fit mt-5 hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
 		<div class="overflow-x-auto rounded-[10px] h-full bg-white p-4 sm:p-6">
 			<h2 class="text-xl">Bank Transfer</h2>
 			<p> You may now opt to transfer funds directly to the club's account:</p>
 			<div class="py-1">
-				<%= label_tag 'Bank Name' %>
-				<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true %>
+				<%= label_tag 'Bank Name', nil, class: stripe_like_label_classes %>
+				<%= text_field_tag :bank_name, 'LLoyds Bank', :disabled => true, class: [stripe_like_text_field_classes, "bg-[url(#{image_path("lloydsbank_logo_icon_169221.png")})]"].join(" ") %>
 			</div>
 			<div class="py-1">
-			<%= label_tag 'Account Name' %>
-			<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 30 %>
+			<%= label_tag 'Account Name', nil, class: stripe_like_label_classes %>
+				<div data-controller="clipboard" data-clipboard-success-content-value="Copied!">
+					<%= text_field_tag :account_name, 'Sheffield Viking Sailing Club', :disabled => true, :size => 30, data: {'clipboard-target': 'source'}, class: stripe_like_text_field_classes %>
+<!--					<input type="text" value="Click the button to copy me!" data-clipboard-target="source" />-->
+
+<!--					<button type="button" data-action="clipboard#copy" data-clipboard-target="button">Copy to clipboard</button>-->
+				</div>
 			</div>
 			<div class="py-1">
-			<%= label_tag 'Sort Code' %>
-			<%= text_field_tag :sort_code, '30-97-51', :disabled => true %>
+			<%= label_tag 'Sort Code', nil, class: stripe_like_label_classes %>
+			<%= text_field_tag :sort_code, '30-97-51', :disabled => true, class: stripe_like_text_field_classes %>
 			</div>
 			<div class="py-1">
-			<%= label_tag 'Account Number' %>
-			<%= text_field_tag :account_number, '00318765', :disabled => true %>
+			<%= label_tag 'Account Number', nil, class: stripe_like_label_classes %>
+			<%= text_field_tag :account_number, '00318765', :disabled => true, class: stripe_like_text_field_classes %>
 			</div>
 			<div class="py-1">
-			<%= label_tag 'Reference (So we know who has paid)' %>
-			<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true %>
+			<%= label_tag 'Reference (So we know who has paid)', nil, class: stripe_like_label_classes %>
+			<%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true, class: stripe_like_text_field_classes %>
 			</div>
 			<h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
 		</div>
 	</div>
+	<div>
+		Or
+	</div>
 
-	<div class="self-stretch w-fit mt-5 flex-grow hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
+	<div class="grow self-stretch w-fit mt-5 hover:animate-background rounded-xl bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 p-0.5 shadow-xl transition hover:bg-[length:400%_400%] hover:shadow-sm hover:[animation-duration:_4s]">
 		<div class="rounded-[10px] h-full bg-white p-4 sm:p-6">
 			<h2 class="text-xl">Card Payment</h2>
 			<div id="payment-element"></div>
-			<button id="submit">Pay now</button>
+			<button id="submit" class="my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Pay now</button>
 
 			<div id="error-message"></div>
 		</div>

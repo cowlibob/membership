@@ -1,6 +1,6 @@
 <%= render partial: "sidebar" %>
 
-<div class="relative top-16 p-4 sm:ml-64">
+<div class="p-4">
 
   <h2><% content_for :title, "SVSC Membership Renewal" %></h2>
   <!--	<div class="mx-auto">-->
@@ -10,7 +10,7 @@
 
   <%= form_for @renewal do |f| %>
 
-    <% case params[:step]&.to_sym || @renewal.current_step %>
+    <% case @renewal_step_with_override %>
       <% when :membership_class %>
         <div class="mx-auto" id="membership-type">
           <%= render 'renewals/form/membership_classes', f: f %>
@@ -29,7 +29,7 @@
         <%= render 'renewals/form/comments', f: f %>
         <%= render 'renewals/form/declaration', f: f %>
     <% end %>
-    <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next" %>
+    <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
     <%#= f.hidden_field :membership_class, required: false %>
 
     <%#= render 'family', f: f %>

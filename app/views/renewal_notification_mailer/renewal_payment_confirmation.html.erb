@@ -1,0 +1,11 @@
+<% if @renewal.charge.present? %>
+    <p>Dear <%= @renewal.member.name %>,</p>
+    <p>Thank you for your payment. We have received your renewal payment of <%= number_to_currency(@renewal.charge.amount) %>. Your membership has been successfully renewed.</p>
+    <p>Best regards,</p>
+    <p>The SVSC Membership Team</p>
+<% else %>
+    <p>Dear <%= @renewal.member.name %>,</p>
+    <p>Thank you for your payment. Your renewal payment is currently pending confirmation. We will notify you once the payment has been confirmed.</p>
+    <p>Best regards,</p>
+    <p>The SVSC Membership Team</p>
+<% end %>

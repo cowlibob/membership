@@ -1,5 +1,8 @@
 class Member < ActiveRecord::Base
-	belongs_to :renewal
+	belongs_to :renewal, inverse_of: :primary_member, optional: true
+  belongs_to :renewal, inverse_of: :secondary_members, optional: true
+
+
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	

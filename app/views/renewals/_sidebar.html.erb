@@ -1,48 +1,45 @@
-<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-  <span class="sr-only">Open sidebar</span>
-  <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-  </svg>
-</button>
+<% content_for :sidebar do %>
+  <div data-controller="sidebar">
+    <button data-action="click->sidebar#toggle", type="button">
+      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+      </svg>
+    </button>
 
-<aside id="default-sidebar" class="fixed top-16 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-    <ul class="space-y-2 font-medium">
-      <li>
-        <a href="?step=membership_class" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="ms-3">Membership Type</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=about_you" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="ms-3">About You</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=address" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="flex-1 ms-3 whitespace-nowrap">Address</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=secondary_members" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="flex-1 ms-3 whitespace-nowrap">Family Members</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=boats" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="flex-1 ms-3 whitespace-nowrap">Boats</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=emegency_contact_details" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="flex-1 ms-3 whitespace-nowrap">Emergency Contact</span>
-        </a>
-      </li>
-      <li>
-        <a href="?step=dclaration" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-          <span class="flex-1 ms-3 whitespace-nowrap">Declaration</span>
-        </a>
-      </li>
-    </ul>
+    <% inactive_class = "flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group" %>
+    <% active_class = "flex items-center p-2 text-gray-100 rounded-lg dark:text-white bg-gray-600 dark:bg-gray-300 group" %>
+
+    <aside data-sidebar-target="menu" id="default-sidebar" class="md:sticky left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+      <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <ul class="space-y-2 font-medium">
+          <li>
+            <%= link_to_if @renewal&.persisted?, "About You", [:edit, @renewal, step: :about_you], class: :about_you == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Membership Type", [:edit, @renewal, step: :membership_class], class: :membership_class == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Address", [:edit, @renewal, step: :address], class: :address == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <% if @renewal.includes_family? %>
+            <li>
+              <%= link_to_if @renewal&.persisted?, "Family Members", [:edit, @renewal, step: :secondary_members], class: :secondary_members == @renewal_step_with_override ? active_class : inactive_class %>
+            </li>
+          <% end %>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Boats", [:edit, @renewal, step: :boats], class: :boats == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Emergency Contact", [:edit, @renewal, step: :emegency_contact_details], class: :emegency_contact_details == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Declaration", [:edit, @renewal, step: :dclaration], class: :dclaration == @renewal_step_with_override ? active_class : inactive_class %>
+          </li>
+          <li>
+            <%= link_to_if @renewal&.persisted?, "Payment", [@renewal], class: action_name == "show" ? active_class : inactive_class %>
+          </li>
+        </ul>
+      </div>
+    </aside>
   </div>
-</aside>
+<% end %>

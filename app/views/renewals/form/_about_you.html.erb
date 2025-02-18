@@ -1,5 +1,4 @@
 <section id="panel1" class="mb-16 active">
-  <h3 class="text-lg font-bold"data-section-title><a href="#panel1">About You</a></h3>
   <div class="content" data-section-content>
     <%= f.fields_for :primary_member do |builder| %>
       <%= render 'renewals/form/member_fields', {f: builder, required: true} %>

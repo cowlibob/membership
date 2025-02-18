@@ -39,7 +39,7 @@ en:
   activerecord:
     attributes:
       boat:
-        classname: "Class (Enterprise, Streaker, Topper)"
+        classname: "Class (Topper, Mirror etc)"
         is_sailboard: "This is a sailboard (wind surf)"
       member:
         dob: "Date of birth"

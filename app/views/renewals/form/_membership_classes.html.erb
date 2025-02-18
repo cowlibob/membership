@@ -1,5 +1,4 @@
-<h3>Select Membership</h3>
-<fieldset class="flex flex-col items-stretch space-y-4 mx-32">
+<fieldset class="flex flex-col items-stretch space-y-4">
 	<legend class="sr-only">Membership Class</legend>
 	<% Renewal.membership_classes.each do |key, membership_class| %>
 		<div class="">
@@ -63,9 +62,9 @@
 <!--				</li>-->
 
 				<%#= f.radio_button :membership_class, value: membership_class %>
-<!--				<li class="cta-button m-4 p-4 bg-green-500 hover:bg-green-700 rounded-base text-white font-bold text-center"><a class="button membership-select" data-value="Full" href="#">Select</a></li>-->
+<!--				<li class="cta-button p-4 p-4 bg-green-500 hover:bg-green-700 rounded-base text-white font-bold text-center"><a class="button membership-select" data-value="Full" href="#">Select</a></li>-->
 
-<!--				<li class="cta-button m-4 p-4 bg-sky-900 hover:bg-sky-800 rounded-lg text-white font-bold text-center">-->
+<!--				<li class="cta-button p-4 p-4 bg-sky-900 hover:bg-sky-800 rounded-lg text-white font-bold text-center">-->
 					<%#= f.label :membership_class, class: 'button membership-select', data: { value: membership_class[:ui_id] } do %>
 						<%#= f.radio_button :membership_class, membership_class[:ui_id], class: 'hidden' %>
 <!--						Select-->
@@ -76,7 +75,7 @@
 <!--						membership_class[:ui_id],-->
 						class: 'peer absolute h-0 w-0 opacity-0' %>
 <!--					<%#= f.label :membership_class,-->
-<!--						class: 'cta-button block m-4 p-4 bg-sky-900 hover:bg-sky-800 rounded-lg text-white font-bold text-center cursor-pointer peer-checked:ring-2 peer-checked:ring-white peer-focus:ring-2 peer-focus:ring-white',-->
+<!--						class: 'cta-button block p-4 p-4 bg-sky-900 hover:bg-sky-800 rounded-lg text-white font-bold text-center cursor-pointer peer-checked:ring-2 peer-checked:ring-white peer-focus:ring-2 peer-focus:ring-white',-->
 						data: { value: membership_class[:ui_id] } do %>
 <!--						Select-->
 					<%# end %>

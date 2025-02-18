@@ -1,10 +1,10 @@
 <p>Hi <%= @renewal.primary_member.first_name %>,</p>
 
-<p>Thanks for renewing your Sheffield Viking Sailing Club membership for <%= Date.today.year %></p>
+<p>Thanks for starting renewal of your Sheffield Viking Sailing Club membership for <%= Date.today.year %></p>
 
-<p>You can view your membership details <%= link_to 'here', renewal_url(id: @renewal.reference) %> at any time.</p>
+<p>You can edit your membership details <%= link_to 'here', edit_renewal_url(id: @renewal.reference) %> until payment has been made.</p>
 
-<p>If you have any questions about membership, you can contact <%= link_to "Mick", "mailto:membership@sheffieldviking.org.uk" %></p>
+<p>If you have any questions about membership, you can contact <%= link_to "Nick", "mailto:membership@sheffieldviking.org.uk" %></p>
 <p>Thanks,</p>
 
 <p>

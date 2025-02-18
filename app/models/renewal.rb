@@ -2,35 +2,50 @@ class Renewal < ActiveRecord::Base
 
 	include SpreadsheetArchitect
 
-	has_one :primary_member, -> { where(primary: true) }, class_name: '::Member', dependent: :destroy
-	has_many :secondary_members, class_name: '::Member', dependent: :destroy
+	has_one :primary_member, -> { where(primary: true) }, class_name: '::Member', dependent: :destroy, inverse_of: :renewal
+	has_many :secondary_members, class_name: '::Member', dependent: :destroy, inverse_of: :renewal
 	has_many :boats, dependent: :destroy
 	has_many :duties, dependent: :destroy
 	# belongs_to :payment
 
 	# validates :primary_member, :presence => true
-	accepts_nested_attributes_for :primary_member
+	accepts_nested_attributes_for :primary_member, reject_if: :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :secondary_members, :reject_if => :all_blank
 	accepts_nested_attributes_for :boats, :reject_if => :all_blank
 
 	accepts_nested_attributes_for :duties, :reject_if => :duty_not_populated
 
+	class EmailValidator < ActiveModel::EachValidator
+		def validate_each(record, attribute, value)
+			record.errors.add attribute, (options[:message] || "is not an email") unless
+				/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.match?(value)
+		end
+	end
+	validates :email, :presence => true, :email => true
 
 	scope :by_year, Proc.new{|year| where(["DATE_PART('year', created_at) = ?", year]) }
 	scope :ordered_by_year, Proc.new{ order("DATE_PART('year', created_at) DESC") }
 
 	pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
+	def includes_family?
+		membership_class == 'family-membership'
+	end
+	
 	def current_step
-		if membership_class.blank?
-			:membership_class
-		elsif primary_member.blank?
+		if errors.none?
+			valid?
+		end
+
+		if primary_member.blank? || errors.attribute_names.include?(:email)
 			:about_you
+		elsif membership_class.blank?
+			:membership_class
 		elsif address.blank?
 			:address
 		elsif secondary_members.blank?
 			:secondary_members
-		elsif boats.blank?
+		elsif boats.blank? && !no_boats?
 			:boats
 		elsif emergency_contact_details.blank?
 			:emegency_contact_details
@@ -152,9 +167,9 @@ class Renewal < ActiveRecord::Base
 		end
 	end
 
-	# def to_param
-	# 	self.reference
-	# end
+	def to_param
+		self.reference
+	end
 
 	def self.membership_classes
 		{
@@ -166,41 +181,42 @@ class Renewal < ActiveRecord::Base
 				ui_class: 'full',
 				ui_id: 'full-membership',
 				name: 'Full',
-				cost: 185
+				cost: 190
 			},
 			'family-membership' => {
 				title: 'Family',
-				description: 'Includes partner and children under 18',
+				description: 'Principal member with partner and dependents still in full time education or on an apprenticeship scheme.',
+				# description: 'One adult, a partner and children in full-time education or apprenticeship',
 				feature_1: 'Full use of facilities and club boats',
 				feature_2: 'Free safety boat training',
 				ui_class: 'family',
 				ui_id: 'family-membership',
 				name: 'Full',
-				cost: 185
+				cost: 190
 			},
 			'youth-membership' => {
 				title: 'Youth',
-				description: 'Over 16 and in full-time education',
+				description: 'One person over 12 and in full-time education or apprenticeship',
 				feature_1: 'Full use of facilities and club boats',
 				feature_2: 'Free safety boat training',
 				ui_class: '',
 				ui_id: 'youth-membership',
 				name: 'Youth',
-				cost: 58
+				cost: 60
 			},
 			'retained-membership' => {
 				title: 'Retained',
-				description: 'Includes partner and children under 18',
+				description: 'One Adult',
 				feature_1: 'Retain link with the club while away or unable to sail',
 				feature_2: '',
 				ui_class: '',
 				ui_id: 'retained-membership',
 				name: 'Retained',
-				cost: 26
+				cost: 30
 			},
 			'honorary-membership' => {
 				title: 'Honourary',
-				description: 'Invitation only!<br/>&nbsp;',
+				description: 'One adult, by invitation only!',
 				feature_1: 'Full use of facilities and club boats',
 				feature_2: 'Free safety boat training',
 				ui_class: '',
