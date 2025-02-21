@@ -26,4 +26,27 @@ module RenewalsHelper
 		'data-required=true' if value
 	end
 
+	def sidebar_link(key:, url:)
+		is_link = @renewal&.persisted?
+		is_current_step = key == @renewal_step_with_override
+		link_class = if is_current_step
+			"flex flex-nowrap items-center p-2 text-gray-100 rounded-lg dark:text-white bg-gray-600 dark:bg-gray-300 group"
+		else
+			"flex flex-nowrap items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group"
+		end
+
+		ERB.new(<<-HTML).result(binding).html_safe
+			<li class="<%= link_class %> <%= 'active' if request.path == '#{url}' %>"
+				  data-action="click->sidebar#toggle"
+			>
+				<%= link_to_if(is_link, I18n.t(key, scope: :sidebar, default: key), url) %>
+			</li>
+		HTML
+	end
+
+	def renewal_step_title
+		path_stem = caller.first.match(/\/_(\w+).html.erb:/)[1]
+		# path_stem = File.basename(__FILE__, '.html.erb').gsub(/\A_/, '').to_s
+		I18n.t(path_stem, scope: :sidebar)
+	end
 end

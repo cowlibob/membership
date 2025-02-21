@@ -30,4 +30,16 @@ class Member < ActiveRecord::Base
 		[full_name, date_of_birth, phone, email].join(', ')
 	end
 
+	def dob= value
+		if value.is_a?(String)
+			begin
+				super Date.parse(value) 
+			rescue => e
+				errors.add(:dob, "is not a valid date")
+			end
+		else
+			super value
+		end
+	end
+
 end

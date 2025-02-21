@@ -8,6 +8,7 @@
     "tailwindcss": "^3.4.16"
   },
   "scripts": {
-    "build:css": "tailwindcss build -o app/assets/stylesheets/application.css"
+    "build:css": "tailwindcss build -o app/assets/stylesheets/application.css",
+    "watch:css": "tailwindcss build -o app/assets/stylesheets/application.css --watch"
   }
 }

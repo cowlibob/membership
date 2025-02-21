@@ -2,32 +2,32 @@
 
 <div class="p-4">
 
-  <h2><% content_for :title, "SVSC Membership Renewal" %></h2>
-  <!--	<div class="mx-auto">-->
-  <%#= s('introduction') %>
-  <!--	</div>-->
+    <h2><% content_for :title, "SVSC Membership Renewal" %></h2>
+    <!--	<div class="mx-auto">-->
+    <%#= s('introduction') %>
+    <!--	</div>-->
 
 
-  <%= form_for @renewal do |f| %>
+    <%= form_for(form_url, method: form_method, html: { disabled: @renewal.is_paid? }) do |f| %>
 
     <% case @renewal_step_with_override %>
-      <% when :membership_class %>
-        <div class="mx-auto" id="membership-type">
-          <%= render 'renewals/form/membership_classes', f: f %>
-        </div>
-      <% when :about_you %>
-        <%= render 'renewals/form/about_you', f: f %>
-      <% when :address %>
-        <%= render 'renewals/form/address', f: f %>
-      <% when :secondary_members %>
-        <%= render 'renewals/form/family', f: f %>
-      <% when :boats %>
-        <%= render 'renewals/form/boats', f: f %>
-      <% when :emegency_contact_details %>
-        <%= render 'renewals/form/emergency', f: f %>
-      <% else #when :declaration %>
-        <%= render 'renewals/form/comments', f: f %>
-        <%= render 'renewals/form/declaration', f: f %>
+    <% when :membership_class %>
+    <div class="mx-auto" id="membership-type">
+        <%= render 'renewals/form/membership_class', f: f %>
+    </div>
+    <% when :about_you %>
+    <%= render 'renewals/form/about_you', f: f %>
+    <% when :address %>
+    <%= render 'renewals/form/address', f: f %>
+    <% when :your_family %>
+    <%= render 'renewals/form/your_family', f: f %>
+    <% when :boats %>
+    <%= render 'renewals/form/boats', f: f %>
+    <% when :emergency_contact %>
+    <%= render 'renewals/form/emergency_contact', f: f %>
+    <% else #when :declaration %>
+    <%= render 'renewals/form/comments', f: f %>
+    <%= render 'renewals/form/declaration', f: f %>
     <% end %>
     <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
     <%#= f.hidden_field :membership_class, required: false %>
@@ -51,135 +51,135 @@
     <!--			</div>-->
     <!--		</div>-->
 
-  <% end -%>
+    <% end -%>
 
-  <%# content_for :javascript do %>
-  <!--		<script type="text/javascript">-->
-  <!--			document.addEventListener("DOMContentLoaded", function() {-->
-  <!--				document.querySelectorAll('.membership-select').forEach(function(element) {-->
-  <!--					element.addEventListener('click', function(event) {-->
-  <!--						event.preventDefault();-->
+    <%# content_for :javascript do %>
+    <!--		<script type="text/javascript">-->
+    <!--			document.addEventListener("DOMContentLoaded", function() {-->
+    <!--				document.querySelectorAll('.membership-select').forEach(function(element) {-->
+    <!--					element.addEventListener('click', function(event) {-->
+    <!--						event.preventDefault();-->
 
-  <!--						// Visual-->
-  <!--						var table = this.closest('.pricing-table');-->
-  <!--						document.querySelectorAll('.pricing-table').forEach(function(table) {-->
-  <!--							table.classList.remove('selected');-->
-  <!--						});-->
-  <!--						table.classList.add('selected');-->
+    <!--						// Visual-->
+    <!--						var table = this.closest('.pricing-table');-->
+    <!--						document.querySelectorAll('.pricing-table').forEach(function(table) {-->
+    <!--							table.classList.remove('selected');-->
+    <!--						});-->
+    <!--						table.classList.add('selected');-->
 
-  <!--						// Enable sections-->
-  <!--						var sections = document.querySelectorAll('section.family');-->
-  <!--						if (table.classList.contains('family')) {-->
-  <!--							sections.forEach(function(section) {-->
-  <!--								section.classList.remove('disabled');-->
-  <!--								section.querySelectorAll('input').forEach(function(input) {-->
-  <!--									input.disabled = false;-->
-  <!--								});-->
-  <!--							});-->
-  <!--						} else {-->
-  <!--							sections.forEach(function(section) {-->
-  <!--								section.classList.add('disabled');-->
-  <!--								section.querySelectorAll('input').forEach(function(input) {-->
-  <!--									input.disabled = true;-->
-  <!--								});-->
-  <!--							});-->
-  <!--						}-->
+    <!--						// Enable sections-->
+    <!--						var sections = document.querySelectorAll('section.family');-->
+    <!--						if (table.classList.contains('family')) {-->
+    <!--							sections.forEach(function(section) {-->
+    <!--								section.classList.remove('disabled');-->
+    <!--								section.querySelectorAll('input').forEach(function(input) {-->
+    <!--									input.disabled = false;-->
+    <!--								});-->
+    <!--							});-->
+    <!--						} else {-->
+    <!--							sections.forEach(function(section) {-->
+    <!--								section.classList.add('disabled');-->
+    <!--								section.querySelectorAll('input').forEach(function(input) {-->
+    <!--									input.disabled = true;-->
+    <!--								});-->
+    <!--							});-->
+    <!--						}-->
 
-  <!--						// Value-->
-  <!--						document.querySelector('input#renewal_membership_class').value = this.dataset.value;-->
-  <!--					});-->
-  <!--				});-->
+    <!--						// Value-->
+    <!--						document.querySelector('input#renewal_membership_class').value = this.dataset.value;-->
+    <!--					});-->
+    <!--				});-->
 
-  <!--				document.querySelectorAll('section.family .title > a').forEach(function(element) {-->
-  <!--					element.addEventListener('click', function(event) {-->
-  <!--						if (document.querySelectorAll('.pricing-table.family.selected').length === 0) {-->
-  <!--							event.stopImmediatePropagation();-->
-  <!--							event.preventDefault();-->
-  <!--						}-->
-  <!--					});-->
-  <!--				});-->
+    <!--				document.querySelectorAll('section.family .title > a').forEach(function(element) {-->
+    <!--					element.addEventListener('click', function(event) {-->
+    <!--						if (document.querySelectorAll('.pricing-table.family.selected').length === 0) {-->
+    <!--							event.stopImmediatePropagation();-->
+    <!--							event.preventDefault();-->
+    <!--						}-->
+    <!--					});-->
+    <!--				});-->
 
-  <!--				document.querySelector('#renewal-button .next').addEventListener('click', function(event) {-->
-  <!--					event.stopImmediatePropagation();-->
-  <!--					event.preventDefault();-->
+    <!--				document.querySelector('#renewal-button .next').addEventListener('click', function(event) {-->
+    <!--					event.stopImmediatePropagation();-->
+    <!--					event.preventDefault();-->
 
-  <!--					var currentTab = document.querySelector('#tabs .active');-->
-  <!--					var nextTab = currentTab.nextElementSibling;-->
+    <!--					var currentTab = document.querySelector('#tabs .active');-->
+    <!--					var nextTab = currentTab.nextElementSibling;-->
 
-  <!--					while (nextTab && nextTab.classList.contains('disabled')) {-->
-  <!--						nextTab = nextTab.nextElementSibling;-->
-  <!--					}-->
+    <!--					while (nextTab && nextTab.classList.contains('disabled')) {-->
+    <!--						nextTab = nextTab.nextElementSibling;-->
+    <!--					}-->
 
-  <!--					if (nextTab) {-->
-  <!--						nextTab.querySelector('p.title a').click();-->
-  <!--					}-->
+    <!--					if (nextTab) {-->
+    <!--						nextTab.querySelector('p.title a').click();-->
+    <!--					}-->
 
-  <!--					if (!nextTab || !nextTab.nextElementSibling || nextTab.nextElementSibling.classList.contains('disabled')) {-->
-  <!--						document.querySelector('#renewal-button .next').classList.add('disabled');-->
-  <!--					}-->
-  <!--				});-->
+    <!--					if (!nextTab || !nextTab.nextElementSibling || nextTab.nextElementSibling.classList.contains('disabled')) {-->
+    <!--						document.querySelector('#renewal-button .next').classList.add('disabled');-->
+    <!--					}-->
+    <!--				});-->
 
-  <!--				document.querySelectorAll('#tabs section p.title a').forEach(function(element) {-->
-  <!--					element.addEventListener('click', function() {-->
-  <!--						document.querySelector('#renewal-button .next.disabled').classList.remove('disabled');-->
-  <!--					});-->
-  <!--				});-->
-  <!--			});-->
-  <!--			// $(function(){-->
-  <!--			// 	$('.membership-select').click(function(event){-->
-  <!--			// 		// Visual-->
-  <!--			// 		var table = $(this).parents('.pricing-table');-->
-  <!--			// 		$('.pricing-table').removeClass('selected');-->
-  <!--			// 		table.addClass('selected');-->
-  <!--			//-->
-  <!--			// 		// Enable sections-->
-  <!--			// 		var sections = $('section.family');-->
-  <!--			// 		if(table.hasClass('family')){-->
-  <!--			// 			sections.removeClass('disabled');-->
-  <!--			// 			sections.find('input').each(function(elem){this.disabled = false});-->
-  <!--			// 		} else {-->
-  <!--			// 			sections.addClass('disabled');-->
-  <!--			// 			sections.find('input').each(function(elem){this.disabled = true});-->
-  <!--			// 		}-->
-  <!--			//-->
-  <!--			//-->
-  <!--			// 		// var shown = '.' + table[0].id;-->
-  <!--			// 		// $('.membership-specific').not(shown).hide();-->
-  <!--			// 		// $(shown).show();-->
-  <!--			//-->
-  <!--			// 		// Value-->
-  <!--			// 		$('input#renewal_membership_class').val($(this).data('value'));-->
-  <!--			// 		event.preventDefault();-->
-  <!--			// 	});-->
-  <!--			//-->
-  <!--			// 	$('section.family .title > a').click(function(event){-->
-  <!--			// 		if( $('.pricing-table.family.selected').length == 0){-->
-  <!--			// 			event.stopImmediatePropagation();-->
-  <!--			// 			event.preventDefault();-->
-  <!--			// 		}-->
-  <!--			// 	});-->
-  <!--			//-->
-  <!--			// 	$('#renewal-button .next').click(function(event){-->
-  <!--			// 		event.stopImmediatePropagation();-->
-  <!--			// 		event.preventDefault();-->
-  <!--			//-->
-  <!--			// 		var currentTab = $('#tabs .active');-->
-  <!--			// 		var nextTab = currentTab.nextAll('section').not('.disabled').first()-->
-  <!--			//-->
-  <!--			// 		nextTab.find('p.title a').click();-->
-  <!--			//-->
-  <!--			// 		if(nextTab.nextAll('section').not('.disabled').length == 0){-->
-  <!--			//-->
-  <!--			// 			$('#renewal-button .next').addClass('disabled');-->
-  <!--			// 		}-->
-  <!--			// 	});-->
-  <!--			//-->
-  <!--			// 	$('#tabs section p.title a').click(function(event){-->
-  <!--			// 		$('#renewal-button .next.disabled').removeClass('disabled');-->
-  <!--			// 	});-->
-  <!--			//-->
-  <!--			//-->
-  <!--			// });-->
-  <!--		</script>-->
-  <%# end -%>
+    <!--				document.querySelectorAll('#tabs section p.title a').forEach(function(element) {-->
+    <!--					element.addEventListener('click', function() {-->
+    <!--						document.querySelector('#renewal-button .next.disabled').classList.remove('disabled');-->
+    <!--					});-->
+    <!--				});-->
+    <!--			});-->
+    <!--			// $(function(){-->
+    <!--			// 	$('.membership-select').click(function(event){-->
+    <!--			// 		// Visual-->
+    <!--			// 		var table = $(this).parents('.pricing-table');-->
+    <!--			// 		$('.pricing-table').removeClass('selected');-->
+    <!--			// 		table.addClass('selected');-->
+    <!--			//-->
+    <!--			// 		// Enable sections-->
+    <!--			// 		var sections = $('section.family');-->
+    <!--			// 		if(table.hasClass('family')){-->
+    <!--			// 			sections.removeClass('disabled');-->
+    <!--			// 			sections.find('input').each(function(elem){this.disabled = false});-->
+    <!--			// 		} else {-->
+    <!--			// 			sections.addClass('disabled');-->
+    <!--			// 			sections.find('input').each(function(elem){this.disabled = true});-->
+    <!--			// 		}-->
+    <!--			//-->
+    <!--			//-->
+    <!--			// 		// var shown = '.' + table[0].id;-->
+    <!--			// 		// $('.membership-specific').not(shown).hide();-->
+    <!--			// 		// $(shown).show();-->
+    <!--			//-->
+    <!--			// 		// Value-->
+    <!--			// 		$('input#renewal_membership_class').val($(this).data('value'));-->
+    <!--			// 		event.preventDefault();-->
+    <!--			// 	});-->
+    <!--			//-->
+    <!--			// 	$('section.family .title > a').click(function(event){-->
+    <!--			// 		if( $('.pricing-table.family.selected').length == 0){-->
+    <!--			// 			event.stopImmediatePropagation();-->
+    <!--			// 			event.preventDefault();-->
+    <!--			// 		}-->
+    <!--			// 	});-->
+    <!--			//-->
+    <!--			// 	$('#renewal-button .next').click(function(event){-->
+    <!--			// 		event.stopImmediatePropagation();-->
+    <!--			// 		event.preventDefault();-->
+    <!--			//-->
+    <!--			// 		var currentTab = $('#tabs .active');-->
+    <!--			// 		var nextTab = currentTab.nextAll('section').not('.disabled').first()-->
+    <!--			//-->
+    <!--			// 		nextTab.find('p.title a').click();-->
+    <!--			//-->
+    <!--			// 		if(nextTab.nextAll('section').not('.disabled').length == 0){-->
+    <!--			//-->
+    <!--			// 			$('#renewal-button .next').addClass('disabled');-->
+    <!--			// 		}-->
+    <!--			// 	});-->
+    <!--			//-->
+    <!--			// 	$('#tabs section p.title a').click(function(event){-->
+    <!--			// 		$('#renewal-button .next.disabled').removeClass('disabled');-->
+    <!--			// 	});-->
+    <!--			//-->
+    <!--			//-->
+    <!--			// });-->
+    <!--		</script>-->
+    <%# end -%>
 </div>

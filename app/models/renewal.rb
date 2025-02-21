@@ -44,11 +44,11 @@ class Renewal < ActiveRecord::Base
 		elsif address.blank?
 			:address
 		elsif secondary_members.blank?
-			:secondary_members
+			:your_family
 		elsif boats.blank? && !no_boats?
 			:boats
 		elsif emergency_contact_details.blank?
-			:emegency_contact_details
+			:emergency_contact
 		# elsif duties.blank?
 		# 	:duties
 		elsif !declaration_confirmed?
@@ -161,9 +161,13 @@ class Renewal < ActiveRecord::Base
 		save
 	end
 
+	def is_paid?
+		charges.select{|charge| charge.captured?}.any?
+	end
+
 	def generate_reference
 		if self.primary_member && reference.blank?
-			write_attribute(:reference, "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.-]/, ''))
+			update(reference: "#{self.primary_member.email[0..8]}-#{self.id}".gsub(/[@\.-]/, ''))
 		end
 	end
 

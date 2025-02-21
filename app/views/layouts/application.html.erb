@@ -1,50 +1,60 @@
 <!DOCTYPE html>
-  <head>
-  	<meta charset="utf-8" />
-  	<!-- Set the viewport width to device width for mobile -->
+
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
-  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
     <%= stylesheet_link_tag    "application", "custom" %>
     <%= javascript_importmap_tags %>
 
     <%= csrf_meta_tags %>
 
-<!--    <script>-->
-<!--      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
-<!--      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
-<!--      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
-<!--      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
+    <!--    <script>-->
+    <!--      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
+    <!--      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
+    <!--      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
+    <!--      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
 
-<!--      ga('create', 'UA-59210426-1', 'auto');-->
-<!--      ga('send', 'pageview');-->
+    <!--      ga('create', 'UA-59210426-1', 'auto');-->
+    <!--      ga('send', 'pageview');-->
 
-<!--    </script>-->
+    <!--    </script>-->
 
-  </head>
+</head>
 
-  <body class="bg-white">
+<body class="bg-white" data-controller="sidebar">
 
-    <nav class="sticky bg-sky-900 text-white w-full h-16 px-8 z-50 flex flex-row justify-between">
-      <div class="my-auto">
-        <a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a>
-      </div>
-      <% if @renewal&.total_cost > 0 %>
+    <nav class="sticky bg-sky-900 text-white w-full h-16 pl-0 pr-8 z-50 flex flex-row justify-between">
+        <%= content_for :sidebar_button %>
         <div class="my-auto">
-          <%= number_to_currency(@renewal.total_cost, unit: "£") %>
+            <a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a>
+        </div>
+        <% if @renewal&.total_cost > 0 %>
+        <div class="my-auto">
+            <%= number_to_currency(@renewal.total_cost, unit: "£") %>
         </div>
         <% end %>
     </nav>
 
-    <div class="flex flex-column md:flex-row">
-      <%= content_for :sidebar %>
-      <main class="w-full">
-        <%= yield %>
-      </main>
+    <% if flash[:error].present? %>
+    <div class="w-full py-8 bg-red-500 text-white text-center">
+        <%= flash[:error].html_safe %>
+    </div>
+    <% end %>
+    <div class="flex flex-col md:flex-row h-screen">
+        <aside data-sidebar-target="menu" id="default-sidebar" class="shrink-0 basis-64 sr-only sm:not-sr-only sm:fixed md:static inset-0 z-40 sm:w-full md:w-1/4 h-full transition-transform md:not-translate-x-full md:sticky md:left-0 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+            <%= content_for :sidebar %>
+        </aside>
+        <main class="flex-grow basis-3/4">
+            <%= yield %>
+        </main>
     </div>
 
     <%= yield :javascript %>
-  </body>
+</body>
+
 </html>

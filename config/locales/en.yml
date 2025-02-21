@@ -36,6 +36,16 @@ en:
     boat_fields:
       dingy_berthing: "Berthing Required (£50 per boat, April - October)"
       sailboard_berthing: "Berthing Required (£20 per board/rig, April - October)"
+  sidebar:
+    about_you: About You
+    membership_class: Membership Class
+    address: Address
+    your_family: Your Family
+    boats: Boats & Sailboards
+    emergency_contact: Emergency Contact
+    comments: Comments
+    declaration: Declaration
+    payment: Payment
   activerecord:
     attributes:
       boat:

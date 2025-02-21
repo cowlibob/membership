@@ -1,14 +1,14 @@
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-	<div class="p-4 md:w-full" data-required="true">
-		<%= f.label :address_1, class: 'block' %>
-		<%= f.text_field :address_1, required: true, class: "md:w-full" %>
-	</div>
-	<div class="p-4 md:w-full" data-required="true">
-		<%= f.label :address_2, class: 'block' %>
-		<%= f.text_field :address_2, required: true, class: "md:w-full block" %>
-	</div>
-	<div class="p-4 md:w-full" data-required="true">
-		<%= f.label :postcode, class: 'block' %>
-		<%= f.text_field :postcode, required: true, class: "md:w-full block" %>
-	</div>
+    <div class="p-4 md:w-full" data-required="true">
+        <%= f.label :address_1, class: 'block' %>
+        <%= f.text_field :address_1, required: true, class: "md:w-full", disabled: @renewal.is_paid? %>
+    </div>
+    <div class="p-4 md:w-full" data-required="true">
+        <%= f.label :address_2, class: 'block' %>
+        <%= f.text_field :address_2, required: true, class: "md:w-full block", disabled: @renewal.is_paid? %>
+    </div>
+    <div class="p-4 md:w-full" data-required="true">
+        <%= f.label :postcode, class: 'block' %>
+        <%= f.text_field :postcode, required: true, class: "md:w-full block", disabled: @renewal.is_paid? %>
+    </div>
 </div>

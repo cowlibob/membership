@@ -1,14 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "button", "menu" ]
+  static targets = ["button", "menu"]
   connect() {
-    debugger
     // this.element.textContent = "Sidebar!"
   }
 
   toggle() {
-    debugger
-    this.menuTarget.classList.toggle('hidden')
+    this.menuTarget.classList.toggle('sr-only')
+    // this.menuTarget.classList.toggle('md:-translate-x-full')
   }
 }
