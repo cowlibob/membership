@@ -131,4 +131,6 @@ gem 'foreman', '~> 0.88.1'
 
 gem 'pay', '~> 8.3'
 
+gem 'aws-sdk-ses', '~> 1.38'
+
 gem 'stripe', '~> 13.3'
