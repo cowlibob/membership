@@ -68,7 +68,8 @@ Rails.application.configure do
   #   authentication: :plain
   # }
 
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :ses_v2
+  config.action_mailer.ses_v2_settings = { region: 'eu-west-2' }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
