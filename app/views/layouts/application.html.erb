@@ -33,7 +33,7 @@
         <div class="my-auto">
             <a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a>
         </div>
-        <% if @renewal&.total_cost > 0 %>
+        <% if @renewal && @renewal.total_cost > 0 %>
         <div class="my-auto">
             <%= number_to_currency(@renewal.total_cost, unit: "£") %>
         </div>

@@ -1,11 +1,11 @@
 class RenewalPaymentsController < ApplicationController
   def create
-    @renewal = Renewal.find(params[:renewal_id])
+    @renewal = Renewal.find_by(reference: params[:renewal_id])
 
     setup_intent = @renewal.payment_processor
                            .create_setup_intent({
-                             payment_method_types: ['card']
-                           })
+                                                  payment_method_types: ['card']
+                                                })
 
     render json: { client_secret: setup_intent.client_secret }
   end
