@@ -1,6 +1,7 @@
 <div class="flex flex-row">
-    <div class="text-8xl font-bold numeral text-gray-300"><%= index %></div>
+    <div class="boat-number text-8xl font-bold numeral text-gray-300"><%= index %></div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <%= f.hidden_field :id %>
         <div class="p-4">
             <%= f.label :berthing, t('.berthing_or_storage'), class: 'dinghy block' %>
             <%= f.label :berthing, t('.sailboard_berthing'), class: 'sailboard hidden block' %>
@@ -39,6 +40,7 @@
             <%= f.text_field :name, class: "md:w-full block", disabled: @renewal.is_paid?  %>
         </div>
         <div class="p-4 md:w-full">
+            <%= f.object.insured %>
             <%= f.label :insured, "By bringing my boat or sailboard to the club, I confirm it is insured as per the club rules.", class: 'block' %>
             <%= f.select :insured, [['Yes', true], ['No', false]], {include_blank: true}, {class: 'is_insured w-full', disabled: @renewal.is_paid?} %>
         </div>

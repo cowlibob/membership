@@ -1,50 +1,49 @@
-
 <%# unless @charge.present? %>
-  <%= render partial: "sidebar" %>
+<%= render partial: "sidebar" %>
 <%# end %>
 <div class="flex items-start justify-center">
-  <div class="p-4">
-  <% if @charge.present? %>
-    <h1 class="text-3xl">Thank You For Your Payment</h1>
-  <% else %>
-    <h1 class="text-3xl">Payment Required</h1>
-  <% end %>
+    <div class="p-4">
+        <% if @charge.present? %>
+        <h1 class="text-3xl mb-16">Thank You For Your Payment</h1>
+        <% else %>
+        <h1 class="text-3xl">Payment Required</h1>
+        <% end %>
 
-  <h2 class="text-xl mt-5">Billing Summary</h2>
-  <div class="overflow-x-auto">
-    <table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
-      <thead class="ltr:text-left rtl:text-right">
-      <tr>
-        <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Benefit</th>
-        <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
-      </tr>
-      </thead>
+        <h2 class="text-xl mt-5">Billing Summary</h2>
+        <div class="overflow-x-auto">
+            <table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
+                <thead class="ltr:text-left rtl:text-right">
+                    <tr>
+                        <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Benefit</th>
+                        <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
+                    </tr>
+                </thead>
 
-      <tbody class="divide-y divide-gray-200">
-      <% @renewal.line_item_rows.each do |row| %>
-        <tr class="odd:bg-gray-50">
-          <td class="whitespace-nowrap px-8 py-2 font-medium text-gray-900"><%= row.first %></td>
-          <td class="whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
-        </tr>
-      <% end %>
-      </tbody>
-      <tfoot>
-      <tr class="">
-        <th class="text-left whitespace-nowrap px-8 py-2 font-medium ">Total</th>
-        <th class="text-left whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
-      </tr>
-      </tfoot>
-    </table>
-  </div>
-  <% if @charge.present? %>
-    <div>
-      Total Paid: <%= number_to_currency(@charge.amount / 100, unit: "£") %>
+                <tbody class="divide-y divide-gray-200">
+                    <% @renewal.line_item_rows.each do |row| %>
+                    <tr class="odd:bg-gray-50">
+                        <td class="whitespace-nowrap px-8 py-2 font-medium text-gray-900"><%= row.first %></td>
+                        <td class="whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+                <tfoot>
+                    <tr class="">
+                        <th class="text-left whitespace-nowrap px-8 py-2 font-medium ">Total</th>
+                        <th class="text-left whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <% if @charge.present? %>
+        <div>
+            Total Paid: <%= number_to_currency(@charge.amount / 100, unit: "£") %>
+        </div>
+        <div>
+            Paid on: <%= @charge.created_at.strftime("%c") %>
+        </div>
+        <%= link_to "View Invoice", @charge.stripe_receipt_url, target: "_blank", class: "inline-block rounded border border-sky-600 bg-sky-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-sky-600 focus:outline-none focus:ring active:text-indigo-500" %>
+        <% else %>
+        <%= render 'payment_details' %>
+        <% end %>
     </div>
-    <div>
-      Paid on: <%= @charge.created_at.strftime("%c") %>
-    </div>
-    <%= link_to "View Invoice", @charge.stripe_receipt_url, target: "_blank", class: "inline-block rounded border border-sky-600 bg-sky-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-sky-600 focus:outline-none focus:ring active:text-indigo-500" %>
-  <% else %>
-    <%= render 'payment_details' %>
-  <% end %>
-</div>

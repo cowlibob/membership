@@ -1,23 +1,27 @@
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-    <div class="p-4 md:w-full">
-        <%= f.label :first_name, class: 'block' %>
-        <%= f.text_field :first_name, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
-    </div>
-    <div class="p-4 md:w-full">
-        <%= f.label :last_name, class: 'block' %>
-        <%= f.text_field :last_name, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
-    </div>
-    <div class="p-4 md:w-full">
-        <%= f.label :phone, class: 'block' %>
-        <%= f.text_field :phone, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
-    </div>
-    <div class="p-4 md:w-full">
-        <%= f.label :email, class: 'block' %>
-        <%= f.text_field :email, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
-    </div>
-    <div class="p-4 md:w-full">
-        <%= f.label :dob, class: 'block' %>
-        <%= f.text_field :dob, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+<div class="flex flex-row">
+    <div class="member-number text-8xl font-bold numeral text-gray-300"><%= index %></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="p-4 md:w-full">
+            <%= f.label :first_name, class: 'block' %>
+            <%= f.text_field :first_name, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
+        <div class="p-4 md:w-full">
+            <%= f.label :last_name, class: 'block' %>
+            <%= f.text_field :last_name, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
+        <div class="p-4 md:w-full">
+            <%= f.label :phone, class: 'block' %>
+            <%= f.text_field :phone, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
+        <div class="p-4 md:w-full">
+            <%= f.label :email, class: 'block' %>
+            <%= f.text_field :email, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
+        <div class="p-4 md:w-full">
+            <%= f.label :dob, class: 'block' %>
+            <%= f.text_field :dob, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
     </div>
 </div>
 <hr />

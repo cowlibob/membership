@@ -103,7 +103,7 @@ class RenewalsController < ApplicationController
       :emergency_contact_details, :comment, :share_data_for_commission, :declaration_confirmed,
       primary_member_attributes: %i[id first_name last_name email phone dob _destroy],
       secondary_members_attributes: %i[id first_name last_name email phone dob _destroy],
-      boats_attributes: %i[id name type berthing _destroy],
+      boats_attributes: %i[id berthing is_sailboard classname sail_number hull_colour name insured _destroy],
       duties_attributes: %i[id preference thursday saturday sunday _destroy]
     )
 
@@ -113,7 +113,8 @@ class RenewalsController < ApplicationController
 
   def populate_renewal
     @renewal.build_primary_member if @renewal.primary_member.nil?
-    4.times { @renewal.secondary_members.build } if @renewal.secondary_members.empty?
+    # 4.times { @renewal.secondary_members.build } if @renewal.secondary_members.empty?
+    @renewal.secondary_members.build if @renewal.secondary_members.empty?
     @renewal.boats.build if @renewal.boats.empty?
     @renewal.duties.build if @renewal.duties.empty?
   end
