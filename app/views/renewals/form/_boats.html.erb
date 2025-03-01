@@ -59,8 +59,10 @@
 
     function initializeBoatField() {
         var addBoatFieldButton = document.getElementById('add-boat-field');
-        addBoatFieldButton.removeEventListener('click', handleAddBoatFieldClick);
-        addBoatFieldButton.addEventListener('click', handleAddBoatFieldClick);
+        if (addBoatFieldButton != nil) {
+            addBoatFieldButton.removeEventListener('click', handleAddBoatFieldClick);
+            addBoatFieldButton.addEventListener('click', handleAddBoatFieldClick);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', initializeBoatField);

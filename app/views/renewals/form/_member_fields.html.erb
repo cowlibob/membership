@@ -1,5 +1,7 @@
 <div class="flex flex-row">
+    <% if defined?(index) %>
     <div class="member-number text-8xl font-bold numeral text-gray-300"><%= index %></div>
+    <% end %>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <div class="p-4 md:w-full">
