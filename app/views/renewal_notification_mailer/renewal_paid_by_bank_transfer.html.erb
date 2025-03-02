@@ -1,0 +1,9 @@
+Hi,
+
+You have marked your membership renewal as paid by bank transfer.
+The total cost expected is <%= number_to_currency(@renewal.total_cost, unit: "£") %>.
+
+<p>You can view your membership details <%= link_to 'here', renewal_url(id: @renewal.reference) %>.</p>
+
+Best regards,
+The SVSC Membership Team

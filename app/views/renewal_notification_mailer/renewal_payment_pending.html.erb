@@ -1,0 +1,8 @@
+    <p>Dear <%= @renewal.primary_member.first_name %>,</p>
+    <p>Thanks for starting your renewal.</p>
+    <p>Payment can now be made. Your total pending is <%= @renewal.total_cost %> and can be paid by following the link below:</p>
+    <p><%= link_to "Pay Now", renewal_url(@renewal), class: "text-blue-500" %></p>
+    <p>Once payment has been made, your membership will be successfully renewed.</p>
+
+    <p>Best regards,</p>
+    <p>The SVSC Membership Team</p>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_06_082525) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_02_191235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,6 +94,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_082525) do
     t.datetime "updated_at", precision: nil
     t.integer "renewal_id"
     t.boolean "primary", default: false
+  end
+
+  create_table "notification_logs", force: :cascade do |t|
+    t.string "notification_type"
+    t.string "recipient"
+    t.string "subject"
+    t.text "body"
+    t.datetime "sent_at", precision: nil
+    t.bigint "renewal_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["renewal_id"], name: "index_notification_logs_on_renewal_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -216,6 +228,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_082525) do
     t.integer "payemnt_id"
     t.integer "one_hundred_club_tickets", default: 0
     t.boolean "no_boats", default: false
+    t.datetime "bank_transfer_payment_reported_at", precision: nil
     t.index ["token"], name: "index_renewals_on_token"
   end
 
@@ -230,6 +243,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_082525) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "notification_logs", "renewals"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"

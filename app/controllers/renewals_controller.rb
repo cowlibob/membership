@@ -38,6 +38,7 @@ class RenewalsController < ApplicationController
 
   def update
     find_renewal
+    Rails.logger.info "Updating renewal: #{@renewal.email}"
     if @renewal.nil?
       flash[:error] = "Sorry, we couldn't find that renewal"
       redirect_to new_renewal_path
@@ -55,12 +56,10 @@ class RenewalsController < ApplicationController
     @renewal.update(renewal_params)
     @renewal_step_with_override = params[:step]&.to_sym || @renewal.current_step
 
+    send_email_notitifactions
     if @renewal.valid?
       if @renewal.complete?
         begin
-          # RenewalNotificationMailer.new_renewal_member(@renewal).deliver
-          RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver if @renewal.is_paid?
-          RenewalNotificationMailer.new_renewal_admin(@renewal).deliver
           redirect_to renewal_path(@renewal)
           return
         rescue StandardError => e
@@ -91,6 +90,32 @@ class RenewalsController < ApplicationController
   end
 
   private
+
+  def send_email_notitifactions
+    return unless @renewal.present?
+    return unless @renewal.persisted?
+
+    return unless @renewal.complete?
+
+    if @renewal.is_paid?
+      RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver
+    else
+      RenewalNotificationMailer.renewal_payment_pending(@renewal).deliver
+    end
+
+    # Note to hook up renewal_paid_by_bank_transfer email here if marked as such.
+
+    # begin
+    #   # RenewalNotificationMailer.new_renewal_member(@renewal).deliver
+    #   debugger
+    #   RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver if @renewal.is_paid?
+    #   RenewalNotificationMailer.new_renewal_admin(@renewal).deliver
+    # rescue StandardError => e
+    #   Rails.logger.error e.message
+    #   Rails.logger.error e.class
+    #   Rails.logger.error e.backtrace
+    # end
+  end
 
   def find_renewal
     @renewal = Renewal.find_by(reference: [params[:id], params[:id].gsub('-', '')])
