@@ -57,7 +57,7 @@
 
     function initializeMemberField() {
         var addMemberFieldButton = document.getElementById('add-member-field');
-        if (addMemberFieldButton != nil) {
+        if (addMemberFieldButton != null) {
             addMemberFieldButton.removeEventListener('click', handleAddMemberFieldClick);
             addMemberFieldButton.addEventListener('click', handleAddMemberFieldClick);
         }
