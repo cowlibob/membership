@@ -18,3 +18,7 @@ Pay.setup do |config|
     }
   }
 end
+
+ActiveSupport.on_load(:pay) do
+  Pay::Webhooks.delegator.subscribe 'stripe.charge.succeeded', ChargeSucceededProcessor.new
+end
