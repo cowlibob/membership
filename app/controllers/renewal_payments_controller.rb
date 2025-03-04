@@ -21,7 +21,9 @@ class RenewalPaymentsController < ApplicationController
         payment_method: payment_method
       )
 
-      @renewal.mark_as_paid!
+      # @renewal.mark_as_paid!
+      # RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver
+
       render json: { success: true }
     rescue Pay::Error => e
       render json: { error: e.message }, status: :unprocessable_entity
