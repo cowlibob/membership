@@ -11,12 +11,12 @@ Pay.setup do |config|
   #
 
   # Customize mail() arguments. By default, only includes { to: }. Useful when you want to add cc, bcc, customize the mail subject, etc.
-  config.mail_arguments = lambda { |mailer, params|
-    {
-      to: Pay.mail_recipients.call(mailer, params),
-      bcc: ['membership@sheffieldviking.org.uk', 'svscrenewals@cowlibob.co.uk']
-    }
-  }
+  # config.mail_arguments = lambda { |mailer, params|
+  #   {
+  #     to: Pay.mail_recipients.call(mailer, params),
+  #     bcc: ['membership@sheffieldviking.org.uk', 'svscrenewals@cowlibob.co.uk']
+  #   }
+  # }
 end
 
 ActiveSupport.on_load(:pay) do
