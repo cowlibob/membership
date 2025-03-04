@@ -18,7 +18,7 @@
         <%= sidebar_link key: :boats, url: [:edit, @renewal, step: :boats] %>
         <%= sidebar_link key: :emergency_contact, url: [:edit, @renewal, step: :emergency_contact] %>
         <%= sidebar_link key: :declaration, url: [:edit, @renewal, step: :dclaration] %>
-        <%= sidebar_link key: "Payment", url: [@renewal], data: { turbo: false } %>
+        <%= sidebar_link key: "Payment", url: [@renewal], options: {data: { turbo: false }} %>
     </ul>
 </div>
 <% end %>

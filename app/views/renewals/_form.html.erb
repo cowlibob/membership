@@ -8,7 +8,7 @@
     <!--	</div>-->
 
 
-    <%= form_for(form_url, method: form_method, html: { disabled: @renewal.is_paid? }) do |f| %>
+    <%= form_for(form_url, method: form_method, html: { disabled: @renewal.is_paid?, data: { turbo: false } }) do |f| %>
 
     <% case @renewal_step_with_override %>
     <% when :membership_class %>
