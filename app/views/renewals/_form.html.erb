@@ -1,6 +1,6 @@
 <%= render partial: "sidebar" %>
 
-<div class="p-4">
+<div class="">
 
     <h2><% content_for :title, "SVSC Membership Renewal" %></h2>
     <!--	<div class="mx-auto">-->
@@ -29,7 +29,7 @@
     <%= render 'renewals/form/comments', f: f %>
     <%= render 'renewals/form/declaration', f: f %>
     <% end %>
-    <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
+    <%#= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
     <%#= f.hidden_field :membership_class, required: false %>
 
     <%#= render 'family', f: f %>

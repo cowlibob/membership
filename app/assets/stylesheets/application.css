@@ -889,6 +889,40 @@ input[type="range"]::-ms-fill-lower {
   background: var(--color-blue-500);
 }
 
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 .datatable-wrapper .datatable-table tbody tr.selected {
   background-color: var(--color-gray-100);
 }
@@ -907,6 +941,10 @@ input[type="range"]::-ms-fill-lower {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.visible {
+  visibility: visible;
 }
 
 .static {
@@ -958,6 +996,10 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.mt-9 {
+  margin-top: 2.25rem;
 }
 
 .block {
@@ -1228,11 +1270,6 @@ input[type="range"]::-ms-fill-lower {
   border-color: rgb(2 132 199 / var(--tw-border-opacity, 1));
 }
 
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
-}
-
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
@@ -1453,6 +1490,11 @@ input[type="range"]::-ms-fill-lower {
   color: rgb(48 49 60 / var(--tw-text-opacity, 1));
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-100 {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity, 1));
@@ -1533,6 +1575,11 @@ input[type="range"]::-ms-fill-lower {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
 
+.even\:bg-gray-50:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:border-gray-200:hover {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
@@ -1590,6 +1637,15 @@ input[type="range"]::-ms-fill-lower {
 .active\:text-indigo-500:active {
   --tw-text-opacity: 1;
   color: rgb(99 102 241 / var(--tw-text-opacity, 1));
+}
+
+.disabled\:bg-sky-50:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 249 255 / var(--tw-bg-opacity, 1));
+}
+
+.disabled\:opacity-75:disabled {
+  opacity: 0.75;
 }
 
 .peer:checked ~ .peer-checked\:ring-2 {

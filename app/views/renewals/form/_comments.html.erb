@@ -1,6 +1,6 @@
 <section class="mb-16" id="panel6">
     <h1 class="text-2xl"><%= renewal_step_title %></h1>
     <div class="content" data-section-content>
-        <%= f.text_area :comment, :placeholder => "Additional Details", :rows => 10, html: {disabled: @renewal.is_paid?} %>
+        <%= f.text_area :comment, placeholder: "Additional Details", rows: 10, html: {disabled: @renewal.is_paid?}, class: 'w-full' %>
     </div>
 </section>

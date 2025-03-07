@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_02_191235) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_07_222540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_02_191235) do
     t.datetime "updated_at", precision: nil
     t.integer "renewal_id"
     t.boolean "is_sailboard", default: false
+    t.boolean "insured"
   end
 
   create_table "contents", id: :serial, force: :cascade do |t|

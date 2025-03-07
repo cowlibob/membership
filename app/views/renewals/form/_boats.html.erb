@@ -1,71 +1,36 @@
-<section>
-    <h1 class="text-2xl"><%= renewal_step_title %></h1>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-300 p-9" id="panel4">
-        <div>
-            <%= f.label :no_boats, t('.i_have_no_boats_or_sailboards') %>
-            <%= f.check_box :no_boats %>
-        </div>
-        <div>
-            <a href="#" id="add-boat-field" class="my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Add Boat or Sailboard</a>
-        </div>
-    </div>
-    <div class="content" data-section-content>
-        <div id="boat-fields">
-
-            <% index = 0 %>
-            <%= f.fields_for(:boats) do |builder| %>
-            <div class="boat pt-9 bg-white even:bg-gray-100 border-t-2 border-black" id="new-boat">
-                <%= render 'renewals/form/boat_fields', f: builder, index: index += 1 %>
+<div data-controller="required-fields duplicate-fields" data-action="change->required-fields#update">
+    <section class="p4">
+        <h1 class="text-2xl"><%= renewal_step_title %></h1>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
+            <div>
+                <%= f.label :no_boats, t('.i_have_no_boats_or_sailboards') %>
+                <%= f.check_box :no_boats %>
             </div>
-            <% end -%>
+        </div>
+        <div class="content" data-section-content>
+            <div id="boat-fields" data-target="duplicate-fields.container">
+
+                <% index = 0 %>
+                <%= f.fields_for(:boats) do |builder| %>
+                <div class="boat pt-9 bg-white even:bg-gray-50 border-t-2 border-black" id="new-boat" data-target="duplicate-fields.source">
+                    <%= render 'renewals/form/boat_fields', f: builder, index: index += 1 %>
+                </div>
+                <% end -%>
+            </div>
+
         </div>
 
+
+    </section>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
+        <div>
+            <a href="#" id="add-boat-field" class="inline-block my-4 bg-sky-900 px-8 py-2 rounded-md text-white" data-action="change->required-fields#update click->duplicate-fields#duplicateFields">Add Boat or Sailboard</a>
+        </div>
+        <div>
+            <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", 
+                class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white disabled:opacity-75",
+                data: { target: "required-fields.submit" }
+            %>
+        </div>
     </div>
-</section>
-<% content_for :javascript do %>
-<script type="text/javascript">
-    function handleAddBoatFieldClick(event) {
-        event.preventDefault();
-        var orig = document.getElementById('new-boat');
-        var clone = orig.cloneNode(true);
-        clone.id = '';
-        var count = document.querySelectorAll("#boat-fields .boat > *").length + 1;
-
-        clone.querySelectorAll('label').forEach(function(element) {
-            element.htmlFor = element.htmlFor.replace(0, count);
-        });
-        clone.querySelectorAll('input, select').forEach(function(element) {
-            element.id = element.id.replace(0, count);
-            element.name = element.name.replace(0, count);
-            element.required = false;
-        });
-        clone.querySelector('.boat-number').innerHTML = count;
-
-        clone.querySelectorAll('input').forEach(function(element) {
-            element.value = '';
-        });
-        clone.querySelectorAll('select').forEach(function(element) {
-            element.value = 'request';
-        });
-
-        orig.parentNode.append(clone);
-        // Make clone node visible with a smooth scroll taking 500ms
-        clone.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-            inline: 'nearest'
-        });
-    }
-
-    function initializeBoatField() {
-        var addBoatFieldButton = document.getElementById('add-boat-field');
-        if (addBoatFieldButton != null) {
-            addBoatFieldButton.removeEventListener('click', handleAddBoatFieldClick);
-            addBoatFieldButton.addEventListener('click', handleAddBoatFieldClick);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', initializeBoatField);
-    document.addEventListener('turbo:load', initializeBoatField);
-</script>
-<% end %>
+</div>

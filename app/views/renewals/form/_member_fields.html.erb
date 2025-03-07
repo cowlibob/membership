@@ -20,9 +20,17 @@
             <%= f.label :email, class: 'block' %>
             <%= f.text_field :email, required: required, class: 'block md:w-full', disabled: @renewal.is_paid? %>
         </div>
+        <%
+=begin%>
         <div class="p-4 md:w-full">
             <%= f.label :dob, class: 'block' %>
             <%= f.text_field :dob, class: 'block md:w-full', disabled: @renewal.is_paid? %>
+        </div>
+        <%
+=end%>
+        <div class="p-4 md:w-full">
+            <%= f.label :dob, "Year of Birth", class: 'block' %>
+            <%= f.select :dob, (0..100).map {|d| [Date.today.year - d, Date.today.year - d]}, class: 'block md:w-full', prompt: true, disabled: @renewal.is_paid? %>
         </div>
     </div>
 </div>

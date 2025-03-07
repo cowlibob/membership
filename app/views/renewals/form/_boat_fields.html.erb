@@ -40,9 +40,16 @@
             <%= f.text_field :name, class: "md:w-full block", disabled: @renewal.is_paid?  %>
         </div>
         <div class="p-4 md:w-full">
-            <%= f.object.insured %>
             <%= f.label :insured, "By bringing my boat or sailboard to the club, I confirm it is insured as per the club rules.", class: 'block' %>
-            <%= f.select :insured, [['Yes', true], ['No', false]], {include_blank: true}, {class: 'is_insured w-full', disabled: @renewal.is_paid?} %>
+            <%= f.select :insured, 
+                [['Yes', true], ['No', false]], 
+                {include_blank: true}, 
+                {
+                    class: 'is_insured w-full',
+                    disabled: @renewal.is_paid?,
+                    data: { target: "required-fields.insured" }
+                }
+            %>
         </div>
     </div>
 </div>

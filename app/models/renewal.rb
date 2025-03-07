@@ -26,6 +26,12 @@ class Renewal < ActiveRecord::Base
   end
   validates :email, presence: true, email: true
 
+  validate do
+    boats.each do |boat|
+      errors.add(:boats, '- All boats must be insured') unless boat.insured?
+    end
+  end
+
   scope :by_year, proc { |year| where(["DATE_PART('year', created_at) = ?", year]) }
   scope :ordered_by_year, proc { order("DATE_PART('year', created_at) DESC") }
 
@@ -176,8 +182,8 @@ class Renewal < ActiveRecord::Base
   def self.membership_classes
     {
       'full-membership' => {
-        title: 'Full',
-        description: 'One Adult',
+        title: 'Single Adult',
+        description: 'Full membership for one adult',
         feature_1: 'Full use of facilities and club boats',
         feature_2: 'Free safety boat training',
         ui_class: 'full',

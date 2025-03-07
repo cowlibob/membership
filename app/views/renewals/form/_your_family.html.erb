@@ -1,18 +1,5 @@
-<section>
+<section class="p-4">
     <h1 class="text-2xl"><%= renewal_step_title %></h1>
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-300 p-9" id="panel4">
-        <%
-=begin%>
-        <div>
-            <%= f.label :no_boats, t('.i_have_no_boats_or_sailboards') %>
-            <%= f.check_box :no_boats %>
-        </div>
-        <%
-=end%>
-        <div>
-            <a href="#" id="add-member-field" class="my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Add a Family Member</a>
-        </div>
-    </div>
     <div class="content" data-section-content>
         <div id="member-fields">
 
@@ -25,7 +12,17 @@
         </div>
 
     </div>
+
+
 </section>
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
+    <div>
+        <a href="#" id="add-member-field" class="inline-block my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Add a Family Member</a>
+    </div>
+    <div>
+        <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
+    </div>
+</div>
 
 <% content_for :javascript do %>
 <script type="text/javascript">

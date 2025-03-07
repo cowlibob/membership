@@ -1,5 +1,6 @@
 <%# unless @charge.present? %>
 <%= render partial: "sidebar" %>
+<% content_for :title, "SVSC Membership Renewal - Completed" %>
 <%# end %>
 <div class="flex items-start justify-center">
     <div class="p-4">
@@ -9,7 +10,7 @@
         <h1 class="text-3xl">Payment Required</h1>
         <% end %>
 
-        <h2 class="text-xl mt-5">Billing Summary</h2>
+        <h2 class="text-xl mt-5">Membership Summary</h2>
         <div class="overflow-x-auto">
             <table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
                 <thead class="ltr:text-left rtl:text-right">

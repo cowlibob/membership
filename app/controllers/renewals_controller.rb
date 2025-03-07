@@ -71,7 +71,7 @@ class RenewalsController < ApplicationController
     else
       flash[:error] = @renewal.errors.full_messages.to_sentence
     end
-    redirect_to edit_renewal_path(@renewal)
+    render :edit # edit_renewal_path(@renewal)
   end
 
   def show
