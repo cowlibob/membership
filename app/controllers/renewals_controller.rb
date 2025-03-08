@@ -134,6 +134,7 @@ class RenewalsController < ApplicationController
       duties_attributes: %i[id preference thursday saturday sunday _destroy]
     )
 
+    res[:email] = res[:email].downcase.strip if res[:email].present?
     res.delete(:boats_attributes) if res[:no_boats] == '1'
     res
   end
