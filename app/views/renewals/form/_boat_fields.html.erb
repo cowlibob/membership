@@ -40,16 +40,8 @@
             <%= f.text_field :name, class: "md:w-full block", disabled: @renewal.is_paid?  %>
         </div>
         <div class="p-4 md:w-full">
-            <%= f.label :insured, "By bringing my boat or sailboard to the club, I confirm it is insured as per the club rules.", class: 'block' %>
-            <%= f.select :insured, 
-                [['Yes', true], ['No', false]], 
-                {include_blank: true}, 
-                {
-                    class: 'is_insured w-full',
-                    disabled: @renewal.is_paid?,
-                    data: { target: "required-fields.insured" }
-                }
-            %>
+            <%= f.checkbox :insured, disabled: @renewal.is_paid?, data: { target: "required-fields.insured" }, class: "inline-block border-2 border-black rounded-sm" %>
+            <%= f.label :insured, "By bringing my boat or sailboard to the club, I confirm it is insured as per the club rules.", class: 'inline' %>
         </div>
     </div>
 </div>

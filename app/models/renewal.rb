@@ -60,6 +60,8 @@ class Renewal < ActiveRecord::Base
     # 	:duties
     elsif !declaration_confirmed?
       :declaration
+    elsif !is_paid?
+      :payment
     else
       :complete
     end

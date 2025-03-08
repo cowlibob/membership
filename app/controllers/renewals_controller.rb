@@ -71,6 +71,7 @@ class RenewalsController < ApplicationController
     else
       flash[:error] = @renewal.errors.full_messages.to_sentence
     end
+    populate_renewal
     render :edit # edit_renewal_path(@renewal)
   end
 
@@ -80,13 +81,14 @@ class RenewalsController < ApplicationController
       flash[:error] = "Sorry, we couldn't find that renewal"
       redirect_to new_renewal_path
       return
-      return
     end
 
     if @charge = @renewal.charges.select { |charge| charge.captured? }.first
       @show_payment_link = false # @renewal.payment_id.nil?
     end
+
     @renewal_step_with_override = params[:step]&.to_sym || @renewal.current_step
+    populate_renewal
   end
 
   private
