@@ -30,7 +30,7 @@
 
     <nav class="sticky bg-sky-900 text-white w-full h-16 pl-0 pr-8 z-50 flex flex-row justify-between">
         <%= content_for :sidebar_button %>
-        <div class="my-auto">
+        <div class="my-auto pl-8">
             <a href="https://www.sheffieldviking.org.uk">Back to Sheffield Viking SC</a>
         </div>
         <% if @renewal && @renewal.total_cost > 0 %>
@@ -45,10 +45,17 @@
         <%= flash[:error].html_safe %>
     </div>
     <% end %>
+
     <div class="flex flex-col md:flex-row h-screen">
+        <% if content_for?(:sidebar) %>
+        <% if content_for(:sidebar) != "nothing" %>
+        <%= content_for :sidebar %>
+        <% end %>
+        <% else %>
         <aside data-sidebar-target="menu" id="default-sidebar" class="shrink-0 basis-64 sr-only sm:not-sr-only sm:fixed md:static inset-0 z-40 sm:w-full md:w-1/4 h-full transition-transform md:not-translate-x-full md:sticky md:left-0 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
             <%= content_for :sidebar %>
         </aside>
+        <% end %>
         <main class="flex-grow basis-3/4">
             <%= yield %>
         </main>

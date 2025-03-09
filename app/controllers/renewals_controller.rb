@@ -1,6 +1,5 @@
 class RenewalsController < ApplicationController
   def index
-    redirect_to new_renewal_path
   end
 
   def new

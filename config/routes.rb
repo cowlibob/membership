@@ -3,20 +3,20 @@ Rails.application.routes.draw do
   resources :csv_exports
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-	# devise_for :admin_users, ActiveAdmin::Devise.config
+  # devise_for :admin_users, ActiveAdmin::Devise.config
   # ActiveAdmin.routes(self)
   # get "renewals/index"
   # get "renewals/new"
   # get "renewals/create"
 
-  resources :renewals, :except => [:destroy] do
+  resources :renewals, except: [:destroy] do
     resources :renewal_payments, only: [:create] do
       collection do
         post :process_payment
       end
     end
   end
-  root 'renewals#new'
+  root 'renewals#index'
 
   resources :contents
   resources :duties, only: [:index]
@@ -31,11 +31,11 @@ Rails.application.routes.draw do
     resources :users
     resources :csv_exports
 
-    root to: "renewals#index" # <--- Root route
+    root to: 'renewals#index' # <--- Root route
   end
 
   # Deployment checks
-  get '/check.txt', to: proc {[200, {}, ['simple_check']]}
+  get '/check.txt', to: proc { [200, {}, ['simple_check']] }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
