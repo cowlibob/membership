@@ -72,7 +72,11 @@ class RenewalsController < ApplicationController
       flash[:error] = @renewal.errors.full_messages.to_sentence
     end
     populate_renewal
-    render :edit # edit_renewal_path(@renewal)
+    if @renewal_step_with_override == :payment
+      render :show
+    else
+      render :edit
+    end
   end
 
   def show

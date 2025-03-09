@@ -98,12 +98,17 @@ class Renewal < ActiveRecord::Base
   end
 
   def line_item_rows
-    [
-      [membership_class_name + ' Membership', membership_cost],
-      ["Berthed Boats x #{boats.is_dinghy.where(berthing: true).count}", boat_berthing_cost],
-      ["Berthed Sailboards x #{boats.is_sailboard.where(berthing: true).count}", sailboard_berthing_cost]
-      # ["100 Club Ticket x #{one_hundred_club_tickets}", one_hundred_club_cost]
+    rows = [
+      [membership_class_name + ' Membership', membership_cost]
     ]
+    unless no_boats?
+      rows.concat [
+        ["Berthed Boats x #{boats.is_dinghy.where(berthing: true).count}", boat_berthing_cost],
+        ["Berthed Sailboards x #{boats.is_sailboard.where(berthing: true).count}", sailboard_berthing_cost]
+      ]
+    end
+    # ["100 Club Ticket x #{one_hundred_club_tickets}", one_hundred_club_cost]
+    rows
   end
 
   def membership_class_name

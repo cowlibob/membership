@@ -1,14 +1,14 @@
-<div data-controller="required-fields duplicate-fields" data-action="change->required-fields#update">
+<div data-controller="required-fields duplicate-fields no-boats" data-action="change->required-fields#update">
     <section class="p4">
         <h1 class="text-2xl"><%= renewal_step_title %></h1>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
             <div>
+                <%= f.check_box :no_boats, class: "border-2 border-black rounded-sm", data: { action: "change->no-boats#update", "no-boats-target": "checkbox" }%>
                 <%= f.label :no_boats, t('.i_have_no_boats_or_sailboards') %>
-                <%= f.check_box :no_boats %>
             </div>
         </div>
         <div class="content" data-section-content>
-            <div id="boat-fields" data-target="duplicate-fields.container">
+            <div id="boat-fields" data-target="no-boats.container duplicate-fields.container">
 
                 <% index = 0 %>
                 <%= f.fields_for(:boats) do |builder| %>
@@ -23,13 +23,13 @@
 
     </section>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
-        <div>
+        <div data-target="no-boats.add">
             <a href="#" id="add-boat-field" class="inline-block my-4 bg-sky-900 px-8 py-2 rounded-md text-white" data-action="change->required-fields#update click->duplicate-fields#duplicateFields">Add Boat or Sailboard</a>
         </div>
         <div>
             <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", 
                 class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white disabled:opacity-75",
-                data: { target: "required-fields.submit" }
+                data: { target: "required-fields.submit no-boats.submit" }
             %>
         </div>
     </div>

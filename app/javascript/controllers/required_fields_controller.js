@@ -9,6 +9,9 @@ export default class extends Controller {
 
     checkFields() {
         const allInsured = this.insuredTargets.every(target => {
+            if (target.closest(".hidden")) {
+                return true
+            }
             if (target.type === "checkbox") {
                 return target.checked
             } else if (target.tagName === "SELECT") {
