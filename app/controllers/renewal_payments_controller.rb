@@ -27,6 +27,9 @@ class RenewalPaymentsController < ApplicationController
       render json: { success: true }
     rescue Pay::Error => e
       render json: { error: e.message }, status: :unprocessable_entity
+    rescue Pay::ActionRequired => e
+      # Redirect to the Pay SCA confirmation page
+      redirect_to pay.payment_path(e.payment.id)
     end
   end
 end
