@@ -22,8 +22,11 @@ export default class extends Controller {
         });
         clone.querySelector('.boat-number').innerHTML = count;
 
-        clone.querySelectorAll('input').forEach(function (element) {
+        clone.querySelectorAll('input:not([type=checkbox])').forEach(function (element) {
             element.value = '';
+        });
+        clone.querySelectorAll('input[type=checkbox]').forEach(function (element) {
+            element.checked = false;
         });
         clone.querySelectorAll('select').forEach(function (element) {
             element.value = 'request';
