@@ -40,11 +40,9 @@
         <% end %>
     </nav>
 
-    <% if flash[:error].present? %>
-    <div class="w-full py-8 bg-red-500 text-white text-center">
-        <%= flash[:error].html_safe %>
+    <div id="error-message" class="w-full py-8 bg-red-500 text-white text-center <%= flash[:error].blank? ? 'hidden' : '' %>">
+        <%= flash[:error]&.html_safe %>
     </div>
-    <% end %>
 
     <div class="flex flex-col md:flex-row h-screen">
         <% if content_for?(:sidebar) %>
