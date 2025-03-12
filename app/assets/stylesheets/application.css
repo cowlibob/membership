@@ -943,12 +943,27 @@ input[type="range"]::-ms-fill-lower {
   border-width: 0;
 }
 
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
 .visible {
   visibility: visible;
 }
 
 .static {
   position: static;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .absolute {
@@ -1760,6 +1775,10 @@ input[type="range"]::-ms-fill-lower {
     position: fixed;
   }
 
+  .sm\:hidden {
+    display: none;
+  }
+
   .sm\:w-full {
     width: 100%;
   }
@@ -1770,6 +1789,33 @@ input[type="range"]::-ms-fill-lower {
 }
 
 @media (min-width: 768px) {
+  .md\:sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .md\:not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .md\:visible {
+    visibility: visible;
+  }
+
   .md\:static {
     position: static;
   }
@@ -1784,6 +1830,10 @@ input[type="range"]::-ms-fill-lower {
 
   .md\:left-0 {
     left: 0px;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:w-1\/4 {
@@ -1817,6 +1867,11 @@ input[type="range"]::-ms-fill-lower {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .md\:bg-gray-50 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
   }
 
   .md\:text-left {
