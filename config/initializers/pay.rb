@@ -1,6 +1,8 @@
 Pay.setup do |config|
   config.default_product_name = 'Sailing Club Membership'
   config.enabled_processors = [:stripe]
+  config.application_name = 'Sheffield Viking Sailing Club'
+  config.support_email = 'membership@sheffieldviking.org.uk'
 
   # Use credentials from your encrypted credentials file
   # config.stripe.secret_key = Rails.application.credentials.dig(:stripe, :private_key)
