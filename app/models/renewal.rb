@@ -39,6 +39,10 @@ class Renewal < ActiveRecord::Base
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
+  def to_param
+    reference
+  end
+
   def includes_family?
     membership_class == 'family-membership'
   end
@@ -101,7 +105,7 @@ class Renewal < ActiveRecord::Base
 
   def line_item_rows
     rows = [
-      [membership_class_name + ' Membership', membership_cost]
+      [membership_class_name || '' + ' Membership', membership_cost]
     ]
     unless no_boats?
       rows.concat [
@@ -240,7 +244,50 @@ class Renewal < ActiveRecord::Base
         ui_id: 'honorary-membership',
         name: 'Honorary',
         cost: 0
+      },
+
+      # Old membership classes
+      'Full' => {
+        title: 'Full/Family',
+        description: 'Includes partner and children under 18',
+        feature_1: 'Full use of facilities and club boats',
+        feature_2: 'Free safety boat training',
+        ui_class: 'family',
+        ui_id: 'family-membership',
+        name: 'Full',
+        cost: 185
+      },
+      'Cadet' => {
+        title: 'Cadet',
+        description: '18 years and above in full-time education',
+        feature_1: 'Full use of facilities and club boats',
+        feature_2: 'Free safety boat training',
+        ui_class: '',
+        ui_id: 'cadet-membership',
+        name: 'Cadet',
+        cost: 58
+      },
+      'Retained' => {
+        title: 'Retained',
+        description: 'Includes partner and children under 18',
+        feature_1: 'Retain link with the club while away or unable to sail',
+        feature_2: '&nbsp;',
+        ui_class: '',
+        ui_id: 'retained-membership',
+        name: 'Retained',
+        cost: 26
+      },
+      'Honorary' => {
+        title: 'Honourary',
+        description: 'Invitation only!<br/>&nbsp;',
+        feature_1: 'Full use of facilities and club boats',
+        feature_2: 'Free safety boat training',
+        ui_class: '',
+        ui_id: 'honorary-membership',
+        name: 'Honorary',
+        cost: 0
       }
+
     }
 
     # 'Full or Familiy Membership (includes partner and children under 18)', 'Full'],

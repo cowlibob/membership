@@ -19,19 +19,19 @@ By default, it renders:
   <meta name="ROBOTS" content="NOODP">
   <meta name="viewport" content="initial-scale=1">
   <title>
-    <%= content_for(:title) %> - <%= Rails.application.class.parent_name.titlecase %>
+    <%= content_for(:title) %>
   </title>
-  <%= render "stylesheet" %>
+
+  <%= stylesheet_link_tag    "application", "custom" %>
+  <%= javascript_importmap_tags %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render "icons" %>
 
   <div class="app-container">
-    <%= render "navigation" -%>
 
     <main class="main-content" role="main">
-      <%= render "flashes" -%>
       <%= button_to 'Log Out', sign_out_path, method: 'delete' %>
 
       <%= yield %>

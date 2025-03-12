@@ -1,0 +1,33 @@
+<!-- filepath: /Users/james/Projects/James/svscmembership/app/views/admin/renewals/index.html.erb -->
+<h1 class="text-2xl font-bold mb-4">Renewals</h1>
+
+<table class="min-w-full bg-white border border-gray-200">
+  <thead>
+    <tr>
+      <th class="py-2 px-4 border-b">Primary Member Name</th>
+      <th class="py-2 px-4 border-b">Season</th>
+      <th class="py-2 px-4 border-b">Reference</th>
+      <th class="py-2 px-4 border-b">Email</th>
+      <th class="py-2 px-4 border-b">Membership Type</th>
+      <th class="py-2 px-4 border-b">Paid</th>
+      <th class="py-2 px-4 border-b"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @renewals.each do |renewal| %>
+      <tr>
+        <td class="py-2 px-4 border-b"><%= (renewal.primary_member || renewal.secondary_members.first)&.full_name %></td>
+        <td class="py-2 px-4 border-b"><%= renewal.created_at.year %></td>
+        <td class="py-2 px-4 border-b"><%= renewal.reference %></td>
+        <td class="py-2 px-4 border-b"><%= renewal.email %></td>
+        <td class="py-2 px-4 border-b"><%= renewal.membership_class %></td>
+        <td class="py-2 px-4 border-b"><%= renewal.is_paid? ? 'Yes' : 'No' %></td>
+        <td class="py-2 px-4 border-b"><%= link_to :view, admin_renewal_path(renewal.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="mt-4">
+  <%= will_paginate @renewals %>
+</div>

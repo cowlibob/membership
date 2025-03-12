@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     # Add dashboard for your models here
-    resources :renewals
+    resources :renewals, only: %i[index show]
     resources :boats
     resources :duties
     resources :members

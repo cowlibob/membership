@@ -1,2 +1,2 @@
 #git push origin master && git push heroku master && heroku run rake db:migrate && heroku restart
-git push origin master && git push dokku_eco master
+git push origin master && git push dokku master:main

@@ -4,18 +4,18 @@
 <%# end %>
 <section class="p-4">
     <% if @charge.present? %>
-    <h1 class="text-3xl mb-16">Thank You For Your Payment</h1>
+    <h1 class="text-3xl">Renewal Complete</h1>
     <% else %>
     <h1 class="text-3xl">Payment Required</h1>
     <% end %>
 
-    <h2 class="text-xl mt-5">Membership Summary</h2>
-    <div class="overflow-x-auto">
-        <table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit">
+    <h2 class="text-xl mt-5">Your Membership</h2>
+    <div class="overflow-x-auto w-full">
+        <table class="divide-y-2 divide-gray-200 bg-white text-sm w-fit md:w-1/2">
             <thead class="ltr:text-left rtl:text-right">
                 <tr>
                     <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Benefit</th>
-                    <th class="text-left whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
+                    <th class="text-right whitespace-nowrap px-8 py-2 font-medium text-gray-900">Cost</th>
                 </tr>
             </thead>
 
@@ -23,14 +23,14 @@
                 <% @renewal.line_item_rows.each do |row| %>
                 <tr class="odd:bg-gray-50">
                     <td class="whitespace-nowrap px-8 py-2 font-medium text-gray-900"><%= row.first %></td>
-                    <td class="whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
+                    <td class="text-right whitespace-nowrap px-8 py-2 text-gray-700"><%= number_to_currency(row.second, unit: "£") %></td>
                 </tr>
                 <% end %>
             </tbody>
             <tfoot>
                 <tr class="">
                     <th class="text-left whitespace-nowrap px-8 py-2 font-medium ">Total</th>
-                    <th class="text-left whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
+                    <th class="text-right whitespace-nowrap px-8 py-2 font-medium "><%= number_to_currency(@renewal.total_cost, unit: "£") %></th>
                 </tr>
             </tfoot>
         </table>

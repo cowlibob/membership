@@ -135,3 +135,5 @@ gem 'aws-actionmailer-ses', '~> 1'
 gem 'aws-sdk-rails', '~> 5'
 
 gem 'stripe', '~> 13.3'
+
+gem 'will_paginate', '~> 3.3'

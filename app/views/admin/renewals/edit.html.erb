@@ -1,0 +1,39 @@
+<%= form_with(model: @renewal, local: true, class: "space-y-6") do |form| %>
+    <div class="space-y-4">
+        <div>
+            <%= form.label :renewal_date, class: "block text-sm font-medium text-gray-700" %>
+            <%= form.date_field :renewal_date, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+        </div>
+
+        <div>
+            <%= form.fields_for :primary_member do |primary_member_fields| %>
+                <%= primary_member_fields.label :first_name, "Primary Member Name", class: "block text-sm font-medium text-gray-700" %>
+                <%= primary_member_fields.text_field :first_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+
+                <%= primary_member_fields.label :last_name, "Primary Member Name", class: "block text-sm font-medium text-gray-700" %>
+                <%= primary_member_fields.text_field :last_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.fields_for :secondary_members do |secondary_member_fields| %>
+                <%= secondary_member_fields.label :first_name, "Secondary Member Name", class: "block text-sm font-medium text-gray-700" %>
+                <%= secondary_member_fields.text_field :first_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+
+                <%= secondary_member_fields.label :last_name, "Secondary Member Name", class: "block text-sm font-medium text-gray-700" %>
+                <%= secondary_member_fields.text_field :last_name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <% end %>
+        </div>
+
+        <div>
+            <%= form.fields_for :boats do |boat_fields| %>
+                <%= boat_fields.label :name, "Boat Name", class: "block text-sm font-medium text-gray-700" %>
+                <%= boat_fields.text_field :name, class: "mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="flex justify-end">
+        <%= form.submit "Save Renewal", class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+    </div>
+<% end %>
