@@ -1,66 +1,34 @@
-<section class="p-4">
-    <h1 class="text-2xl"><%= renewal_step_title %></h1>
-    <div class="content" data-section-content>
-        <div id="member-fields">
+<div data-controller="duplicate-fields">
+    <section class="p-4">
+        <h1 class="text-2xl"><%= renewal_step_title %></h1>
+        <div class="content" data-section-content>
+            <div id="member-fields" data-target="duplicate-fields.container">
 
-            <% index = 0 %>
-            <%= f.fields_for(:secondary_members) do |builder| %>
-            <div class="member grid grid-cols-1 gap-4 md:grid-cols-2 pt-9 bg-white even:bg-gray-100 border-t-2 border-black" id="new-member">
-                <%= render 'renewals/form/member_fields', f: builder, index: index += 1, required: false %>
+                <% index = 0 %>
+                <%= f.fields_for(:secondary_members) do |builder| %>
+                <div class="duplicate-field member grid grid-cols-1 gap-4 md:grid-cols-2 pt-9 bg-white even:bg-gray-100 border-t-2 border-black" id="new-member" data-target="duplicate-fields.source">
+                    <%= render 'renewals/form/member_fields', f: builder, index: index += 1, required: false %>
+                </div>
+                <% end -%>
             </div>
-            <% end -%>
+
         </div>
 
-    </div>
 
-
-</section>
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
-    <div>
-        <a href="#" id="add-member-field" class="inline-block my-4 bg-sky-900 px-8 py-2 rounded-md text-white">Add a Family Member</a>
-    </div>
-    <div>
-        <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
+    </section>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 bg-gray-50 p-9" id="panel4">
+        <div>
+            <a 
+                href="#" 
+                id="add-member-field" 
+                class="inline-block my-4 bg-sky-900 px-8 py-2 rounded-md text-white"
+                data-action="click->duplicate-fields#duplicateFields"
+            >
+                Add a Family Member
+            </a>
+        </div>
+        <div>
+            <%= f.submit @renewal.current_step == :declaration ? "Pay Fees" : "Next", class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
+        </div>
     </div>
 </div>
-
-<% content_for :javascript do %>
-<script type="text/javascript">
-    function handleAddMemberFieldClick(event) {
-        event.preventDefault();
-        var orig = document.getElementById('new-member');
-        var clone = orig.cloneNode(true);
-        var count = document.querySelectorAll("#member-fields .member").length + 1;
-
-        clone.querySelectorAll('label').forEach(function(element) {
-            element.htmlFor = element.htmlFor.replace(0, count);
-        });
-        clone.querySelectorAll('input, select').forEach(function(element) {
-            element.id = element.id.replace(0, count);
-            element.name = element.name.replace(0, count);
-            element.required = false;
-        });
-        clone.querySelector('.member-number').innerHTML = count;
-
-        orig.querySelectorAll('input').forEach(function(element) {
-            element.value = '';
-        });
-        orig.querySelectorAll('select').forEach(function(element) {
-            element.value = 'request';
-        });
-
-        document.getElementById('member-fields').appendChild(clone);
-    }
-
-    function initializeMemberField() {
-        var addMemberFieldButton = document.getElementById('add-member-field');
-        if (addMemberFieldButton != null) {
-            addMemberFieldButton.removeEventListener('click', handleAddMemberFieldClick);
-            addMemberFieldButton.addEventListener('click', handleAddMemberFieldClick);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', initializeMemberField);
-    document.addEventListener('turbo:load', initializeMemberField);
-</script>
-<% end %>

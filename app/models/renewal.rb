@@ -12,9 +12,9 @@ class Renewal < ActiveRecord::Base
   # belongs_to :payment
 
   # validates :primary_member, :presence => true
-  accepts_nested_attributes_for :primary_member, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :secondary_members, reject_if: :all_blank
-  accepts_nested_attributes_for :boats, reject_if: :all_blank
+  accepts_nested_attributes_for :primary_member, reject_if: :all_blank
+  accepts_nested_attributes_for :secondary_members, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :boats, reject_if: :all_blank, allow_destroy: true
 
   accepts_nested_attributes_for :duties, reject_if: :duty_not_populated
 
@@ -28,7 +28,9 @@ class Renewal < ActiveRecord::Base
 
   validate do
     boats.each do |boat|
-      errors.add(:boats, '- All boats must be insured') unless boat.insured?
+      if (boat.name.present? || boat.sail_number.present? || boat.hull_colour.present? || boat.classname.present?) && !boat.insured?
+        errors.add(:boats, '- All boats must be insured')
+      end
     end
   end
 

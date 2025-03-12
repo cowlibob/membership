@@ -12,7 +12,7 @@
 
                 <% index = 0 %>
                 <%= f.fields_for(:boats) do |builder| %>
-                <div class="boat pt-9 bg-white even:bg-gray-50 border-t-2 border-black" id="new-boat" data-target="duplicate-fields.source">
+                <div class="duplicate-field boat pt-9 bg-white even:bg-gray-50 border-t-2 border-black" id="new-boat" data-target="duplicate-fields.source">
                     <%= render 'renewals/form/boat_fields', f: builder, index: index += 1 %>
                 </div>
                 <% end -%>

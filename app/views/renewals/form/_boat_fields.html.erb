@@ -1,6 +1,18 @@
 <div class="flex flex-row">
-    <div class="boat-number text-8xl font-bold numeral text-gray-300"><%= index %></div>
+    <div class="flex flex-col justify-between">
+        <div class="duplicate-number boat-number text-8xl font-bold numeral text-gray-300">
+            <%= index %>
+        </div>
+        <a 
+            href="#" 
+            class="duplicate-remove <%= f.object.persisted? ? '' : 'hidden' %> inline-block my-4 bg-red-700 px-8 py-2 rounded-md text-sm text-white"
+            data-action="click->duplicate-fields#remove"
+        >
+            Remove
+        </a>        
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <%= f.hidden_field '_destroy', value: false, class: "duplicate-fields-destroy" %>
         <%= f.hidden_field :id %>
         <div class="p-4">
             <%= f.label :berthing, t('.berthing_or_storage'), class: 'dinghy block' %>
