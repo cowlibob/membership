@@ -967,6 +967,10 @@ input[type="range"]::-ms-fill-lower {
   inset: 0px;
 }
 
+.inset-9 {
+  inset: 2.25rem;
+}
+
 .z-40 {
   z-index: 40;
 }
@@ -1151,6 +1155,10 @@ input[type="range"]::-ms-fill-lower {
   justify-content: space-between;
 }
 
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
 .justify-items-stretch {
   justify-items: stretch;
 }
@@ -1210,6 +1218,10 @@ input[type="range"]::-ms-fill-lower {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.text-nowrap {
+  text-wrap: nowrap;
 }
 
 .rounded {
@@ -1766,6 +1778,10 @@ input[type="range"]::-ms-fill-lower {
     position: sticky;
   }
 
+  .md\:inset-0 {
+    inset: 0px;
+  }
+
   .md\:left-0 {
     left: 0px;
   }
@@ -1801,6 +1817,10 @@ input[type="range"]::-ms-fill-lower {
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .md\:text-left {
+    text-align: left;
   }
 
   .md\:text-2xl {

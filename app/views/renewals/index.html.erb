@@ -1,14 +1,14 @@
 <% content_for :sidebar do %>nothing<% end %>
 <div class="relative bg-gray-800 text-white">
     <%= image_tag "hero image.jpeg", alt: "Sailing Club", class: "w-full h-screen object-cover opacity-50" %>
-    <div class="absolute inset-0 flex flex-col items-center justify-center">
+    <div class="absolute inset-9 text-center md:inset-0 flex flex-col justify-evenly items-center justify-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to Sheffield Viking Sailing Club</h1>
         <p class="text-xl md:text-2xl mb-8">Join us for an unforgettable sailing experience</p>
-        <div class="space-y-4 md:space-y-0 md:space-x-4">
-            <a href="https://www.sheffieldviking.org.uk/members-information" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+            <a href="https://www.sheffieldviking.org.uk/members-information" class="text-nowrap bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Existing Members
             </a>
-            <a href="mailto:info@sheffieldviking.org.uk" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            <a href="mailto:info@sheffieldviking.org.uk" class="text-nowrap bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                 Prospective Members
             </a>
         </div>
