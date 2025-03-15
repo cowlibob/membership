@@ -46,6 +46,10 @@ en:
     comments: Comments
     declaration: Declaration
     payment: Payment
+  admin:
+    sidebar:
+      renewals: Renewals
+      members: Members
   activerecord:
     attributes:
       boat:

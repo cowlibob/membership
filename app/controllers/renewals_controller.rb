@@ -103,7 +103,7 @@ class RenewalsController < ApplicationController
     return unless @renewal.complete?
 
     if @renewal.is_paid?
-      RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver
+      # RenewalNotificationMailer.renewal_payment_confirmation(@renewal).deliver
     else
       RenewalNotificationMailer.renewal_payment_pending(@renewal).deliver
     end
@@ -131,6 +131,7 @@ class RenewalsController < ApplicationController
     res = params.require(:renewal).permit(
       :membership_class, :email, :address_1, :address_2, :postcode, :no_boats,
       :emergency_contact_details, :comment, :share_data_for_commission, :declaration_confirmed,
+      :bank_transfer_payment_reported_at,
       primary_member_attributes: %i[id first_name last_name email phone dob _destroy],
       secondary_members_attributes: %i[id first_name last_name email phone dob _destroy],
       boats_attributes: %i[id berthing is_sailboard classname sail_number hull_colour name insured _destroy],
@@ -138,6 +139,7 @@ class RenewalsController < ApplicationController
     )
 
     res[:email] = res[:email].downcase.strip if res[:email].present?
+    res[:bank_transfer_payment_reported_at] = Time.now if res[:bank_transfer_payment_reported_at] == 'true'
     res.delete(:boats_attributes) if res[:no_boats] == '1'
     res
   end

@@ -3,7 +3,7 @@
 <% content_for :title, "SVSC Membership Renewal - Completed" %>
 <%# end %>
 <section class="p-4">
-    <% if @charge.present? %>
+    <% if @renewal.is_paid? %>
     <h1 class="text-3xl">Renewal Complete</h1>
     <% else %>
     <h1 class="text-3xl">Payment Required</h1>
@@ -43,6 +43,15 @@
         Paid on: <%= @charge.created_at.strftime("%c") %>
     </div>
     <%= link_to "View Invoice", @charge.stripe_receipt_url, target: "_blank", class: "inline-block rounded border border-sky-600 bg-sky-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-sky-600 focus:outline-none focus:ring active:text-indigo-500" %>
+    <% elsif @renewal.is_paid? && @renewal.bank_transfer_payment_reported_at.present? %>
+    <div>
+        Total Paid: <%= number_to_currency(@renewal.total_cost / 100, unit: "£") %>
+    </div>
+    <div>
+        Paid on: <%= @renewal.bank_transfer_payment_reported_at.strftime("%c") %>
+    </div>
+    <%#= link_to "View Invoice", @charge.stripe_receipt_url, target: "_blank", class: "inline-block rounded border border-sky-600 bg-sky-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-sky-600 focus:outline-none focus:ring active:text-indigo-500" %>
+
     <% else %>
     <%= render 'payment_details' %>
     <% end %>

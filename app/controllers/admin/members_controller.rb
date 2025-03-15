@@ -1,46 +1,44 @@
 module Admin
   class MembersController < Admin::ApplicationController
-    # Overwrite any of the RESTful controller actions to implement custom behavior
-    # For example, you may want to send an email after a foo is updated.
-    #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
+    include ActionView::Helpers::UrlHelper
+    def index
+      params[:year] ||= Time.zone.now.year
+      @year = if params[:year] == 'all'
+                nil
+              else
+                params[:year].to_i
+              end
+      @years_collection = ((Date.today.year - 10..Date.today.year).map do |year|
+        [year, year]
+      end).reverse.unshift(['All', :all])
 
-    # Override this method to specify custom lookup behavior.
-    # This will be used to set the resource for the `show`, `edit`, and `update`
-    # actions.
-    #
-    # def find_resource(param)
-    #   Foo.find_by!(slug: param)
-    # end
+      respond_to do |format|
+        format.html do
+          find_members
+        end
+        format.csv do
+          find_members(paginate: false)
+          send_data @members.to_csv, filename: "members-#{Date.today}.csv"
+        end
+      end
+    end
 
-    # The result of this lookup will be available as `requested_resource`
+    def show
+      @member = Member.find(params[:id])
+    end
 
-    # Override this if you have certain roles that require a subset
-    # this will be used to set the records shown on the `index` action.
-    #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+    private
 
-    # Override `resource_params` if you want to transform the submitted
-    # data before it's persisted. For example, the following would turn all
-    # empty values into nil values. It uses other APIs such as `resource_class`
-    # and `dashboard`:
-    #
-    # def resource_params
-    #   params.require(resource_class.model_name.param_key).
-    #     permit(dashboard.permitted_attributes).
-    #     transform_values { |value| value == "" ? nil : value }
-    # end
+    def find_members(paginate: true)
+      scope = Member
+      scope = scope.where("date_part('year', created_at) = ?", @year) if @year.present?
+      scope = scope.order('created_at DESC')
 
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+      @members = if paginate
+                   scope.paginate(page: params[:page], per_page: 10)
+                 else
+                   scope
+                 end
+    end
   end
 end

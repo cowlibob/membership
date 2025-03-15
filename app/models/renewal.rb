@@ -36,6 +36,7 @@ class Renewal < ActiveRecord::Base
 
   scope :by_year, proc { |year| where(["DATE_PART('year', created_at) = ?", year]) }
   scope :ordered_by_year, proc { order("DATE_PART('year', created_at) DESC") }
+  scope :not_deleted, -> { where(deleted: false) }
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 
@@ -179,7 +180,7 @@ class Renewal < ActiveRecord::Base
   end
 
   def is_paid?
-    charges.select { |charge| charge.captured? }.any?
+    charges.select { |charge| charge.captured? }.any? || bank_transfer_payment_reported_at.present?
   end
 
   def generate_reference

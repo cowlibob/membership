@@ -23,12 +23,17 @@ Rails.application.routes.draw do
 
   namespace :admin do
     # Add dashboard for your models here
-    resources :renewals, only: %i[index show]
+    resources :renewals, only: %i[index show] do
+      member do
+        patch :soft_delete
+        patch :undelete
+      end
+    end
     resources :boats
-    resources :duties
+    # resources :duties
     resources :members
-    resources :contents
-    resources :users
+    # resources :contents
+    # resources :users
     resources :csv_exports
 
     root to: 'renewals#index' # <--- Root route

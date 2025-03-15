@@ -27,13 +27,24 @@ By default, it renders:
 
   <%= csrf_meta_tags %>
 </head>
-<body>
-
-  <div class="app-container">
-
-    <main class="main-content" role="main">
+<body class="bg-white" data-controller="sidebar">
+  <nav class="sticky bg-sky-900 text-white w-full h-16 pl-0 pr-8 z-50 flex flex-row justify-between">
+    <button data-action="click->sidebar#toggle" , type="button" class="md:-translate-x-full pl-8">
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        </svg>
+    </button>
+    <div class="my-auto pl-8 hidden md:block">
       <%= button_to 'Log Out', sign_out_path, method: 'delete' %>
+    </div>
+  </nav>
 
+  <div class="flex flex-col md:flex-row h-screen relative ">
+    <aside data-target="sidebar.menu" id="default-sidebar" class="absolute shrink-0 basis-32 md:not-sr-only sr-only fixed md:static inset-0 z-40 w-full md:w-1/4 h-full transition-transform md:not-translate-x-full md:sticky md:left-0 bg-gray-50 dark:bg-gray-800" aria-label="Sidebar">
+      <%= render 'sidebar' %>
+    </aside>
+
+    <main class="flex-grow basis-3/4 main-content" role="main">
       <%= yield %>
     </main>
   </div>

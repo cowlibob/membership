@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_07_222540) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_13_192016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -230,6 +230,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_222540) do
     t.integer "one_hundred_club_tickets", default: 0
     t.boolean "no_boats", default: false
     t.datetime "bank_transfer_payment_reported_at", precision: nil
+    t.boolean "deleted", default: false
     t.index ["token"], name: "index_renewals_on_token"
   end
 

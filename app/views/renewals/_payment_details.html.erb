@@ -33,6 +33,10 @@
                 <%= text_field_tag :reference, @renewal.reference.gsub('-', ''), :disabled => true, class: stripe_like_text_field_classes %>
             </div>
             <h3><%= number_to_currency(@renewal.total_cost, :unit => '&pound;'.html_safe) %></h3>
+
+            <% if @renewal.bank_transfer_payment_reported_at.nil?%>
+                <%= button_to "I have paid by bank transfer", renewal_path(@renewal), method: :put, params: { renewal: { bank_transfer_payment_reported_at: true } }, class: "my-4 bg-sky-900 px-8 py-2 rounded-md text-white" %>
+            <% end %>
         </div>
     </div>
     <div>

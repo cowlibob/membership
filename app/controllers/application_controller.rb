@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   private
 
   def ensure_canonical_domain
+    return unless Rails.env.production?
+
     canonical_domain = 'membership.sheffieldviking.org.uk'
     return unless request.host != canonical_domain
 
