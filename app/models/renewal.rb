@@ -20,8 +20,9 @@ class Renewal < ActiveRecord::Base
 
   class EmailValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
+      clean_value = value.to_s.strip.downcase
       record.errors.add attribute, (options[:message] || 'is not an email') unless
-        /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.match?(value)
+        /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i.match?(clean_value)
     end
   end
   validates :email, presence: true, email: true
