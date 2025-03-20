@@ -15,7 +15,9 @@ class Member < ActiveRecord::Base
       ['Email', :email],
       ['Date of Birth', :dob],
       ['Primary Member?', :primary?],
-      ['Renewal', renewal.reference]
+      ['Renewal', renewal.reference],
+      ['Created At', created_at],
+      ['Updated At', updated_at]
     ]
   end
 
