@@ -184,6 +184,10 @@ class Renewal < ActiveRecord::Base
     charges.select { |charge| charge.captured? }.any? || bank_transfer_payment_reported_at.present?
   end
 
+  def card_payment_date
+    payment_confirmed_at || charges.select { |charge| charge.captured? }.first&.created_at
+  end
+
   def generate_reference
     return unless primary_member && reference.blank?
 

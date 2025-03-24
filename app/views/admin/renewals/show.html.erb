@@ -22,7 +22,7 @@
             <% end %>
             <p><strong>Total:</strong> <%= number_to_currency(@renewal.total_cost, unit: "£") %></p>
             
-            <p class="mt-5"><strong>Card Payment Date:</strong> <%= @renewal.payment_confirmed_at&.strftime("%B %d, %Y") %></p>
+            <p class="mt-5"><strong>Card Payment Date:</strong> <%= @renewal.card_payment_date&.strftime("%B %d, %Y") %></p>
             <p><strong>Bank Transfer Date:</strong> <%= @renewal.bank_transfer_payment_reported_at&.strftime("%B %d, %Y") %></p>
         </div>
 
