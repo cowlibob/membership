@@ -26,33 +26,30 @@
 <table class="min-w-full bg-white border border-gray-200">
   <thead>
     <tr>
-      <th class="py-2 px-4 border-b">Name</th>
       <th class="py-2 px-4 border-b">Season</th>
+      <th class="py-2 px-4 border-b">Primary?</th>
       <th class="py-2 px-4 border-b">First Name</th>
       <th class="py-2 px-4 border-b">Last Name</th>
       <th class="py-2 px-4 border-b">Email</th>
-      <th class="py-2 px-4 border-b">Date of B<i>e</i>rth</th>
+      <th class="py-2 px-4 border-b">Date of Birth</th>
       <th class="py-2 px-4 border-b">Created</th>
       <th class="py-2 px-4 border-b">Updated</th>
       <th class="py-2 px-4 border-b">Renewal</th>
-      <th class="py-2 px-4 border-b">Primary?</th>
       <th class="py-2 px-4 border-b"></th>
     </tr>
   </thead>
   <tbody>
     <% @members.each do |member| %>
       <tr>
-        <td class="py-2 px-4 border-b"><%= member.full_name %></td>
         <td class="py-2 px-4 border-b"><%= member.created_at.year %></td>
+        <td class="py-2 px-4 border-b"><%= member.primary? %></td>
         <td class="py-2 px-4 border-b"><%= member.first_name %></td>
         <td class="py-2 px-4 border-b"><%= member.last_name %></td>
-        <td class="py-2 px-4 border-b"><%= member.phone %></td>
         <td class="py-2 px-4 border-b"><%= member.email %></td>
         <td class="py-2 px-4 border-b"><%= member.dob %></td>
-        <td class="py-2 px-4 border-b"><%= member.created_at %></td>
-        <td class="py-2 px-4 border-b"><%= member.updated_at %></td>
+        <td class="py-2 px-4 border-b"><%= member.created_at.strftime("%F") %></td>
+        <td class="py-2 px-4 border-b"><%= member.updated_at.strftime("%F") %></td>
         <td class="py-2 px-4 border-b"><%= link_to member.renewal.reference, admin_renewal_path(member.renewal_id) %></td>
-        <td class="py-2 px-4 border-b"><%= member.primary? %></td>
         <td class="py-2 px-4 border-b"><%= link_to :view, admin_member_path(member.id) %></td>
       </tr>
     <% end %>
