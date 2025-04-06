@@ -5,6 +5,8 @@ class Member < ActiveRecord::Base
   belongs_to :renewal, inverse_of: :secondary_members, optional: true
 
   scope :by_year, proc { |year| where(["DATE_PART('year', created_at) = ?", year]) }
+  scope :not_deleted, -> { where(deleted: false) }
+  scope :deleted, -> { where(deleted: true) }
 
   def spreadsheet_columns
     [

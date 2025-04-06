@@ -26,6 +26,7 @@
 <table class="min-w-full bg-white border border-gray-200">
   <thead>
     <tr>
+      <th class="py-2 px-4 border-b"></th>
       <th class="py-2 px-4 border-b">Season</th>
       <th class="py-2 px-4 border-b">Primary?</th>
       <th class="py-2 px-4 border-b">First Name</th>
@@ -36,13 +37,24 @@
       <th class="py-2 px-4 border-b">Updated</th>
       <th class="py-2 px-4 border-b">Renewal</th>
       <th class="py-2 px-4 border-b"></th>
+      <th class="py-2 px-4 border-b"></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody data-controller="disclose">
     <% @members.each do |member| %>
-      <tr>
+      <%= tag :tr, 
+            class: member.primary? ? "bg-gray-200" : "font-light", 
+            'data-renewal': member.renewal.reference,
+            'data-target': member.primary? ? nil : "disclose.child" 
+      %>
+
+        <td class="py-2 px-4 border-b" data-action="click->disclose#toggle">
+          <% if member.primary? && member.renewal.secondary_members.any? %>
+            -
+          <% end %>
+        </td>
         <td class="py-2 px-4 border-b"><%= member.created_at.year %></td>
-        <td class="py-2 px-4 border-b"><%= member.primary? %></td>
+        <td class="py-2 px-4 border-b"><%= member.primary? ? "✅" : "" %></td>
         <td class="py-2 px-4 border-b"><%= member.first_name %></td>
         <td class="py-2 px-4 border-b"><%= member.last_name %></td>
         <td class="py-2 px-4 border-b"><%= member.email %></td>
@@ -51,6 +63,11 @@
         <td class="py-2 px-4 border-b"><%= member.updated_at.strftime("%F") %></td>
         <td class="py-2 px-4 border-b"><%= link_to member.renewal.reference, admin_renewal_path(member.renewal_id) %></td>
         <td class="py-2 px-4 border-b"><%= link_to :view, admin_member_path(member.id) %></td>
+        <td class="py-2 px-4 border-b">
+          <% unless member.primary? %>
+            <%= button_to 'Delete', soft_delete_admin_member_path(member.id, request.query_parameters), method: :patch, data: { confirm: 'Are you sure?' }, class: "text-red-500" %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

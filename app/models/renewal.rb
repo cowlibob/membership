@@ -5,7 +5,7 @@ class Renewal < ActiveRecord::Base
     where(primary: true)
   }, class_name: '::Member', dependent: :destroy, inverse_of: :renewal
   has_many :secondary_members, lambda {
-    where(primary: false)
+    where(primary: false).not_deleted
   }, class_name: '::Member', dependent: :destroy, inverse_of: :renewal
   has_many :boats, dependent: :destroy
   has_many :duties, dependent: :destroy
@@ -38,6 +38,7 @@ class Renewal < ActiveRecord::Base
   scope :by_year, proc { |year| where(["DATE_PART('year', created_at) = ?", year]) }
   scope :ordered_by_year, proc { order("DATE_PART('year', created_at) DESC") }
   scope :not_deleted, -> { where(deleted: false) }
+  scope :deleted, -> { where(deleted: true) }
 
   pay_customer default_payment_processor: :stripe, stripe_attributes: :stripe_attributes
 

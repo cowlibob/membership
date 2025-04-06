@@ -27,12 +27,45 @@ module Admin
       @member = Member.find(params[:id])
     end
 
+    def soft_delete
+      notice = error = nil
+      member = Member.find(params[:id])
+      if member.primary?
+        error = "Primary member #{member} cannot be deleted. Please delete the renewal instead."
+      elsif member&.update_attribute(:deleted, true)
+        link = undelete_admin_member_path(member.id, request.query_parameters)
+        notice = "Member for #{member} was successfully deleted. #{button_to('Undo', link, method: :patch,
+                                                                                           class: 'text-red-500')}".html_safe
+      elsif member.present?
+        error = "Member for #{member} could not be deleted: #{member.errors.full_messages.to_sentence}"
+      else
+        error = 'Member could not be found.'
+      end
+
+      redirect_to admin_members_path(request.query_parameters), notice: notice, error: error
+    end
+
+    def undelete
+      notice = error = nil
+      member = Member.find(params[:id])
+      if member&.update_attribute(:deleted, false)
+        notice = "Member for #{member} was successfully restored."
+      elsif member.present?
+        error = "Member for #{member} could not be restored: #{member.errors.full_messages.to_sentence}"
+      else
+        error = 'Member could not be found.'
+      end
+
+      redirect_to admin_members_path(request.query_parameters), notice: notice, error: error
+    end
+
     private
 
     def find_members(paginate: true)
-      scope = Member
-      scope = scope.where("date_part('year', created_at) = ?", @year) if @year.present?
-      scope = scope.order('created_at DESC')
+      scope = Member.not_deleted
+      scope = scope.joins(:renewal).where(renewals: { deleted: false })
+      scope = scope.where("date_part('year', members.created_at) = ?", @year) if @year.present?
+      scope = scope.order('members.renewal_id DESC, members.primary DESC')
 
       @members = if paginate
                    scope.paginate(page: params[:page], per_page: 10)
