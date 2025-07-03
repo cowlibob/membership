@@ -31,11 +31,12 @@ Rails.application.routes.draw do
     end
     resources :boats
     # resources :duties
-    resources :members, only: %i[index show] do
+    resources :members, only: %i[index show update] do
       member do
         patch :soft_delete
         patch :undelete
       end
+      resources :onboarding, only: [:new, :create]
     end
     # resources :contents
     # resources :users

@@ -27,6 +27,16 @@ module Admin
       @member = Member.find(params[:id])
     end
 
+    def update
+      @member = Member.find(params[:id])
+      
+      if @member.update(member_params)
+        redirect_to admin_member_path(@member), notice: 'Member was successfully updated.'
+      else
+        render :show, status: :unprocessable_entity
+      end
+    end
+
     def soft_delete
       notice = error = nil
       member = Member.find(params[:id])
@@ -60,6 +70,10 @@ module Admin
     end
 
     private
+
+    def member_params
+      params.require(:member).permit(:first_name, :last_name, :email, :phone)
+    end
 
     def find_members(paginate: true)
       scope = Member.not_deleted
