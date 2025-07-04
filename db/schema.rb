@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_06_182750) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_03_080200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -108,6 +108,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_06_182750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["renewal_id"], name: "index_notification_logs_on_renewal_id"
+  end
+
+  create_table "onboardings", force: :cascade do |t|
+    t.bigint "member_id", null: false
+    t.datetime "google_group_attempted_at"
+    t.datetime "google_group_added_at"
+    t.datetime "website_attempted_at"
+    t.datetime "website_added_at"
+    t.datetime "whatsapp_invite_email_sent_at"
+    t.datetime "management_email_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "error_message"
+    t.index ["member_id"], name: "index_onboardings_on_member_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -247,6 +261,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_06_182750) do
   end
 
   add_foreign_key "notification_logs", "renewals"
+  add_foreign_key "onboardings", "members"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"

@@ -1,0 +1,49 @@
+<% content_for :title, "Start Onboarding - #{@member.full_name}" %>
+
+<div class="max-w-4xl mx-auto p-6">
+  <div class="bg-white shadow-lg rounded-lg p-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Member Onboarding</h1>
+      <p class="text-lg text-gray-600">
+        <strong><%= @member.full_name %></strong> - 
+        <%= @member.primary ? "Primary Member" : "Secondary Member" %>
+      </p>
+    </div>
+
+    <div class="relative">
+      <!-- Timeline -->
+      <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+      
+      <div class="space-y-8">
+        <% @onboarding.timeline_steps.each_with_index do |step, index| %>
+          <div class="relative flex items-center">
+            <!-- Timeline node -->
+            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 border-4 border-gray-300 rounded-full flex items-center justify-center relative z-10">
+              <span class="text-gray-500 font-bold text-lg"><%= index + 1 %></span>
+            </div>
+            
+            <!-- Content -->
+            <div class="ml-6 flex-1">
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= step[:name] %></h3>
+                <div class="text-sm text-gray-500">
+                  <p class="mb-1"><strong>Status:</strong> Pending</p>
+                  <% if step[:attempted_at] %>
+                    <p class="mb-1"><strong>Last Attempted:</strong> <%= step[:attempted_at]&.strftime("%b %d, %Y at %I:%M %p") || "Never" %></p>
+                  <% end %>
+                  <p><strong>Completed:</strong> <%= step[:completed_at]&.strftime("%b %d, %Y at %I:%M %p") || "Not yet" %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center">
+      <%= form_with model: [@member, @onboarding], url: admin_member_onboarding_index_path(@member), local: true, class: "inline-block" do |form| %>
+        <%= form.submit "Begin Onboarding", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+      <% end %>
+    </div>
+  </div>
+</div>

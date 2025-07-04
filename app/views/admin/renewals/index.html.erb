@@ -34,6 +34,7 @@
       <th class="py-2 px-4 border-b">Paid</th>
       <th class="py-2 px-4 border-b"></th>
       <th class="py-2 px-4 border-b"></th>
+      <th class="py-2 px-4 border-b"></th>
     </tr>
   </thead>
   <tbody>
@@ -46,6 +47,12 @@
         <td class="py-2 px-4 border-b"><%= renewal.membership_class %></td>
         <td class="py-2 px-4 border-b"><%= renewal.is_paid? ? 'Yes' : 'No' %></td>
         <td class="py-2 px-4 border-b"><%= link_to :view, admin_renewal_path(renewal.id) %></td>
+        <td class="py-2 px-4 border-b">
+          <% primary_member = renewal.primary_member || renewal.secondary_members.first %>
+          <% if primary_member %>
+            <%= link_to 'Onboard', new_admin_member_onboarding_path(primary_member.id), class: "bg-blue-500 text-white px-3 py-1 rounded text-sm" %>
+          <% end %>
+        </td>
         <td class="py-2 px-4 border-b">
           <%= button_to 'Delete', soft_delete_admin_renewal_path(renewal.id, request.query_parameters), method: :patch, data: { confirm: 'Are you sure?' }, class: "text-red-500" %>
         </td>

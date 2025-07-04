@@ -38,6 +38,11 @@ Rails.application.routes.draw do
       end
       resources :onboarding, only: [:new, :create]
     end
+    resources :onboarding, only: [:index, :show, :edit, :update, :destroy] do
+      member do
+        patch :retry_step
+      end
+    end
     # resources :contents
     # resources :users
     resources :csv_exports

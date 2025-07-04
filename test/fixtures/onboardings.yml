@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  member: one
+  google_group_attempted_at: 2025-07-03 00:25:30
+  google_group_added_at: 2025-07-03 00:25:30
+  website_attempted_at: 2025-07-03 00:25:30
+  website_added_at: 2025-07-03 00:25:30
+  whatsapp_invite_email_sent_at: 2025-07-03 00:25:30
+  management_email_sent_at: 2025-07-03 00:25:30
+
+two:
+  member: two
+  google_group_attempted_at: 2025-07-03 00:25:30
+  google_group_added_at: 2025-07-03 00:25:30
+  website_attempted_at: 2025-07-03 00:25:30
+  website_added_at: 2025-07-03 00:25:30
+  whatsapp_invite_email_sent_at: 2025-07-03 00:25:30
+  management_email_sent_at: 2025-07-03 00:25:30

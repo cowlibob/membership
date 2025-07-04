@@ -192,6 +192,8 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
     json (2.9.0)
+    jwt (3.1.2)
+      base64
     kamal (2.4.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -456,6 +458,7 @@ DEPENDENCIES
   foreman (~> 0.88.1)
   importmap-rails
   jbuilder
+  jwt
   kamal
   letter_opener_web
   listen
