@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_03_080200) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_195743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -112,8 +112,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_03_080200) do
 
   create_table "onboardings", force: :cascade do |t|
     t.bigint "member_id", null: false
-    t.datetime "google_group_attempted_at"
-    t.datetime "google_group_added_at"
     t.datetime "website_attempted_at"
     t.datetime "website_added_at"
     t.datetime "whatsapp_invite_email_sent_at"

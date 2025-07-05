@@ -8,41 +8,23 @@
         <strong><%= @member.full_name %></strong> - 
         <%= @member.primary ? "Primary Member" : "Secondary Member" %>
       </p>
+      <p class="text-md text-gray-500 mt-2">
+        <strong>Email:</strong> <%= @member.email %>
+      </p>
     </div>
 
     <div class="relative">
-      <!-- Timeline -->
-      <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
-      
-      <div class="space-y-8">
-        <% @onboarding.timeline_steps.each_with_index do |step, index| %>
-          <div class="relative flex items-center">
-            <!-- Timeline node -->
-            <div class="flex-shrink-0 w-16 h-16 bg-gray-100 border-4 border-gray-300 rounded-full flex items-center justify-center relative z-10">
-              <span class="text-gray-500 font-bold text-lg"><%= index + 1 %></span>
-            </div>
-            
-            <!-- Content -->
-            <div class="ml-6 flex-1">
-              <div class="bg-gray-50 rounded-lg p-6">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2"><%= step[:name] %></h3>
-                <div class="text-sm text-gray-500">
-                  <p class="mb-1"><strong>Status:</strong> Pending</p>
-                  <% if step[:attempted_at] %>
-                    <p class="mb-1"><strong>Last Attempted:</strong> <%= step[:attempted_at]&.strftime("%b %d, %Y at %I:%M %p") || "Never" %></p>
-                  <% end %>
-                  <p><strong>Completed:</strong> <%= step[:completed_at]&.strftime("%b %d, %Y at %I:%M %p") || "Not yet" %></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
+      <%= render "admin/onboarding/timeline", onboarding: @onboarding %>
     </div>
 
     <div class="mt-12 text-center">
-      <%= form_with model: [@member, @onboarding], url: admin_member_onboarding_index_path(@member), local: true, class: "inline-block" do |form| %>
-        <%= form.submit "Begin Onboarding", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+      <% if @onboarding.persisted? %>
+        <%= link_to "View Progress", edit_admin_onboarding_path(@onboarding), 
+            class: "bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+      <% else %>
+        <%= form_with model: [@member, @onboarding], url: admin_member_onboarding_index_path(@member), local: true, class: "inline-block" do |form| %>
+          <%= form.submit "Begin Onboarding", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+        <% end %>
       <% end %>
     </div>
   </div>

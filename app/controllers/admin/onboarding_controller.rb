@@ -33,8 +33,6 @@ class Admin::OnboardingController < Admin::ApplicationController
     # Handle mark attempted actions
     if params[:mark_attempted].present?
       case params[:mark_attempted].keys.first
-      when 'google_group'
-        @onboarding.update(google_group_attempted_at: current_time)
       when 'website'
         @onboarding.update(website_attempted_at: current_time)
       end
@@ -43,8 +41,6 @@ class Admin::OnboardingController < Admin::ApplicationController
     # Handle mark complete actions
     if params[:mark_complete].present?
       case params[:mark_complete].keys.first
-      when 'google_group'
-        @onboarding.update(google_group_added_at: current_time)
       when 'website'
         @onboarding.update(website_added_at: current_time)
       when 'whatsapp'
@@ -67,6 +63,19 @@ class Admin::OnboardingController < Admin::ApplicationController
     redirect_to admin_onboardings_path, notice: 'Onboarding was successfully deleted.'
   end
 
+  def progress
+    @onboarding = Onboarding.find(params[:id])
+    
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("onboarding_timeline", 
+          partial: "admin/onboarding/timeline", 
+          locals: { onboarding: @onboarding }
+        )
+      end
+    end
+  end
+
   private
 
   def set_onboarding
@@ -79,8 +88,6 @@ class Admin::OnboardingController < Admin::ApplicationController
 
   def onboarding_params
     params.require(:onboarding).permit(
-      :google_group_attempted_at,
-      :google_group_added_at,
       :website_attempted_at,
       :website_added_at,
       :whatsapp_invite_email_sent_at,

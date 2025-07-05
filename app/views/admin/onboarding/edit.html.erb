@@ -1,6 +1,10 @@
 <% content_for :title, "Onboarding Progress - #{@onboarding.member.full_name}" %>
 
-<div class="max-w-4xl mx-auto p-6">
+<div class="max-w-4xl mx-auto p-6"
+     data-controller="onboarding-progress"
+     data-onboarding-progress-poll-url-value="<%= progress_admin_onboarding_path(@onboarding) %>"
+     data-onboarding-progress-onboarding-id-value="<%= @onboarding.id %>"
+     data-onboarding-progress-interval-value="2000">
   <div class="bg-white shadow-lg rounded-lg p-8">
     <div class="mb-8">
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Member Onboarding Progress</h1>
@@ -8,86 +12,42 @@
         <strong><%= @onboarding.member.full_name %></strong> - 
         <%= @onboarding.member.primary ? "Primary Member" : "Secondary Member" %>
       </p>
+      <p class="text-md text-gray-500 mt-2">
+        <strong>Email:</strong> <%= @onboarding.member.email %>
+      </p>
+      <div class="mt-4">
+        <button data-action="click->onboarding-progress#refresh" 
+                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-1 px-3 rounded text-sm transition duration-200">
+          Refresh Status
+        </button>
+      </div>
+    </div>
+
+    <div class="relative">
+      <%= render "admin/onboarding/timeline", onboarding: @onboarding %>
     </div>
 
     <%= form_with model: @onboarding, url: admin_onboarding_path(@onboarding), local: true do |form| %>
-      <div class="relative">
-        <!-- Timeline -->
-        <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200"></div>
-        
-        <div class="space-y-8">
-          <% @onboarding.timeline_steps.each_with_index do |step, index| %>
-            <div class="relative flex items-center">
-              <!-- Timeline node -->
-              <div class="flex-shrink-0 w-16 h-16 <%= step[:complete] ? 'bg-green-100 border-green-500' : 'bg-gray-100 border-gray-300' %> border-4 rounded-full flex items-center justify-center relative z-10">
-                <% if step[:complete] %>
-                  <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                <% else %>
-                  <span class="text-gray-500 font-bold text-lg"><%= index + 1 %></span>
-                <% end %>
-              </div>
-              
-              <!-- Content -->
-              <div class="ml-6 flex-1">
-                <div class="<%= step[:complete] ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200' %> border rounded-lg p-6">
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="text-xl font-semibold <%= step[:complete] ? 'text-green-800' : 'text-gray-800' %> mb-2">
-                        <%= step[:name] %>
-                        <% if step[:complete] %>
-                          <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            Complete
-                          </span>
-                        <% else %>
-                          <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                            Pending
-                          </span>
-                        <% end %>
-                      </h3>
-                    </div>
-                    
-                    <% unless step[:complete] %>
-                      <% case step[:name] %>
-                      <% when 'Google Group' %>
-                        <div class="space-x-2">
-                          <%= form.submit "Mark Attempted", name: "mark_attempted[google_group]", value: "true", class: "bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                          <%= form.submit "Mark Complete", name: "mark_complete[google_group]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                        </div>
-                      <% when 'Website Access' %>
-                        <div class="space-x-2">
-                          <%= form.submit "Mark Attempted", name: "mark_attempted[website]", value: "true", class: "bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                          <%= form.submit "Mark Complete", name: "mark_complete[website]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                        </div>
-                      <% when 'WhatsApp Invite' %>
-                        <div class="space-x-2">
-                          <%= form.submit "Send Invite", name: "mark_complete[whatsapp]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                        </div>
-                      <% when 'Management Notification' %>
-                        <div class="space-x-2">
-                          <%= form.submit "Send Notification", name: "mark_complete[management]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded text-sm transition duration-200" %>
-                        </div>
-                      <% end %>
-                    <% end %>
-                  </div>
-                  
-                  <div class="text-sm text-gray-500 space-y-1">
-                    <% if step[:attempted_at] %>
-                      <p><strong>Last Attempted:</strong> <%= step[:attempted_at]&.strftime("%b %d, %Y at %I:%M %p") || "Never" %></p>
-                    <% end %>
-                    <p><strong>Completed:</strong> <%= step[:completed_at]&.strftime("%b %d, %Y at %I:%M %p") || "Not yet" %></p>
-                    
-                    <% if @onboarding.error_message.present? && !step[:complete] && step[:attempted_at].present? %>
-                      <div class="mt-3 p-3 bg-red-50 border border-red-200 rounded-md">
-                        <p class="text-red-700 text-sm font-medium">Error:</p>
-                        <p class="text-red-600 text-sm"><%= @onboarding.error_message %></p>
-                      </div>
-                    <% end %>
-                  </div>
+      <div class="mt-8 space-y-4">
+        <h3 class="text-lg font-semibold text-gray-800">Manual Actions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <% @onboarding.timeline_steps.each do |step| %>
+            <% unless step[:complete] %>
+              <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-medium text-gray-800 mb-2"><%= step[:name] %></h4>
+                <div class="space-x-2">
+                  <% case step[:name] %>
+                  <% when 'Website Access' %>
+                    <%= form.submit "Mark Attempted", name: "mark_attempted[website]", value: "true", class: "bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                    <%= form.submit "Mark Complete", name: "mark_complete[website]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% when 'WhatsApp Invite' %>
+                    <%= form.submit "Send Invite", name: "mark_complete[whatsapp]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% when 'Management Notification' %>
+                    <%= form.submit "Send Notification", name: "mark_complete[management]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% end %>
                 </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
         </div>
       </div>

@@ -3,10 +3,6 @@ class Onboarding < ApplicationRecord
 
   validates :member_id, presence: true
 
-  def google_group_complete?
-    google_group_added_at.present?
-  end
-
   def website_complete?
     website_added_at.present?
   end
@@ -21,12 +17,6 @@ class Onboarding < ApplicationRecord
 
   def timeline_steps
     [
-      {
-        name: 'Google Group',
-        attempted_at: google_group_attempted_at,
-        completed_at: google_group_added_at,
-        complete: google_group_complete?
-      },
       {
         name: 'Website Access',
         attempted_at: website_attempted_at,
@@ -48,24 +38,6 @@ class Onboarding < ApplicationRecord
     ]
   end
 
-  def process_google_group
-    update(google_group_attempted_at: Time.current, error_message: nil)
-    
-    begin
-      # TODO: Implement actual Google Group API integration
-      # For now, simulate processing with a delay and mark as complete
-      sleep(2)
-      update(google_group_added_at: Time.current)
-      
-      Rails.logger.info "Processed Google Group for member #{member.full_name}"
-    rescue StandardError => e
-      error_msg = "Failed to add to Google Group: #{e.message}"
-      update(error_message: error_msg)
-      Rails.logger.error "Google Group error for #{member.full_name}: #{e.message}"
-      raise e
-    end
-  end
-
   def process_website_access
     update(website_attempted_at: Time.current, error_message: nil)
     
@@ -76,6 +48,10 @@ class Onboarding < ApplicationRecord
       if ghost_response.code.to_i.between?(200, 299)
         update(website_added_at: Time.current)
         Rails.logger.info "Successfully created Ghost member for #{member.full_name}: #{ghost_response.body}"
+      elsif ghost_response.code.to_i == 422 && ghost_response.body.include?("Member already exists")
+        # Member already exists in Ghost, mark as complete
+        update(website_added_at: Time.current)
+        Rails.logger.info "Ghost member already exists for #{member.full_name}, marking as complete"
       else
         error_msg = "Failed to create website account (HTTP #{ghost_response.code}): #{ghost_response.body}"
         update(error_message: error_msg)
@@ -89,6 +65,42 @@ class Onboarding < ApplicationRecord
       raise e
     end
   end
+
+  def process_whatsapp_invite
+    update(error_message: nil)
+
+    begin
+      # Send WhatsApp invitation email
+      WhatsappInviteMailer.invite_member(member).deliver
+      update(whatsapp_invite_email_sent_at: Time.current)
+
+      Rails.logger.info "Sent WhatsApp invite email to #{member.full_name} (#{member.email})"
+    rescue StandardError => e
+      error_msg = "Failed to send WhatsApp invite email: #{e.message}"
+      update(error_message: error_msg)
+      Rails.logger.error "WhatsApp invite email error for #{member.full_name}: #{e.message}"
+      raise e
+    end
+  end
+
+  def process_management_notification
+    update(error_message: nil)
+
+    begin
+      # TODO: Implement actual management notification sending
+      # For now, simulate sending notification
+      sleep(1)
+      update(management_email_sent_at: Time.current)
+
+      Rails.logger.info "Sent management notification for member #{member.full_name}"
+    rescue StandardError => e
+      error_msg = "Failed to send management notification: #{e.message}"
+      update(error_message: error_msg)
+      Rails.logger.error "Management notification error for #{member.full_name}: #{e.message}"
+      raise e
+    end
+  end
+
 
   private
 
@@ -137,39 +149,4 @@ class Onboarding < ApplicationRecord
     JWT.encode(payload, key_secret, 'HS256', { kid: key_id })
   end
 
-  def process_whatsapp_invite
-    update(error_message: nil)
-    
-    begin
-      # TODO: Implement actual WhatsApp invitation email sending
-      # For now, simulate sending invite email
-      sleep(1)
-      update(whatsapp_invite_email_sent_at: Time.current)
-      
-      Rails.logger.info "Sent WhatsApp invite to member #{member.full_name}"
-    rescue StandardError => e
-      error_msg = "Failed to send WhatsApp invite: #{e.message}"
-      update(error_message: error_msg)
-      Rails.logger.error "WhatsApp invite error for #{member.full_name}: #{e.message}"
-      raise e
-    end
-  end
-
-  def process_management_notification
-    update(error_message: nil)
-    
-    begin
-      # TODO: Implement actual management notification sending
-      # For now, simulate sending notification
-      sleep(1)
-      update(management_email_sent_at: Time.current)
-      
-      Rails.logger.info "Sent management notification for member #{member.full_name}"
-    rescue StandardError => e
-      error_msg = "Failed to send management notification: #{e.message}"
-      update(error_message: error_msg)
-      Rails.logger.error "Management notification error for #{member.full_name}: #{e.message}"
-      raise e
-    end
-  end
 end

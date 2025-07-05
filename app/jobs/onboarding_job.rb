@@ -5,7 +5,6 @@ class OnboardingJob
     onboarding = Onboarding.find(onboarding_id)
     
     # Process each onboarding step
-    onboarding.process_google_group
     onboarding.process_website_access
     onboarding.process_whatsapp_invite
     onboarding.process_management_notification
