@@ -87,9 +87,8 @@ class Onboarding < ApplicationRecord
     update(error_message: nil)
 
     begin
-      # TODO: Implement actual management notification sending
-      # For now, simulate sending notification
-      sleep(1)
+      # Send management notification email
+      ManagementNotificationMailer.member_onboarded(member).deliver
       update(management_email_sent_at: Time.current)
 
       Rails.logger.info "Sent management notification for member #{member.full_name}"
