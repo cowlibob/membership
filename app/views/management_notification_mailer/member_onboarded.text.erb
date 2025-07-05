@@ -1,0 +1,45 @@
+Sheffield Viking Sailing Club - Member Onboarding Complete
+
+Dear Management Team,
+
+A new member has completed the onboarding process. Here are the details:
+
+MEMBER INFORMATION
+==================
+Name: <%= @member.full_name %>
+Email: <%= @member.email %>
+Member Type: <%= @member.primary? ? "Primary Member" : "Secondary Member" %>
+Onboarding Started: <%= @onboarding&.created_at&.strftime("%B %d, %Y at %I:%M %p") || "Not available" %>
+
+ONBOARDING PROGRESS SUMMARY
+===========================
+<% (@onboarding&.timeline_steps || []).each do |step| %>
+<%= step[:complete] ? "✓" : (@onboarding&.error_message.present? ? "✗" : "●") %> <%= step[:name] %>
+   <% if step[:complete] %>
+   - Completed <%= step[:completed_at].strftime("%B %d at %I:%M %p") %>
+   <% elsif step[:attempted_at].present? %>
+   - Attempted <%= step[:attempted_at].strftime("%B %d at %I:%M %p") %>
+   <% else %>
+   - Not started
+   <% end %>
+
+<% end %>
+<% if @onboarding&.error_message.present? %>
+
+ERROR: <%= @onboarding&.error_message %>
+<% end %>
+
+QUICK ACTIONS
+=============
+View Member Details: <%= admin_member_url(@member) %>
+View Renewal: <%= admin_renewal_url(@member.renewal) %>
+
+This notification was automatically generated when the member completed their onboarding process.
+
+Best regards,
+Sheffield Viking Sailing Club
+Membership System
+
+---
+This email was sent to the management team as part of the member onboarding notification system.
+Sheffield Viking Sailing Club - Membership Management

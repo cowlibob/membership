@@ -12,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
 
   private
 
-  def should_sned?(notification_type:, headers:)
+  def should_send?(notification_type:, headers:)
     true
   end
 

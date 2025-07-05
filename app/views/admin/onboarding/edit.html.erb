@@ -1,0 +1,60 @@
+<% content_for :title, "Onboarding Progress - #{@onboarding.member.full_name}" %>
+
+<div class="max-w-4xl mx-auto p-6"
+     data-controller="onboarding-progress"
+     data-onboarding-progress-poll-url-value="<%= progress_admin_onboarding_path(@onboarding) %>"
+     data-onboarding-progress-onboarding-id-value="<%= @onboarding.id %>"
+     data-onboarding-progress-interval-value="2000">
+  <div class="bg-white shadow-lg rounded-lg p-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Member Onboarding Progress</h1>
+      <p class="text-lg text-gray-600">
+        <strong><%= @onboarding.member.full_name %></strong> - 
+        <%= @onboarding.member.primary ? "Primary Member" : "Secondary Member" %>
+      </p>
+      <p class="text-md text-gray-500 mt-2">
+        <strong>Email:</strong> <%= @onboarding.member.email %>
+      </p>
+      <div class="mt-4">
+        <button data-action="click->onboarding-progress#refresh" 
+                class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-1 px-3 rounded text-sm transition duration-200">
+          Refresh Status
+        </button>
+      </div>
+    </div>
+
+    <div class="relative">
+      <%= render "admin/onboarding/timeline", onboarding: @onboarding %>
+    </div>
+
+    <%= form_with model: @onboarding, url: admin_onboarding_path(@onboarding), local: true do |form| %>
+      <div class="mt-8 space-y-4">
+        <h3 class="text-lg font-semibold text-gray-800">Manual Actions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <% @onboarding.timeline_steps.each do |step| %>
+            <% unless step[:complete] %>
+              <div class="border border-gray-200 rounded-lg p-4">
+                <h4 class="font-medium text-gray-800 mb-2"><%= step[:name] %></h4>
+                <div class="space-x-2">
+                  <% case step[:name] %>
+                  <% when 'Website Access' %>
+                    <%= form.submit "Mark Attempted", name: "mark_attempted[website]", value: "true", class: "bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                    <%= form.submit "Mark Complete", name: "mark_complete[website]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% when 'WhatsApp Invite' %>
+                    <%= form.submit "Send Invite", name: "mark_complete[whatsapp]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% when 'Management Notification' %>
+                    <%= form.submit "Send Notification", name: "mark_complete[management]", value: "true", class: "bg-green-600 hover:bg-green-700 text-white font-medium py-1 px-2 rounded text-xs transition duration-200" %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+<!--    <div class="mt-12 text-center">-->
+      <%#= link_to "Back to Onboardings", admin_onboarding_index_path, class: "bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded transition duration-200" %>
+<!--    </div>-->
+  </div>
+</div>

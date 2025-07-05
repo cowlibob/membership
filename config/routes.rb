@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :csv_exports
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   # devise_for :admin_users, ActiveAdmin::Devise.config
   # ActiveAdmin.routes(self)
   # get "renewals/index"
@@ -37,6 +39,12 @@ Rails.application.routes.draw do
         patch :undelete
       end
       resources :onboarding, only: [:new, :create]
+    end
+    resources :onboarding, only: [:index, :show, :edit, :update, :destroy] do
+      member do
+        patch :retry_step
+        get :progress
+      end
     end
     # resources :contents
     # resources :users

@@ -1,0 +1,31 @@
+<% content_for :title, "Start Onboarding - #{@member.full_name}" %>
+
+<div class="max-w-4xl mx-auto p-6">
+  <div class="bg-white shadow-lg rounded-lg p-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Member Onboarding</h1>
+      <p class="text-lg text-gray-600">
+        <strong><%= @member.full_name %></strong> - 
+        <%= @member.primary ? "Primary Member" : "Secondary Member" %>
+      </p>
+      <p class="text-md text-gray-500 mt-2">
+        <strong>Email:</strong> <%= @member.email %>
+      </p>
+    </div>
+
+    <div class="relative">
+      <%= render "admin/onboarding/timeline", onboarding: @onboarding %>
+    </div>
+
+    <div class="mt-12 text-center">
+      <% if @onboarding.persisted? %>
+        <%= link_to "View Progress", edit_admin_onboarding_path(@onboarding), 
+            class: "bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+      <% else %>
+        <%= form_with model: [@member, @onboarding], url: admin_member_onboarding_index_path(@member), local: true, class: "inline-block" do |form| %>
+          <%= form.submit "Begin Onboarding", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-200 shadow-lg hover:shadow-xl" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
