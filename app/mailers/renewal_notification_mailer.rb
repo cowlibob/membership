@@ -29,6 +29,12 @@ class RenewalNotificationMailer < ApplicationMailer
          notification_type: 'renewal_payment_confirmation', bcc: ['membership@sheffieldviking.org.uk', 'svscrenewals@cowlibob.co.uk']
   end
 
+  def renewal_reminder(renewal)
+    @renewal = renewal
+    mail to: @renewal.primary_member.email, subject: 'Your SVSC Member Renewal - Continue Where You Left Off',
+         notification_type: 'renewal_reminder', bcc: ['membership@sheffieldviking.org.uk', 'svscrenewals@cowlibob.co.uk']
+  end
+
   private
 
   def should_send?(notification_type:, headers:)

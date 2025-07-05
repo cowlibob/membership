@@ -8,4 +8,9 @@ class RenewalNotificationMailerPreview < ActionMailer::Preview
     RenewalNotificationMailer.new_renewal_member(Renewal.last)
   end
 
+  def renewal_reminder
+    renewal = Renewal.joins(:primary_member).first || Renewal.last
+    RenewalNotificationMailer.renewal_reminder(renewal)
+  end
+
 end

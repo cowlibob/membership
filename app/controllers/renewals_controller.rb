@@ -22,6 +22,22 @@ class RenewalsController < ApplicationController
   end
 
   def create
+    # Check for existing renewal with same primary member email in current year
+    primary_member_email = renewal_params.dig(:primary_member_attributes, :email)
+    
+    if primary_member_email.present?
+      existing_renewal = find_existing_renewal_by_email(primary_member_email.downcase.strip)
+      
+      if existing_renewal.present?
+        # Send reminder email and show message
+        RenewalNotificationMailer.renewal_reminder(existing_renewal).deliver
+        
+        flash[:notice] = "You already have a renewal in progress for #{Date.current.year}. We've sent you an email with a link to continue updating your renewal."
+        redirect_to new_renewal_path
+        return
+      end
+    end
+    
     @renewal = Renewal.new(renewal_params)
     @renewal.generate_token!
     if @renewal.save
@@ -95,6 +111,15 @@ class RenewalsController < ApplicationController
   end
 
   private
+
+  def find_existing_renewal_by_email(email)
+    # Find existing renewal with matching primary member email in current year
+    Renewal.joins(:primary_member)
+           .where(members: { email: email, primary: true })
+           .where("DATE_PART('year', renewals.created_at) = ?", Date.current.year)
+           .not_deleted
+           .first
+  end
 
   def send_email_notitifactions
     return unless @renewal.present?

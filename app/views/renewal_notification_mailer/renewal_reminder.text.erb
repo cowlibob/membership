@@ -1,0 +1,20 @@
+Hi <%= @renewal.primary_member.first_name %>,
+
+We noticed you started renewing your Sheffield Viking Sailing Club membership for <%= Date.current.year %>, but haven't completed the process yet.
+
+Don't worry - your renewal is still saved and you can pick up where you left off!
+
+You can continue editing your membership details here: <%= edit_renewal_url(id: @renewal.reference) %>
+
+<% if @renewal.complete? && !@renewal.is_paid? %>
+Good news: Your renewal form is complete and ready for payment. You can proceed to payment here: <%= renewal_url(id: @renewal.reference) %>
+<% else %>
+Please complete any remaining sections of your renewal form, including member details, boats, and emergency contacts.
+<% end %>
+
+If you have any questions about membership, you can contact Nick at membership@sheffieldviking.org.uk
+
+Thanks,
+
+The Management Committee,
+Sheffield Viking SC

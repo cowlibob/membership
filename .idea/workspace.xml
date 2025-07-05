@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="81e31e2a-d5f7-4c86-ad85-d5de17fddc78" name="Changes" comment="Update clearance mail from.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/onboarding.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/onboarding.rb" afterDir="false" />
-    </list>
+    <list default="true" id="81e31e2a-d5f7-4c86-ad85-d5de17fddc78" name="Changes" comment="Update clearance mail from." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +50,7 @@
     "Rails.Development: svscmembership.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/member-onboarding",
+    "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/james/Projects/James/svscmembership/app/assets/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
